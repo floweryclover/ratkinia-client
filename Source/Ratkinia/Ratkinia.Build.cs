@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System;
 using UnrealBuildTool;
+using System.IO;
 
 public class Ratkinia : ModuleRules
 {
@@ -12,8 +14,23 @@ public class Ratkinia : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		PublicAdditionalLibraries.Add("ws2_32.lib");
+		string ProjectRoot = Path.GetFullPath(Path.Combine(ModuleDirectory, "..", ".."));
+		string ThirdPartyPath = Path.Combine(ProjectRoot, "ThirdParty");
+		string ProtobufPath = Path.Combine(ThirdPartyPath, "Protobuf");
+		string ProtobufIncludePath = Path.Combine(ProtobufPath, "include");
+		string ProtobufLibPath = Path.Combine(ProtobufPath, "lib");
 
+		PublicIncludePaths.Add(ProtobufIncludePath);
+
+		foreach (var libFile in Directory.GetFiles(ProtobufLibPath, "*.lib"))
+		{
+			PublicAdditionalLibraries.Add(libFile);
+			
+		}
+
+		PublicDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
+		PublicDefinitions.Add("PROTOBUF_BUILTIN_ATOMIC=0");
+		CppStandard = CppStandardVersion.Cpp20;
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 
