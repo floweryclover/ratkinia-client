@@ -14,7 +14,14 @@ class ALoginGameMode final : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-	public:
+public:
+	explicit ALoginGameMode();
 	
+	virtual ~ALoginGameMode() override;
 	
+	virtual void Tick(float DeltaSeconds) override;
+
+private:
+	TUniquePtr<char[]> MessageBodyBuffer;
+	bool bIsConnected;
 };

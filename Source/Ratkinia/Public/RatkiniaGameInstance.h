@@ -16,8 +16,4 @@ class RATKINIA_API URatkiniaGameInstance final : public UGameInstance
 
 public:
 	virtual void Init() override;
-
-private:
-	void OnFatal(const FString& Reason);
-	void OnError(const FString& Reason);
 };

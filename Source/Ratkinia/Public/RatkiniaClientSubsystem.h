@@ -2,9 +2,19 @@
 
 #pragma once
 
-#include <WinSock2.h>
 #include "CoreMinimal.h"
+#include "NetworkWorker.h"
 #include "RatkiniaClientSubsystem.generated.h"
+
+class FNetworkWorker;
+
+UENUM()
+enum class EMessagePopResult : uint8
+{
+	Pop,
+	Empty,
+	Disconnected
+};
 
 /**
  * 
@@ -15,24 +25,49 @@ class RATKINIA_API URatkiniaClientSubsystem final : public UGameInstanceSubsyste
 	GENERATED_BODY()
 
 public:
-	URatkiniaClientSubsystem();
+	explicit URatkiniaClientSubsystem();
+
+	explicit URatkiniaClientSubsystem(FVTableHelper& Helper);
+
+	virtual ~URatkiniaClientSubsystem() override;
 
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 
 	virtual void Deinitialize() override;
 
-	void Login(const FString& ServerAddress, int32_t ServerPort, TFunction<void(const FString&)> OnFailure,
-	           TFunction<void()> OnSuccess);
+	void Connect(const FString& ServerAddress, int32_t ServerPort, const TFunction<void(const FString&)>& OnFailure);
 
-	void SetHandlers(TFunction<void(const FString&)> FatalHandler, TFunction<void(const FString&)> ErrorHandler)
+	void Disconnect();
+
+	FORCEINLINE EMessagePopResult PopMessage(uint16& OutMessageType,
+	                             uint16& OutMessageBodyLength,
+	                             char* const OutMessageBodyBuffer,
+	                             const int32 InMessageBodyBufferSize)
 	{
-		OnFatal = MoveTemp(FatalHandler);
-		OnError = MoveTemp(ErrorHandler);
+		if (!NetworkWorker.IsValid())
+		{
+			return EMessagePopResult::Empty;
+		}
+
+		if (NetworkWorker->IsStopped())
+		{
+			DisconnectedReason = MoveTemp(NetworkWorker->GetEndReason());
+			NetworkWorker.Reset();
+			return EMessagePopResult::Disconnected;
+		}
+
+		const bool bPop = NetworkWorker->TryPopMessage(OutMessageType, OutMessageBodyLength, OutMessageBodyBuffer,
+		                                               InMessageBodyBufferSize);
+
+		return bPop ? EMessagePopResult::Pop : EMessagePopResult::Empty;
+	}
+
+	FORCEINLINE bool IsConnected() const
+	{
+		return NetworkWorker.IsValid() ? NetworkWorker->IsConnected() : false;
 	}
 
 private:
-	TFunction<void(const FString&)> OnFatal;
-	TFunction<void(const FString&)> OnError;
-
-	SOCKET ClientSocket;
+	FString DisconnectedReason;
+	TUniquePtr<FNetworkWorker> NetworkWorker;
 };
