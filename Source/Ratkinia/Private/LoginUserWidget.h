@@ -6,6 +6,9 @@
 #include "Blueprint/UserWidget.h"
 #include "LoginUserWidget.generated.h"
 
+class UButton;
+class UEditableTextBox;
+class UTextBlock;
 /**
  * 
  */
@@ -15,12 +18,24 @@ class ULoginUserWidget final : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
-	void Login(const FString& ServerAddress, int32 ServerPort);
+	virtual void NativeConstruct() override;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnLoginSuccess();
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnLoginFailure(const FString& Reason);
+protected:
+	UPROPERTY(meta=(BindWidget))
+	UEditableTextBox* Id;
+
+	UPROPERTY(meta=(BindWidget))
+	UEditableTextBox* Password;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton* LoginButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UTextBlock* StatusText;
+
+private:
+	UFUNCTION()
+	void OnLoginButtonPressed();
 };

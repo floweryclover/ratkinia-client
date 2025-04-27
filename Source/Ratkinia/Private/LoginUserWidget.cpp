@@ -3,13 +3,27 @@
 
 #include "LoginUserWidget.h"
 #include "RatkiniaClientSubsystem.h"
+#include "Components/Button.h"
+#include "Components/EditableTextBox.h"
+#include "Components/TextBlock.h"
 
-void ULoginUserWidget::Login(const FString& ServerAddress, int32 ServerPort)
+void ULoginUserWidget::NativeConstruct()
 {
-	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->Login(ServerAddress, ServerPort,
-	                                                                   [this](const FString& Reason)
-	                                                                   {
-		                                                                   OnLoginFailure(Reason);
-	                                                                   },
-	                                                                   [this] { OnLoginSuccess(); });
+	Super::NativeConstruct();
+
+	LoginButton->OnClicked.AddDynamic(this, &ULoginUserWidget::OnLoginButtonPressed);
+}
+
+void ULoginUserWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+}
+
+void ULoginUserWidget::OnLoginButtonPressed()
+{
+	if (GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->Connect(
+		"127.0.0.1", 31415))
+	{
+		StatusText->SetText(FText::FromString(TEXT("연결 중...")));
+	}
 }
