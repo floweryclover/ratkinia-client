@@ -2,8 +2,10 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "CtsProxy.gen.h"
 #include "NetworkWorker.h"
+
+#include "CoreMinimal.h"
 #include "RatkiniaClientSubsystem.generated.h"
 
 class FNetworkWorker;
@@ -20,7 +22,8 @@ enum class EMessagePopResult : uint8
  * 
  */
 UCLASS()
-class RATKINIA_API URatkiniaClientSubsystem final : public UGameInstanceSubsystem
+class RATKINIA_API URatkiniaClientSubsystem final : public UGameInstanceSubsystem,
+                                                    public RatkiniaProtocol::CtsProxy<URatkiniaClientSubsystem>
 {
 	GENERATED_BODY()
 
@@ -35,14 +38,25 @@ public:
 
 	virtual void Deinitialize() override;
 
-	void Connect(const FString& ServerAddress, int32_t ServerPort, const TFunction<void(const FString&)>& OnFailure);
+	bool Connect(const FString& ServerAddress, int32_t ServerPort);
 
 	void Disconnect();
 
-	FORCEINLINE EMessagePopResult PopMessage(uint16& OutMessageType,
-	                             uint16& OutMessageBodyLength,
-	                             char* const OutMessageBodyBuffer,
-	                             const int32 InMessageBodyBufferSize)
+	template <typename TMessage>
+	void WriteMessage(const uint64_t, const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
+	{
+		if (!NetworkWorker.IsValid())
+		{
+			return;
+		}
+
+		NetworkWorker->Send(Message, MessageType);
+	}
+
+	FORCEINLINE EMessagePopResult Receive(uint16& OutMessageType,
+	                                      uint16& OutMessageBodyLength,
+	                                      char* const OutMessageBodyBuffer,
+	                                      const int32 InMessageBodyBufferSize)
 	{
 		if (!NetworkWorker.IsValid())
 		{
@@ -51,7 +65,7 @@ public:
 
 		if (NetworkWorker->IsStopped())
 		{
-			DisconnectedReason = MoveTemp(NetworkWorker->GetEndReason());
+			DisconnectedReason = NetworkWorker->GetEndReason();
 			NetworkWorker.Reset();
 			return EMessagePopResult::Disconnected;
 		}
@@ -65,6 +79,25 @@ public:
 	FORCEINLINE bool IsConnected() const
 	{
 		return NetworkWorker.IsValid() ? NetworkWorker->IsConnected() : false;
+	}
+
+	FORCEINLINE bool IsStopped() const
+	{
+		if (!NetworkWorker.IsValid() || !NetworkWorker->IsConnected())
+		{
+			return false;
+		}
+
+		return NetworkWorker->IsStopped();
+	}
+
+	FORCEINLINE FString GetStoppedReason() const
+	{
+		if (!NetworkWorker.IsValid())
+		{
+			return {};
+		}
+		return NetworkWorker->GetEndReason();
 	}
 
 private:

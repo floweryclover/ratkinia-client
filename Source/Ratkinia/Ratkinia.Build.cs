@@ -40,12 +40,5 @@ public class Ratkinia : ModuleRules
 		PublicDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
 		PublicDefinitions.Add("PROTOBUF_BUILTIN_ATOMIC=0");
 		CppStandard = CppStandardVersion.Cpp20;
-		// Uncomment if you are using Slate UI
-		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-
-		// Uncomment if you are using online features
-		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
-
-		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
 	}
 }

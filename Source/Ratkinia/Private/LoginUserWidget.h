@@ -8,6 +8,7 @@
 
 class UButton;
 class UEditableTextBox;
+class UTextBlock;
 /**
  * 
  */
@@ -18,11 +19,8 @@ class ULoginUserWidget final : public UUserWidget
 
 public:
 	virtual void NativeConstruct() override;
-	
-	void OnLoginSuccess();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnLoginFailure(const FString& Reason);
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 protected:
 	UPROPERTY(meta=(BindWidget))
@@ -33,6 +31,9 @@ protected:
 
 	UPROPERTY(meta=(BindWidget))
 	UButton* LoginButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UTextBlock* StatusText;
 
 private:
 	UFUNCTION()
