@@ -27,21 +27,24 @@ void URatkiniaClientSubsystem::Deinitialize()
 	WSACleanup();
 }
 
-
-bool URatkiniaClientSubsystem::Connect(const FString& ServerAddress, int32_t ServerPort)
+void URatkiniaClientSubsystem::Connect(const FString& ServerAddress, const int32_t ServerPort)
 {
-	if (NetworkWorker.IsValid())
-	{
-		return false;
-	}
-
-	NetworkWorker = MakeUnique<FNetworkWorker>(RatkiniaProtocol::MessageMaxSize * 128);
+	NetworkWorker = MakeUnique<FNetworkWorker>();
 	NetworkWorker->Connect(ServerAddress, ServerPort);
-
-	return true;
 }
 
-void URatkiniaClientSubsystem::Disconnect()
+FString URatkiniaClientSubsystem::GetDisconnectedReason() const
 {
+	if (!NetworkWorker.IsValid())
+	{
+		return {};
+	}
+	
+	return UTF8_TO_TCHAR(NetworkWorker->GetDisconnectedReason().c_str());
+}
+
+void URatkiniaClientSubsystem::ClearSession()
+{
+	NetworkWorker->Disconnect("");
 	NetworkWorker.Reset();
 }

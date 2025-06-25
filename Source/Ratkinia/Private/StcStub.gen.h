@@ -14,11 +14,11 @@ namespace RatkiniaProtocol
     public:
         virtual ~StcStub() = default;
 
-        virtual void OnUnknownMessageType(uint64_t context, StcMessageType messagetType) = 0;
+        virtual void OnUnknownMessageType(uint64_t context, StcMessageType messageType) = 0;
 
-        virtual void OnParseMessageFailed(uint64_t context, StcMessageType messagetType) = 0;
+        virtual void OnParseMessageFailed(uint64_t context, StcMessageType messageType) = 0;
 
-        virtual void OnUnhandledMessageType(uint64_t context, StcMessageType messagetType) = 0;
+        virtual void OnUnhandledMessageType(uint64_t context, StcMessageType messageType) = 0;
 
         virtual void OnLoginResponse(uint64_t context, const bool successful, const std::string& failure_reason) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::LoginResponse); }
 
@@ -41,6 +41,7 @@ namespace RatkiniaProtocol
                         return;
                     }
                     static_cast<TDerivedStub*>(this)->OnLoginResponse(context, LoginResponseMessage.successful(), LoginResponseMessage.failure_reason());
+                    return;
                 }
                 case static_cast<int32_t>(StcMessageType::RegisterResponse):
                 {
@@ -51,10 +52,15 @@ namespace RatkiniaProtocol
                         return;
                     }
                     static_cast<TDerivedStub*>(this)->OnRegisterResponse(context, RegisterResponseMessage.failed_reason());
+                    return;
+                }
+                default:
+                {
+                    static_cast<TDerivedStub*>(this)->OnUnknownMessageType(context, static_cast<StcMessageType>(messageType));
+                    return;
                 }
             }
 
-            static_cast<TDerivedStub*>(this)->OnUnknownMessageType(context, static_cast<StcMessageType>(messageType));
         }
     };
 }

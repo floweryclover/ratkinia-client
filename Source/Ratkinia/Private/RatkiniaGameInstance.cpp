@@ -2,11 +2,20 @@
 
 
 #include "RatkiniaGameInstance.h"
-#include "RatkiniaClientSubsystem.h"
 
 void URatkiniaGameInstance::Init()
 {
 	Super::Init();
+}
 
-	URatkiniaClientSubsystem* ClientSubsystem = GetSubsystem<URatkiniaClientSubsystem>();
+void URatkiniaGameInstance::SetLastDisconnectedReason(FText Reason)
+{
+	LastDisconnectedReason = MoveTemp(Reason);
+}
+
+FText URatkiniaGameInstance::PopLastDisconnectedReason()
+{
+	FText Temp { MoveTemp(LastDisconnectedReason)};
+	LastDisconnectedReason = FText::GetEmpty();
+	return Temp;
 }

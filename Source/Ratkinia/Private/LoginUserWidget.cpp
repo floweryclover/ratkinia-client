@@ -1,29 +1,46 @@
 // Copyright floweryclover @ SolarFlora 2025. All rights reserved.
 
 
-#include "LoginUserWidget.h"
+#include "LoginWidget.h"
 #include "RatkiniaClientSubsystem.h"
 #include "Components/Button.h"
 #include "Components/EditableTextBox.h"
-#include "Components/TextBlock.h"
 
-void ULoginUserWidget::NativeConstruct()
+void ULoginWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	LoginButton->OnClicked.AddDynamic(this, &ULoginUserWidget::OnLoginButtonPressed);
+	LoginButton->OnClicked.AddDynamic(this, &ULoginWidget::OnLoginButtonPressedHandler);
+	RegisterButton->OnClicked.AddDynamic(this, &ULoginWidget::OnRegisterButtonPressedHandler);
+	ResetPasswordButton->OnClicked.AddDynamic(this, &ULoginWidget::OnResetPasswordButtonPressedHandler);
+	QuitGameButton->OnClicked.AddDynamic(this, &ULoginWidget::OnQuitGameButtonPressedHandler);
 }
 
-void ULoginUserWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void ULoginWidget::SetLoginAvailability(const bool bIsAvailable)
 {
-	Super::NativeTick(MyGeometry, InDeltaTime);
+	IdInputBox->SetIsEnabled(bIsAvailable);
+	PasswordInputBox->SetIsEnabled(bIsAvailable);
+	LoginButton->SetIsEnabled(bIsAvailable);
+	RegisterButton->SetIsEnabled(bIsAvailable);
+	ResetPasswordButton->SetIsEnabled(bIsAvailable);
 }
 
-void ULoginUserWidget::OnLoginButtonPressed()
+void ULoginWidget::OnLoginButtonPressedHandler()
 {
-	if (GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->Connect(
-		"127.0.0.1", 31415))
-	{
-		StatusText->SetText(FText::FromString(TEXT("연결 중...")));
-	}
+	OnLoginButtonPressed.Broadcast(IdInputBox->GetText(), PasswordInputBox->GetText());
+}
+
+void ULoginWidget::OnRegisterButtonPressedHandler()
+{
+	OnRegisterButtonPressed.Broadcast();
+}
+
+void ULoginWidget::OnResetPasswordButtonPressedHandler()
+{
+	OnResetPasswordButtonPressed.Broadcast();
+}
+
+void ULoginWidget::OnQuitGameButtonPressedHandler()
+{
+	OnQuitGameButtonPressed.Broadcast();
 }

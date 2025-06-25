@@ -16,4 +16,11 @@ class RATKINIA_API URatkiniaGameInstance final : public UGameInstance
 
 public:
 	virtual void Init() override;
+
+	void SetLastDisconnectedReason(FText Reason);
+
+	FText PopLastDisconnectedReason();
+
+private:
+	FText LastDisconnectedReason;
 };

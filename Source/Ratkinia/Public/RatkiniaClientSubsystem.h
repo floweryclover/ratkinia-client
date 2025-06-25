@@ -39,10 +39,10 @@ public:
 
 	virtual void Deinitialize() override;
 
-	bool Connect(const FString& ServerAddress, int32_t ServerPort);
+	void Connect(const FString& ServerAddress, int32_t ServerPort);
 
-	void Disconnect();
-
+	void ClearSession();
+	
 	template <typename TMessage>
 	void WriteMessage(const uint64_t, const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
 	{
@@ -54,46 +54,27 @@ public:
 		NetworkWorker->Send(Message, MessageType);
 	}
 
-	FORCEINLINE TOptional<TScopedNetworkMessage<FNetworkWorker>> Receive()
+	FORCEINLINE TOptional<TScopedNetworkMessage<FNetworkWorker>> TryPopMessage()
 	{
 		if (!NetworkWorker.IsValid())
 		{
-			return NullOpt;
-		}
-
-		if (NetworkWorker->IsStopped())
-		{
-			DisconnectedReason = NetworkWorker->GetEndReason();
-			NetworkWorker.Reset();
 			return NullOpt;
 		}
 
 		return NetworkWorker->TryPopMessage();
 	}
 
-	FORCEINLINE bool IsConnected() const
-	{
-		return NetworkWorker.IsValid() ? NetworkWorker->IsConnected() : false;
-	}
-
-	FORCEINLINE bool IsStopped() const
-	{
-		if (!NetworkWorker.IsValid() || !NetworkWorker->IsConnected())
-		{
-			return false;
-		}
-
-		return NetworkWorker->IsStopped();
-	}
-
-	FORCEINLINE FString GetStoppedReason() const
+	FORCEINLINE ERatkiniaConnectionState GetConnectionState() const
 	{
 		if (!NetworkWorker.IsValid())
 		{
-			return {};
+			return ERatkiniaConnectionState::NotConnected;
 		}
-		return NetworkWorker->GetEndReason();
+
+		return NetworkWorker->GetConnectionState();
 	}
+
+	FString GetDisconnectedReason() const;
 
 private:
 	FString DisconnectedReason;
