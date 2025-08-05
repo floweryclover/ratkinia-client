@@ -35,6 +35,10 @@ public:
 	UPROPERTY()
 	FQuitGameButtonPressed OnQuitGameButtonPressed;
 
+	FText GetId() const;
+	
+	FText GetPassword() const;
+
 	virtual void NativeConstruct() override;
 	
 	void SetLoginAvailability(bool bIsAvailable);

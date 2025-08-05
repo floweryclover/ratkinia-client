@@ -9,6 +9,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "LoginGameMode.generated.h"
 
+class URegisterWidget;
 class ULoginWidget;
 class UMessageBoxWidget;
 /**
@@ -24,39 +25,37 @@ public:
 	
 	virtual void Tick(float DeltaSeconds) override;
 
-	virtual void OnUnknownMessageType(uint64_t context, RatkiniaProtocol::StcMessageType messageType) override;
+	virtual void OnUnknownMessageType(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
 
-	virtual void OnParseMessageFailed(uint64_t context, RatkiniaProtocol::StcMessageType messageType) override;
+	virtual void OnParseMessageFailed(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
 	
-	virtual void OnUnhandledMessageType(uint64_t context, RatkiniaProtocol::StcMessageType messageType) override;
+	virtual void OnUnhandledMessageType(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
 
-	virtual void OnLoginResponse(uint64_t context, const bool successful, const std::string& failure_reason) override;
+	virtual void OnLoginResponse(uint32_t context, const bool successful) override;
 
-	virtual void OnRegisterResponse(uint64_t context, const RatkiniaProtocol::RegisterResponse_FailedReason failed_reason) override;
-
+	virtual void OnRegisterResponse(uint32_t context, const bool successful, const std::string& failed_reason) override;
+	
 protected:
 	virtual void BeginPlay() override;
 	
+private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UMessageBoxWidget> MessageBoxWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ULoginWidget> LoginWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<URegisterWidget> RegisterWidgetClass;
 	
-private:
-	UPROPERTY()
-	TObjectPtr<ULoginWidget> LoginWidget;
-	
-	FText RequestedLoginId;
-
-	FText RequestedLoginPassword;
-
-	bool bLoginRequested{};
-
-	void PopupMessageBoxWidget(FText Text);
+	UFUNCTION()
+	void RatkiniaLogin(FText Id, FText Password);
 
 	UFUNCTION()
-	void ConnectAndLogin(FText Id, FText Password);
+	void RatkiniaRegister(FText Id, FText Password, FText PasswordAgain);
+	
+	UFUNCTION()
+	void OpenLoginWidget();
 
 	UFUNCTION()
 	void OpenRegisterWidget();
@@ -66,4 +65,11 @@ private:
 
 	UFUNCTION()
 	void OpenReallyQuitGameWidget();
+	
+	void PopupMessageBoxWidget(FText Text);
+
+public:
+
+private:
+	TFunction<void()> PostConnectAction;
 };

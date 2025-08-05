@@ -6,6 +6,16 @@
 #include "Components/Button.h"
 #include "Components/EditableTextBox.h"
 
+FText ULoginWidget::GetId() const
+{
+	return IdInputBox->GetText();
+}
+
+FText ULoginWidget::GetPassword() const
+{
+	return PasswordInputBox->GetText();
+}
+
 void ULoginWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
