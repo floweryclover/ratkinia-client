@@ -10,7 +10,7 @@ public class Ratkinia : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "OpenSSL" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
@@ -21,18 +21,9 @@ public class Ratkinia : ModuleRules
 		string ProtobufIncludePath = Path.Combine(ProtobufPath, "include");
 		string ProtobufLibPath = Path.Combine(ProtobufPath, "lib");		
 		
-		string OpenSSLPath = Path.Combine(ThirdPartyPath, "OpenSSL");
-		string OpenSSLIncludePath = Path.Combine(OpenSSLPath, "include");
-		string OpenSSLLibPath = Path.Combine(OpenSSLPath, "lib");
-
 		PublicIncludePaths.Add(ProtobufIncludePath);
-		PublicIncludePaths.Add(OpenSSLIncludePath);
 
 		foreach (var libFile in Directory.GetFiles(ProtobufLibPath, "*.lib"))
-		{
-			PublicAdditionalLibraries.Add(libFile);
-		}
-		foreach (var libFile in Directory.GetFiles(OpenSSLLibPath, "*.lib"))
 		{
 			PublicAdditionalLibraries.Add(libFile);
 		}

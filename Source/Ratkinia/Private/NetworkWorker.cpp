@@ -1,109 +1,174 @@
 ﻿#include "NetworkWorker.h"
-#include <WS2tcpip.h>
-
 #include "Ratkinia/Ratkinia.h"
 
-FNetworkWorker::FNetworkWorker()
-	: clientSocket_{INVALID_SOCKET},
-	  connectionState_{ERatkiniaConnectionState::NotConnected},
-	  sendBuffer_{std::make_unique<char[]>(BufferCapacity)},
-	  receiveBuffer_{std::make_unique<char[]>(BufferCapacity)},
-	  receiveTempBuffer_{std::make_unique<char[]>(RatkiniaProtocol::MessageMaxSize)}
+namespace OpenSSL
 {
+#include "openssl/err.h"
+}
+
+#include <WS2tcpip.h>
+
+FRatkiniaClientInitResult Initialize(const char* const ServerAddress, const uint16_t ServerPort)
+{
+	auto MakeInvalidResult = [](std::string Message)
+	{
+		return FRatkiniaClientInitResult
+		{
+			INVALID_SOCKET,
+			nullptr,
+			nullptr,
+			{},
+			std::move(Message)
+		};
+	};
+
+	SOCKADDR_IN AddrIn;
+	AddrIn.sin_family = AF_INET;
+	AddrIn.sin_port = htons(ServerPort);
+	if (const int Result = inet_pton(AF_INET, ServerAddress, &AddrIn.sin_addr); Result != 1)
+	{
+		return MakeInvalidResult(std::format("서버 주소 문자열 해석에 실패하였습니다: {}.", WSAGetLastError()));
+	}
+
+	const auto Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (Socket == INVALID_SOCKET)
+	{
+		return MakeInvalidResult(std::format("클라이언트 소켓 생성에 실패하였습니다: {}.", WSAGetLastError()));
+	}
+
+	constexpr int NoDelay = 1;
+	if (SOCKET_ERROR == setsockopt(Socket, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<const char*>(&NoDelay),
+	                               sizeof(NoDelay)))
+	{
+		closesocket(Socket);
+		return MakeInvalidResult(std::format("TCP_NODELAY 설정에 실패하였습니다: {}.", WSAGetLastError()));
+	}
+
+	const auto SslCtx = OpenSSL::SSL_CTX_new(OpenSSL::TLS_client_method());
+	if (!SslCtx)
+	{
+		closesocket(Socket);
+		char Buf[256];
+		return MakeInvalidResult(std::format("SSL Context 생성에 실패하였습니다: {}.",
+		                                     OpenSSL::ERR_error_string(OpenSSL::ERR_get_error(), Buf)));
+	}
+
+	const auto Ssl = OpenSSL::SSL_new(SslCtx);
+	if (!Ssl)
+	{
+		closesocket(Socket);
+		OpenSSL::SSL_CTX_free(SslCtx);
+		char Buf[256];
+		return MakeInvalidResult(std::format("SSL 객체 생성에 실패하였습니다: {}.",
+		                                     OpenSSL::ERR_error_string(OpenSSL::ERR_get_error(), Buf)));
+	}
+
+	if (OpenSSL::SSL_set_fd(Ssl, Socket) == 0)
+	{
+		closesocket(Socket);
+		OpenSSL::SSL_CTX_free(SslCtx);
+		OpenSSL::SSL_free(Ssl);
+		char Buf[256];
+		return MakeInvalidResult(std::format("SSL 초기 설정에 실패하였습니다: {}.",
+		                                     OpenSSL::ERR_error_string(OpenSSL::ERR_get_error(), Buf)));
+	}
+
+	return
+	{
+		Socket,
+		SslCtx,
+		Ssl,
+		AddrIn,
+		""
+	};
+}
+
+FNetworkWorker::FNetworkWorker(const FString& ServerAddress, const uint16 ServerPort)
+	: FNetworkWorker(Initialize(TCHAR_TO_UTF8(*ServerAddress), ServerPort))
+{
+}
+
+FNetworkWorker::FNetworkWorker(const FRatkiniaClientInitResult& InitResult)
+	: SslCtx{InitResult.SslCtx},
+	  Ssl{InitResult.Ssl},
+	  ClientSocket{InitResult.Socket},
+	  ServerAddrIn{InitResult.ServerAddrIn},
+	  ConnectionState{ERatkiniaConnectionState::Connecting},
+	  SendBuffer{std::make_unique<char[]>(BufferCapacity)},
+	  SendContiguousPushBuffer{std::make_unique<char[]>(RatkiniaProtocol::MessageMaxSize)},
+	  SendBufferHead{0},
+	  SendBufferTail{0},
+	  ReceiveBuffer{std::make_unique<char[]>(BufferCapacity)},
+	  ReceiveContiguousPopBuffer{std::make_unique<char[]>(RatkiniaProtocol::MessageMaxSize)}
+{
+	if (ClientSocket == INVALID_SOCKET)
+	{
+		ConnectionState = ERatkiniaConnectionState::Disconnected;
+		return;
+	}
+
+	AsyncTask(ENamedThreads::Type::AnyThread,
+	          [this]
+	          {
+		          if (const int Result = connect(ClientSocket, reinterpret_cast<const sockaddr*>(&ServerAddrIn),
+		                                         sizeof(SOCKADDR_IN));
+			          Result == SOCKET_ERROR)
+		          {
+			          std::string Reason = std::format("서버 접속에 실패하였습니다: {}.",
+			                                           InterpretWsaErrorCodeIfWellKnown(WSAGetLastError()));
+			          Disconnect(std::move(Reason));
+			          return;
+		          }
+
+		          if (OpenSSL::SSL_connect(Ssl) != 1)
+		          {
+			          char Buf[256];
+			          std::string Reason = std::format("SSL 핸드셰이크에 실패하였습니다: {}.",
+			                                           OpenSSL::ERR_error_string(
+				                                           OpenSSL::ERR_get_error(), Buf));
+			          Disconnect(std::move(Reason));
+			          return;
+		          }
+
+	          	u_long NonBlock = 1;
+				if (SOCKET_ERROR == ioctlsocket(ClientSocket, FIONBIO, &NonBlock))
+				{
+					std::string Reason = std::format("소켓 설정에 실패하였습니다: {}.", WSAGetLastError());
+					Disconnect(std::move(Reason));
+					return;
+				}
+	          	
+		          ConnectionState = ERatkiniaConnectionState::Connected;
+		          IoThread = std::thread{&FNetworkWorker::IoThreadBody, this};
+	          });
 }
 
 FNetworkWorker::~FNetworkWorker()
 {
-	Cleanup();
-	if (sendThread_.joinable())
+	SSL_shutdown(Ssl);
+	if (IoThread.joinable())
 	{
-		sendThread_.join();
+		IoThread.join();
 	}
-
-	if (receiveThread_.joinable())
-	{
-		receiveThread_.join();
-	}
-}
-
-void FNetworkWorker::Connect(const FString& serverAddress, const uint16 serverPort)
-{
-	check(connectionState_ == ERatkiniaConnectionState::NotConnected);
-
-	SOCKADDR_IN addrIn{};
-	addrIn.sin_family = AF_INET;
-	addrIn.sin_port = htons(serverPort);
-	if (const int result = inet_pton(AF_INET, TCHAR_TO_UTF8(*serverAddress), &addrIn.sin_addr); result != 1)
-	{
-		std::string reason{std::format("서버 주소 문자열 해석에 실패하였습니다: {}.", WSAGetLastError())};
-		Disconnect(std::move(reason));
-		return;
-	}
-
-	clientSocket_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (clientSocket_ == INVALID_SOCKET)
-	{
-		std::string reason{std::format("클라이언트 소켓 생성에 실패하였습니다: {}.", WSAGetLastError())};
-		Disconnect(std::move(reason));
-		return;
-	}
-
-	const int option = 1;
-	if (SOCKET_ERROR == setsockopt(clientSocket_, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<const char*>(&option),
-	                               sizeof(option)))
-	{
-		std::string reason{std::format("TCP_NODELAY 설정에 실패하였습니다: {}.", WSAGetLastError())};
-		Disconnect(std::move(reason));
-		return;
-	}
-
-	connectionState_ = ERatkiniaConnectionState::Connecting;
-
-	AsyncTask(ENamedThreads::Type::AnyThread,
-	          [this, addrIn]
-	          {
-		          const int result = connect(clientSocket_, reinterpret_cast<const sockaddr*>(&addrIn),
-		                                     sizeof(SOCKADDR_IN));
-
-		          if (result == SOCKET_ERROR)
-		          {
-			          std::string reason{
-				          std::format("서버 접속에 실패하였습니다: {}.", InterpretWsaErrorCodeIfWellKnown(WSAGetLastError()))
-			          };
-
-			          Disconnect(std::move(reason));;
-			          return;
-		          }
-
-		          sendBufferBegin_.store(0, std::memory_order_release);
-		          sendBufferEnd_.store(0, std::memory_order_release);
-
-		          receiveBufferBegin_.store(0, std::memory_order_release);
-		          receiveBufferEnd_.store(0, std::memory_order_release);
-
-		          connectionState_ = ERatkiniaConnectionState::Connected;
-
-		          sendThread_ = std::thread{&FNetworkWorker::SendThreadBody, this};
-		          receiveThread_ = std::thread{&FNetworkWorker::ReceiveThreadBody, this};
-	          });
+	SSL_free(Ssl);
+	SSL_CTX_free(SslCtx);
+	shutdown(ClientSocket, SD_BOTH);
+	closesocket(ClientSocket);
 }
 
 const std::string& FNetworkWorker::GetDisconnectedReason()
 {
-	std::lock_guard lock{disconnectedReasonMutex_};
-	return disconnectedReason_;
+	std::lock_guard Lock{DisconnectedReasonMutex};
+	return DisconnectedReason;
 }
 
-void FNetworkWorker::Disconnect(std::string reason)
+void FNetworkWorker::Disconnect(std::string Reason)
 {
-	if (connectionState_.exchange(ERatkiniaConnectionState::Disconnected, std::memory_order_acq_rel) !=
+	if (ConnectionState.exchange(ERatkiniaConnectionState::Disconnected, std::memory_order_acq_rel) !=
 		ERatkiniaConnectionState::Disconnected)
 	{
-		{
-			std::lock_guard lock{disconnectedReasonMutex_};
-			disconnectedReason_ = std::move(reason);
-		}
-		Cleanup();
+		std::lock_guard Lock{DisconnectedReasonMutex};
+		DisconnectedReason = std::move(Reason);
 	}
 }
 
@@ -111,8 +176,8 @@ TOptional<TScopedNetworkMessage<FNetworkWorker>> FNetworkWorker::TryPopMessage()
 {
 	using namespace RatkiniaProtocol;
 
-	const auto loadedReceiveBufferHead{receiveBufferBegin_.load(std::memory_order_acquire)};
-	const auto loadedReceiveBufferTail{receiveBufferEnd_.load(std::memory_order_acquire)};
+	const auto loadedReceiveBufferHead{ReceiveBufferHead.load(std::memory_order_acquire)};
+	const auto loadedReceiveBufferTail{ReceiveBufferTail.load(std::memory_order_acquire)};
 	const auto receiveBufferSize{
 		loadedReceiveBufferTail >= loadedReceiveBufferHead
 			? loadedReceiveBufferTail - loadedReceiveBufferHead
@@ -126,8 +191,8 @@ TOptional<TScopedNetworkMessage<FNetworkWorker>> FNetworkWorker::TryPopMessage()
 	const auto primaryHeaderSize = std::min<size_t>(MessageHeaderSize, BufferCapacity - loadedReceiveBufferHead);
 	const auto secondaryHeaderSize = MessageHeaderSize - primaryHeaderSize;
 	MessageHeader header{};
-	memcpy_s(&header, primaryHeaderSize, receiveBuffer_.get() + loadedReceiveBufferHead, primaryHeaderSize);
-	memcpy_s(reinterpret_cast<char*>(&header) + primaryHeaderSize, secondaryHeaderSize, receiveBuffer_.get(),
+	memcpy(&header, ReceiveBuffer.get() + loadedReceiveBufferHead, primaryHeaderSize);
+	memcpy(reinterpret_cast<char*>(&header) + primaryHeaderSize, ReceiveBuffer.get(),
 	         secondaryHeaderSize);
 	header.MessageType = ntohs(header.MessageType);
 	header.BodyLength = ntohs(header.BodyLength);
@@ -146,119 +211,128 @@ TOptional<TScopedNetworkMessage<FNetworkWorker>> FNetworkWorker::TryPopMessage()
 	if (secondaryBodySize == 0)
 	{
 		return TScopedNetworkMessage{
-			this, 0, header.MessageType, header.BodyLength, receiveBuffer_.get() + loadedReceiveBufferHeadAfterHeader
+			this, 0, header.MessageType, header.BodyLength,
+			ReceiveBuffer.get() + loadedReceiveBufferHeadAfterHeader
 		};
 	}
 
-	memcpy(receiveTempBuffer_.get(), receiveBuffer_.get() + loadedReceiveBufferHeadAfterHeader, primaryBodySize);
-	memcpy(receiveTempBuffer_.get() + primaryBodySize, receiveBuffer_.get(), secondaryBodySize);
+	memcpy(ReceiveContiguousPopBuffer.get(), ReceiveBuffer.get() + loadedReceiveBufferHeadAfterHeader,
+	       primaryBodySize);
+	memcpy(ReceiveContiguousPopBuffer.get() + primaryBodySize, ReceiveBuffer.get(), secondaryBodySize);
 
 	return TScopedNetworkMessage{
 		this, 0, header.MessageType, header.BodyLength,
-		receiveTempBuffer_.get()
+		ReceiveContiguousPopBuffer.get()
 	};
 }
 
-void FNetworkWorker::SendThreadBody()
+void FNetworkWorker::IoThreadBody()
 {
-	UE_LOG(LogRatkinia, Log, TEXT("송신 스레드 시작"));
+	constexpr TIMEVAL TimeOut{0, 2'000};
 
+	bool bWantWrite = false;
 	while (true)
 	{
-		const auto loadedSendBufferHead{sendBufferBegin_.load(std::memory_order_acquire)};
-		const auto loadedSendBufferTail{sendBufferEnd_.load(std::memory_order_acquire)};
-		const auto sendBufferSize{
-			loadedSendBufferTail >= loadedSendBufferHead
-				? loadedSendBufferTail - loadedSendBufferHead
-				: loadedSendBufferTail + BufferCapacity - loadedSendBufferHead
-		};
-
-		if (connectionState_.load(std::memory_order_acquire) != ERatkiniaConnectionState::Connected)
+		FD_SET FdReads;
+		FD_SET FdWrites;
+		FD_ZERO(&FdReads);
+		FD_ZERO(&FdWrites);
+		FD_SET(ClientSocket, &FdReads);
+		
+		const size_t LoadedSendBufferTail = SendBufferTail.load(std::memory_order_acquire);
+		const size_t LoadedSendBufferHead = SendBufferHead.load(std::memory_order_relaxed);
+		if (bWantWrite || LoadedSendBufferTail != LoadedSendBufferHead)
 		{
-			break;
+			FD_SET(ClientSocket, &FdWrites);
 		}
+		bWantWrite = false;
 
-		if (sendBufferSize == 0)
+		const int SelectResult = select(0, &FdReads, &FdWrites, nullptr, &TimeOut);
+		if (SelectResult == 0)
 		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 			continue;
 		}
-
-		const auto result = send(clientSocket_, sendBuffer_.get() + loadedSendBufferHead,
-		                         std::min<size_t>(sendBufferSize, BufferCapacity - loadedSendBufferHead), 0);
-
-		if (result <= 0)
+		if (SelectResult == SOCKET_ERROR)
 		{
-			if (result < 0)
-			{
-				std::string reason{std::format("네트워크 데이터 송신 중 에러가 발생하였습니다: {}.", InterpretWsaErrorCodeIfWellKnown(WSAGetLastError()))};
-				Disconnect(std::move(reason));
-			}
-			else
-			{
-				std::string reason{"서버와의 연결이 종료되었습니다."};
-				Disconnect(std::move(reason));
-			}
-			break;
-		}
-		sendBufferBegin_.store((loadedSendBufferHead + result) % BufferCapacity, std::memory_order_release);
-	}
-
-	UE_LOG(LogRatkinia, Log, TEXT("송신 스레드 종료"));
-}
-
-void FNetworkWorker::ReceiveThreadBody()
-{
-	UE_LOG(LogRatkinia, Log, TEXT("수신 스레드 시작"));
-
-	while (true)
-	{
-		const auto loadedReceiveBufferHead{receiveBufferBegin_.load(std::memory_order_acquire)};
-		const auto loadedReceiveBufferTail{receiveBufferEnd_.load(std::memory_order_acquire)};
-		const auto receiveBufferSize{
-			loadedReceiveBufferTail >= loadedReceiveBufferHead
-				? loadedReceiveBufferTail - loadedReceiveBufferHead
-				: loadedReceiveBufferTail + BufferCapacity - loadedReceiveBufferHead
-		};
-		const auto receiveBufferAvailable{BufferCapacity - receiveBufferSize - 1};
-
-		if (receiveBufferAvailable == 0)
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(16));
-			continue;
-		}
-
-		const auto result = recv(clientSocket_, receiveBuffer_.get() + loadedReceiveBufferTail,
-		                         std::min<size_t>(receiveBufferAvailable,
-		                                          BufferCapacity - loadedReceiveBufferTail), 0);
-		if (result <= 0)
-		{
-			if (result < 0)
-			{
-				std::string reason{std::format("네트워크 데이터 수신 중 에러가 발생하였습니다: {}.", InterpretWsaErrorCodeIfWellKnown(WSAGetLastError()))};
-				Disconnect(std::move(reason));
-			}
-			else
-			{
-				std::string reason{"서버와의 연결이 종료되었습니다."};
-				Disconnect(std::move(reason));
-			}
+			Disconnect(std::format("송수신 스레드에서 에러가 발생하였습니다: {}.", WSAGetLastError()));
 			break;
 		}
 
-		receiveBufferEnd_.store((loadedReceiveBufferTail + result) % BufferCapacity, std::memory_order_release);
-	}
+		if (FD_ISSET(ClientSocket, &FdReads))
+		{
+			const size_t LoadedReceiveBufferTail = ReceiveBufferTail.load(std::memory_order_relaxed);
+			const size_t LoadedReceiveBufferHead = ReceiveBufferHead.load(std::memory_order_acquire);
+			const size_t ReceiveBufferSize =
+				LoadedReceiveBufferTail >= LoadedReceiveBufferHead
+					? LoadedReceiveBufferTail - LoadedReceiveBufferHead
+					: LoadedReceiveBufferTail + BufferCapacity - LoadedReceiveBufferHead
+			;
+			const size_t ReceiveBufferAvailable = BufferCapacity - ReceiveBufferSize - 1;
+			if (ReceiveBufferAvailable == 0)
+			{
+				continue;
+			}
 
-	UE_LOG(LogRatkinia, Log, TEXT("수신 스레드 종료"));
-}
+			const int ReadResult = OpenSSL::SSL_read(Ssl, ReceiveBuffer.get() + LoadedReceiveBufferTail,
+												 std::min<size_t>(ReceiveBufferAvailable,
+																  BufferCapacity - LoadedReceiveBufferTail));
+			if (ReadResult <= 0)
+			{
+				const int SslError = OpenSSL::SSL_get_error(Ssl, ReadResult);
+				if (SslError == SSL_ERROR_ZERO_RETURN)
+				{
+					Disconnect("서버와의 연결이 종료되었습니다.");
+					break;
+				}
+				if (SslError == SSL_ERROR_WANT_WRITE)
+				{
+					bWantWrite = true;
+					continue;
+				}
+				if (SslError == SSL_ERROR_WANT_READ)
+				{
+					continue;
+				}
 
-void FNetworkWorker::Cleanup()
-{
-	if (clientSocket_ != INVALID_SOCKET)
-	{
-		shutdown(clientSocket_, SD_BOTH);
-		closesocket(clientSocket_);
-		clientSocket_ = INVALID_SOCKET;
+				char Buf[256];
+				std::string Reason =
+					std::format("네트워크 데이터 수신 중 에러가 발생하였습니다: SSL ERROR {}, {}.", SslError,
+								OpenSSL::ERR_error_string(OpenSSL::ERR_get_error(), Buf));
+				Disconnect(std::move(Reason));
+				break;
+			}
+
+			ReceiveBufferTail.store((LoadedReceiveBufferTail + ReadResult) % BufferCapacity, std::memory_order_release);
+		}
+
+		if (FD_ISSET(ClientSocket, &FdWrites))
+		{
+			const size_t Writable = LoadedSendBufferHead <= LoadedSendBufferTail ? LoadedSendBufferTail - LoadedSendBufferHead : BufferCapacity - LoadedSendBufferHead;
+			const int WriteResult = OpenSSL::SSL_write(Ssl, SendBuffer.get() + LoadedSendBufferHead, Writable);
+
+			if (WriteResult <= 0)
+			{
+				const int SslError = OpenSSL::SSL_get_error(Ssl, WriteResult);
+				if (SslError == SSL_ERROR_ZERO_RETURN)
+				{
+					Disconnect("서버와의 연결이 종료되었습니다.");
+					break;
+				}
+				if (SslError == SSL_ERROR_WANT_READ)
+				{
+					continue;
+				}
+
+				char Buf[256];
+				std::string Reason =
+					std::format("네트워크 데이터 송신 중 에러가 발생하였습니다: SSL ERROR {}, {}.", SslError,
+								OpenSSL::ERR_error_string(OpenSSL::ERR_get_error(), Buf));
+				Disconnect(std::move(Reason));
+				break;
+			}
+
+			SendBufferHead.store((LoadedSendBufferHead + WriteResult) % BufferCapacity, std::memory_order_release);
+		}
 	}
 }
 

@@ -29,8 +29,7 @@ void URatkiniaClientSubsystem::Deinitialize()
 
 void URatkiniaClientSubsystem::Connect(const FString& ServerAddress, const int32_t ServerPort)
 {
-	NetworkWorker = MakeUnique<FNetworkWorker>();
-	NetworkWorker->Connect(ServerAddress, ServerPort);
+	NetworkWorker = MakeUnique<FNetworkWorker>(ServerAddress, ServerPort);
 }
 
 FString URatkiniaClientSubsystem::GetDisconnectedReason() const
@@ -45,6 +44,11 @@ FString URatkiniaClientSubsystem::GetDisconnectedReason() const
 
 void URatkiniaClientSubsystem::ClearSession()
 {
-	NetworkWorker->Disconnect("");
+	if (!NetworkWorker)
+	{
+		return;
+	}
+	
+	NetworkWorker->Disconnect("사용자가 연결을 종료하였습니다.");
 	NetworkWorker.Reset();
 }

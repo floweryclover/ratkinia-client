@@ -19,10 +19,14 @@ void ALoginGameMode::Tick(const float DeltaSeconds)
 
 	URatkiniaClientSubsystem* const RatkiniaClient{GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()};
 
-	if (const FString DisconnectedReason{RatkiniaClient->GetDisconnectedReason()}; !DisconnectedReason.IsEmpty())
+	if (RatkiniaClient->GetConnectionState() == ERatkiniaConnectionState::Disconnected)
 	{
+		if (const FString DisconnectedReason = RatkiniaClient->GetDisconnectedReason();
+			!DisconnectedReason.IsEmpty())
+		{
+			PopupMessageBoxWidget(FText::FromString(DisconnectedReason));
+		}
 		RatkiniaClient->ClearSession();
-		PopupMessageBoxWidget(FText::FromString(DisconnectedReason));
 		return;
 	}
 
@@ -47,27 +51,30 @@ void ALoginGameMode::OnUnknownMessageType(const uint32_t context, const Ratkinia
 {
 	FString Message{TEXT("서버로부터 알 수 없는 메시지를 수신하였습니다: ")};
 	Message.AppendInt(static_cast<int>(messageType));
-	Message.Append(". 연결을 종료합니다.");
-
+	Message.Append(TEXT(". 연결을 종료합니다."));
 	PopupMessageBoxWidget(FText::FromString(Message));
+	
+	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
 void ALoginGameMode::OnParseMessageFailed(const uint32_t context, const RatkiniaProtocol::StcMessageType messageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지 해석에 실패하였습니다. 메시지 번호: ")};
 	Message.AppendInt(static_cast<int>(messageType));
-	Message.Append(". 연결을 종료합니다.");
+	Message.Append(TEXT(". 연결을 종료합니다."));
 
 	PopupMessageBoxWidget(FText::FromString(Message));
+	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
 void ALoginGameMode::OnUnhandledMessageType(const uint32_t context, const RatkiniaProtocol::StcMessageType messageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지를 처리하지 못했습니다. 메시지 번호: ")};
 	Message.AppendInt(static_cast<int>(messageType));
-	Message.Append(". 연결을 종료합니다.");
+	Message.Append(TEXT(". 연결을 종료합니다."));
 
 	PopupMessageBoxWidget(FText::FromString(Message));
+	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
 void ALoginGameMode::OnLoginResponse(const uint32_t, const bool successful)
@@ -80,6 +87,7 @@ void ALoginGameMode::OnLoginResponse(const uint32_t, const bool successful)
 		return;
 	}
 	PopupMessageBoxWidget(FText::FromString(TEXT("로그인 성공!")));
+	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
 void ALoginGameMode::OnRegisterResponse(const uint32_t context,

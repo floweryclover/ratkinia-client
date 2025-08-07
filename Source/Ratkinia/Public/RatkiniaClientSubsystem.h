@@ -40,7 +40,7 @@ public:
 	virtual void Deinitialize() override;
 
 	void Connect(const FString& ServerAddress, int32_t ServerPort);
-
+	
 	void ClearSession();
 	
 	template <typename TMessage>
