@@ -194,25 +194,25 @@ TOptional<FMessagePeekResult> FNetworkWorker::TryPeekMessage()
 	memcpy(reinterpret_cast<char*>(&Header) + PrimaryHeaderSize, ReceiveBuffer.Get(),
 	       SecondaryHeaderSize);
 	Header.MessageType = ntohs(Header.MessageType);
-	Header.BodyLength = ntohs(Header.BodyLength);
+	Header.BodySize = ntohs(Header.BodySize);
 
-	const auto MessageTotalSize = MessageHeaderSize + Header.BodyLength;
+	const auto MessageTotalSize = MessageHeaderSize + Header.BodySize;
 	if (Size < MessageTotalSize)
 	{
 		return NullOpt;
 	}
 
 	const auto LoadedHeadAfterHeader = (LoadedHead + MessageHeaderSize) % BufferCapacity;
-	const auto PrimaryBodySize = std::min<size_t>(Header.BodyLength,
+	const auto PrimaryBodySize = std::min<size_t>(Header.BodySize,
 	                                              BufferCapacity - LoadedHeadAfterHeader);
-	const auto SecondaryBodySize = Header.BodyLength - PrimaryBodySize;
+	const auto SecondaryBodySize = Header.BodySize - PrimaryBodySize;
 
 	if (SecondaryBodySize == 0)
 	{
 		return FMessagePeekResult
 		{
 			Header.MessageType,
-			Header.BodyLength,
+			Header.BodySize,
 			ReceiveBuffer.Get() + LoadedHeadAfterHeader
 		};
 	}
@@ -224,7 +224,7 @@ TOptional<FMessagePeekResult> FNetworkWorker::TryPeekMessage()
 	return FMessagePeekResult
 	{
 		Header.MessageType,
-		Header.BodyLength,
+		Header.BodySize,
 		ReceiveContiguousPopBuffer.Get()
 	};
 }

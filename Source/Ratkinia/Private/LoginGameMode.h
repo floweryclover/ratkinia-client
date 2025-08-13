@@ -25,15 +25,15 @@ public:
 	
 	virtual void Tick(float DeltaSeconds) override;
 
-	virtual void OnUnknownMessageType(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
-
-	virtual void OnParseMessageFailed(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
+	virtual void OnUnknownMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 	
-	virtual void OnUnhandledMessageType(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
+	virtual void OnParseMessageFailed(RatkiniaProtocol::StcMessageType MessageType) override;
+	
+	virtual void OnUnhandledMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 
-	virtual void OnLoginResponse(uint32_t context, RatkiniaProtocol::LoginResponse_Result result) override;
+	virtual void OnLoginResponse(const RatkiniaProtocol::LoginResponse_LoginResult Result) override;
 
-	virtual void OnRegisterResponse(uint32_t context, bool successful, const std::string& failed_reason) override;
+	virtual void OnRegisterResponse(const bool Successful, FString FailedReason) override;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -67,8 +67,6 @@ private:
 	void OpenReallyQuitGameWidget();
 	
 	void PopupMessageBoxWidget(FText Text);
-
-public:
 
 private:
 	TFunction<void()> PostConnectAction;

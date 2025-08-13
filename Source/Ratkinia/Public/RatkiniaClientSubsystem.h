@@ -43,7 +43,7 @@ public:
 	void ClearSession();
 	
 	template <typename TMessage>
-	void WriteMessage(const uint64_t, const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
+	void WriteMessage(const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
 	{
 		if (!NetworkWorker)
 		{

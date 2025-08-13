@@ -1,4 +1,4 @@
-// Auto-generated from all.desc.
+// Auto-generated from Ratkinia Protocol Generator.
 
 #ifndef STCSTUB_GEN_H
 #define STCSTUB_GEN_H
@@ -14,49 +14,48 @@ namespace RatkiniaProtocol
     public:
         virtual ~StcStub() = default;
 
-        virtual void OnUnknownMessageType(uint32_t context, StcMessageType messageType) = 0;
+        virtual void OnUnknownMessageType(StcMessageType MessageType) = 0;
 
-        virtual void OnParseMessageFailed(uint32_t context, StcMessageType messageType) = 0;
+        virtual void OnParseMessageFailed(StcMessageType MessageType) = 0;
 
-        virtual void OnUnhandledMessageType(uint32_t context, StcMessageType messageType) = 0;
+        virtual void OnUnhandledMessageType(StcMessageType MessageType) = 0;
 
-        virtual void OnLoginResponse(uint32_t context, const LoginResponse_Result result) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::LoginResponse); }
+        virtual void OnLoginResponse(const LoginResponse_LoginResult Result) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::LoginResponse); }
 
-        virtual void OnRegisterResponse(uint32_t context, const bool successful, const std::string& failed_reason) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::RegisterResponse); }
+        virtual void OnRegisterResponse(const bool bSuccessful, FString FailedReason) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::RegisterResponse); }
 
         void HandleStc(
-            const uint32_t context,
-            const uint16_t messageType,
-            const uint16_t bodySize,
-            const char* const body)
+            const uint16 MessageType,
+            const uint16 BodySize,
+            const char* const Body)
         {
-            switch (static_cast<int32_t>(messageType))
+            switch (static_cast<int32_t>(MessageType))
             {
                 case static_cast<int32_t>(StcMessageType::LoginResponse):
                 {
                     LoginResponse LoginResponseMessage;
-                    if (!LoginResponseMessage.ParseFromArray(body, bodySize))
+                    if (!LoginResponseMessage.ParseFromArray(Body, BodySize))
                     {
-                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(context, static_cast<StcMessageType>(messageType));
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<StcMessageType>(MessageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnLoginResponse(context, LoginResponseMessage.result());
+                    static_cast<TDerivedStub*>(this)->OnLoginResponse(LoginResponseMessage.result());
                     return;
                 }
                 case static_cast<int32_t>(StcMessageType::RegisterResponse):
                 {
                     RegisterResponse RegisterResponseMessage;
-                    if (!RegisterResponseMessage.ParseFromArray(body, bodySize))
+                    if (!RegisterResponseMessage.ParseFromArray(Body, BodySize))
                     {
-                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(context, static_cast<StcMessageType>(messageType));
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<StcMessageType>(MessageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnRegisterResponse(context, RegisterResponseMessage.successful(), RegisterResponseMessage.failed_reason());
+                    static_cast<TDerivedStub*>(this)->OnRegisterResponse(RegisterResponseMessage.successful(), FString{UTF8_TO_TCHAR(RegisterResponseMessage.failed_reason().c_str())});
                     return;
                 }
                 default:
                 {
-                    static_cast<TDerivedStub*>(this)->OnUnknownMessageType(context, static_cast<StcMessageType>(messageType));
+                    static_cast<TDerivedStub*>(this)->OnUnknownMessageType(static_cast<StcMessageType>(MessageType));
                     return;
                 }
             }

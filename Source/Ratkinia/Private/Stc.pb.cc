@@ -46,7 +46,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr LoginResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : result_{static_cast< ::RatkiniaProtocol::LoginResponse_Result >(0)},
+      : result_{static_cast< ::RatkiniaProtocol::LoginResponse_LoginResult >(0)},
         _cached_size_{0} {}
 
 template <typename>
@@ -64,69 +64,69 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
 }  // namespace RatkiniaProtocol
 namespace RatkiniaProtocol {
-PROTOBUF_CONSTINIT const uint32_t LoginResponse_Result_internal_data_[] = {
+PROTOBUF_CONSTINIT const uint32_t LoginResponse_LoginResult_internal_data_[] = {
     262144u, 0u, };
-bool LoginResponse_Result_IsValid(int value) {
+bool LoginResponse_LoginResult_IsValid(int value) {
   return 0 <= value && value <= 3;
 }
 static ::google::protobuf::internal::ExplicitlyConstructed<std::string>
-    LoginResponse_Result_strings[4] = {};
+    LoginResponse_LoginResult_strings[4] = {};
 
-static const char LoginResponse_Result_names[] = {
+static const char LoginResponse_LoginResult_names[] = {
     "DuplicateAccount"
     "DuplicateContext"
     "Failure"
     "Success"
 };
 
-static const ::google::protobuf::internal::EnumEntry LoginResponse_Result_entries[] =
+static const ::google::protobuf::internal::EnumEntry LoginResponse_LoginResult_entries[] =
     {
-        {{&LoginResponse_Result_names[0], 16}, 3},
-        {{&LoginResponse_Result_names[16], 16}, 2},
-        {{&LoginResponse_Result_names[32], 7}, 1},
-        {{&LoginResponse_Result_names[39], 7}, 0},
+        {{&LoginResponse_LoginResult_names[0], 16}, 3},
+        {{&LoginResponse_LoginResult_names[16], 16}, 2},
+        {{&LoginResponse_LoginResult_names[32], 7}, 1},
+        {{&LoginResponse_LoginResult_names[39], 7}, 0},
 };
 
-static const int LoginResponse_Result_entries_by_number[] = {
+static const int LoginResponse_LoginResult_entries_by_number[] = {
     3,  // 0 -> Success
     2,  // 1 -> Failure
     1,  // 2 -> DuplicateContext
     0,  // 3 -> DuplicateAccount
 };
 
-const std::string& LoginResponse_Result_Name(LoginResponse_Result value) {
+const std::string& LoginResponse_LoginResult_Name(LoginResponse_LoginResult value) {
   static const bool kDummy =
       ::google::protobuf::internal::InitializeEnumStrings(
-          LoginResponse_Result_entries, LoginResponse_Result_entries_by_number,
-          4, LoginResponse_Result_strings);
+          LoginResponse_LoginResult_entries, LoginResponse_LoginResult_entries_by_number,
+          4, LoginResponse_LoginResult_strings);
   (void)kDummy;
 
   int idx = ::google::protobuf::internal::LookUpEnumName(
-      LoginResponse_Result_entries, LoginResponse_Result_entries_by_number, 4,
+      LoginResponse_LoginResult_entries, LoginResponse_LoginResult_entries_by_number, 4,
       value);
   return idx == -1 ? ::google::protobuf::internal::GetEmptyString()
-                   : LoginResponse_Result_strings[idx].get();
+                   : LoginResponse_LoginResult_strings[idx].get();
 }
 
-bool LoginResponse_Result_Parse(absl::string_view name, LoginResponse_Result* value) {
+bool LoginResponse_LoginResult_Parse(absl::string_view name, LoginResponse_LoginResult* value) {
   int int_value;
   bool success = ::google::protobuf::internal::LookUpEnumValue(
-      LoginResponse_Result_entries, 4, name, &int_value);
+      LoginResponse_LoginResult_entries, 4, name, &int_value);
   if (success) {
-    *value = static_cast<LoginResponse_Result>(int_value);
+    *value = static_cast<LoginResponse_LoginResult>(int_value);
   }
   return success;
 }
 #if (__cplusplus < 201703) && \
   (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-constexpr LoginResponse_Result LoginResponse::Success;
-constexpr LoginResponse_Result LoginResponse::Failure;
-constexpr LoginResponse_Result LoginResponse::DuplicateContext;
-constexpr LoginResponse_Result LoginResponse::DuplicateAccount;
-constexpr LoginResponse_Result LoginResponse::Result_MIN;
-constexpr LoginResponse_Result LoginResponse::Result_MAX;
-constexpr int LoginResponse::Result_ARRAYSIZE;
+constexpr LoginResponse_LoginResult LoginResponse::Success;
+constexpr LoginResponse_LoginResult LoginResponse::Failure;
+constexpr LoginResponse_LoginResult LoginResponse::DuplicateContext;
+constexpr LoginResponse_LoginResult LoginResponse::DuplicateAccount;
+constexpr LoginResponse_LoginResult LoginResponse::LoginResult_MIN;
+constexpr LoginResponse_LoginResult LoginResponse::LoginResult_MAX;
+constexpr int LoginResponse::LoginResult_ARRAYSIZE;
 
 #endif  // (__cplusplus < 201703) &&
         // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
@@ -200,13 +200,13 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> LoginResponse::_table_ = {
     ::_pbi::TcParser::GetTable<::RatkiniaProtocol::LoginResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // .RatkiniaProtocol.LoginResponse.Result result = 1;
+    // .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
     {::_pbi::TcParser::FastV32S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.result_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .RatkiniaProtocol.LoginResponse.Result result = 1;
+    // .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
     {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.result_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
   }},
@@ -233,7 +233,7 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  // .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
@@ -257,7 +257,7 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  // .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
   if (this->_internal_result() != 0) {
     total_size += 1 +
                   ::_pbi::WireFormatLite::EnumSize(this->_internal_result());

@@ -60,31 +60,31 @@ namespace protobuf {
 }  // namespace google
 
 namespace RatkiniaProtocol {
-enum LoginResponse_Result : int {
-  LoginResponse_Result_Success = 0,
-  LoginResponse_Result_Failure = 1,
-  LoginResponse_Result_DuplicateContext = 2,
-  LoginResponse_Result_DuplicateAccount = 3,
-  LoginResponse_Result_LoginResponse_Result_INT_MIN_SENTINEL_DO_NOT_USE_ =
+enum LoginResponse_LoginResult : int {
+  LoginResponse_LoginResult_Success = 0,
+  LoginResponse_LoginResult_Failure = 1,
+  LoginResponse_LoginResult_DuplicateContext = 2,
+  LoginResponse_LoginResult_DuplicateAccount = 3,
+  LoginResponse_LoginResult_LoginResponse_LoginResult_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
-  LoginResponse_Result_LoginResponse_Result_INT_MAX_SENTINEL_DO_NOT_USE_ =
+  LoginResponse_LoginResult_LoginResponse_LoginResult_INT_MAX_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::max(),
 };
 
-bool LoginResponse_Result_IsValid(int value);
-extern const uint32_t LoginResponse_Result_internal_data_[];
-constexpr LoginResponse_Result LoginResponse_Result_Result_MIN = static_cast<LoginResponse_Result>(0);
-constexpr LoginResponse_Result LoginResponse_Result_Result_MAX = static_cast<LoginResponse_Result>(3);
-constexpr int LoginResponse_Result_Result_ARRAYSIZE = 3 + 1;
-const std::string& LoginResponse_Result_Name(LoginResponse_Result value);
+bool LoginResponse_LoginResult_IsValid(int value);
+extern const uint32_t LoginResponse_LoginResult_internal_data_[];
+constexpr LoginResponse_LoginResult LoginResponse_LoginResult_LoginResult_MIN = static_cast<LoginResponse_LoginResult>(0);
+constexpr LoginResponse_LoginResult LoginResponse_LoginResult_LoginResult_MAX = static_cast<LoginResponse_LoginResult>(3);
+constexpr int LoginResponse_LoginResult_LoginResult_ARRAYSIZE = 3 + 1;
+const std::string& LoginResponse_LoginResult_Name(LoginResponse_LoginResult value);
 template <typename T>
-const std::string& LoginResponse_Result_Name(T value) {
-  static_assert(std::is_same<T, LoginResponse_Result>::value ||
+const std::string& LoginResponse_LoginResult_Name(T value) {
+  static_assert(std::is_same<T, LoginResponse_LoginResult>::value ||
                     std::is_integral<T>::value,
-                "Incorrect type passed to Result_Name().");
-  return LoginResponse_Result_Name(static_cast<LoginResponse_Result>(value));
+                "Incorrect type passed to LoginResult_Name().");
+  return LoginResponse_LoginResult_Name(static_cast<LoginResponse_LoginResult>(value));
 }
-bool LoginResponse_Result_Parse(absl::string_view name, LoginResponse_Result* value);
+bool LoginResponse_LoginResult_Parse(absl::string_view name, LoginResponse_LoginResult* value);
 
 // ===================================================================
 
@@ -367,37 +367,37 @@ class LoginResponse final : public ::google::protobuf::MessageLite
 
  public:
   // nested types ----------------------------------------------------
-  using Result = LoginResponse_Result;
-  static constexpr Result Success = LoginResponse_Result_Success;
-  static constexpr Result Failure = LoginResponse_Result_Failure;
-  static constexpr Result DuplicateContext = LoginResponse_Result_DuplicateContext;
-  static constexpr Result DuplicateAccount = LoginResponse_Result_DuplicateAccount;
-  static inline bool Result_IsValid(int value) {
-    return LoginResponse_Result_IsValid(value);
+  using LoginResult = LoginResponse_LoginResult;
+  static constexpr LoginResult Success = LoginResponse_LoginResult_Success;
+  static constexpr LoginResult Failure = LoginResponse_LoginResult_Failure;
+  static constexpr LoginResult DuplicateContext = LoginResponse_LoginResult_DuplicateContext;
+  static constexpr LoginResult DuplicateAccount = LoginResponse_LoginResult_DuplicateAccount;
+  static inline bool LoginResult_IsValid(int value) {
+    return LoginResponse_LoginResult_IsValid(value);
   }
-  static constexpr Result Result_MIN = LoginResponse_Result_Result_MIN;
-  static constexpr Result Result_MAX = LoginResponse_Result_Result_MAX;
-  static constexpr int Result_ARRAYSIZE = LoginResponse_Result_Result_ARRAYSIZE;
+  static constexpr LoginResult LoginResult_MIN = LoginResponse_LoginResult_LoginResult_MIN;
+  static constexpr LoginResult LoginResult_MAX = LoginResponse_LoginResult_LoginResult_MAX;
+  static constexpr int LoginResult_ARRAYSIZE = LoginResponse_LoginResult_LoginResult_ARRAYSIZE;
   template <typename T>
-  static inline const std::string& Result_Name(T value) {
-    return LoginResponse_Result_Name(value);
+  static inline const std::string& LoginResult_Name(T value) {
+    return LoginResponse_LoginResult_Name(value);
   }
-  static inline bool Result_Parse(absl::string_view name, Result* value) {
-    return LoginResponse_Result_Parse(name, value);
+  static inline bool LoginResult_Parse(absl::string_view name, LoginResult* value) {
+    return LoginResponse_LoginResult_Parse(name, value);
   }
 
   // accessors -------------------------------------------------------
   enum : int {
     kResultFieldNumber = 1,
   };
-  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  // .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
   void clear_result() ;
-  ::RatkiniaProtocol::LoginResponse_Result result() const;
-  void set_result(::RatkiniaProtocol::LoginResponse_Result value);
+  ::RatkiniaProtocol::LoginResponse_LoginResult result() const;
+  void set_result(::RatkiniaProtocol::LoginResponse_LoginResult value);
 
   private:
-  ::RatkiniaProtocol::LoginResponse_Result _internal_result() const;
-  void _internal_set_result(::RatkiniaProtocol::LoginResponse_Result value);
+  ::RatkiniaProtocol::LoginResponse_LoginResult _internal_result() const;
+  void _internal_set_result(::RatkiniaProtocol::LoginResponse_LoginResult value);
 
   public:
   // @@protoc_insertion_point(class_scope:RatkiniaProtocol.LoginResponse)
@@ -450,24 +450,24 @@ class LoginResponse final : public ::google::protobuf::MessageLite
 
 // LoginResponse
 
-// .RatkiniaProtocol.LoginResponse.Result result = 1;
+// .RatkiniaProtocol.LoginResponse.LoginResult result = 1;
 inline void LoginResponse::clear_result() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.result_ = 0;
 }
-inline ::RatkiniaProtocol::LoginResponse_Result LoginResponse::result() const {
+inline ::RatkiniaProtocol::LoginResponse_LoginResult LoginResponse::result() const {
   // @@protoc_insertion_point(field_get:RatkiniaProtocol.LoginResponse.result)
   return _internal_result();
 }
-inline void LoginResponse::set_result(::RatkiniaProtocol::LoginResponse_Result value) {
+inline void LoginResponse::set_result(::RatkiniaProtocol::LoginResponse_LoginResult value) {
   _internal_set_result(value);
   // @@protoc_insertion_point(field_set:RatkiniaProtocol.LoginResponse.result)
 }
-inline ::RatkiniaProtocol::LoginResponse_Result LoginResponse::_internal_result() const {
+inline ::RatkiniaProtocol::LoginResponse_LoginResult LoginResponse::_internal_result() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return static_cast<::RatkiniaProtocol::LoginResponse_Result>(_impl_.result_);
+  return static_cast<::RatkiniaProtocol::LoginResponse_LoginResult>(_impl_.result_);
 }
-inline void LoginResponse::_internal_set_result(::RatkiniaProtocol::LoginResponse_Result value) {
+inline void LoginResponse::_internal_set_result(::RatkiniaProtocol::LoginResponse_LoginResult value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.result_ = value;
 }
@@ -560,7 +560,7 @@ namespace google {
 namespace protobuf {
 
 template <>
-struct is_proto_enum<::RatkiniaProtocol::LoginResponse_Result> : std::true_type {};
+struct is_proto_enum<::RatkiniaProtocol::LoginResponse_LoginResult> : std::true_type {};
 
 }  // namespace protobuf
 }  // namespace google

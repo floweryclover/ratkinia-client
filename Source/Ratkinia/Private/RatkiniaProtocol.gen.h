@@ -1,4 +1,4 @@
-// Auto-generated from all.desc.
+// Auto-generated from Ratkinia Protocol Generator.
 
 #ifndef RATKINIA_PROTOCOL_H
 #define RATKINIA_PROTOCOL_H
@@ -9,12 +9,12 @@ namespace RatkiniaProtocol
 {
     struct MessageHeader final
     {
-        uint16_t MessageType;
-        uint16_t BodyLength;
+        uint16 MessageType;
+        uint16 BodySize;
     };
 
-    constexpr size_t MessageMaxSize = 1024 + sizeof(MessageHeader);
-    constexpr size_t MessageHeaderSize = sizeof(MessageHeader);
+    constexpr SIZE_T MessageMaxSize = 1024 + sizeof(MessageHeader);
+    constexpr SIZE_T MessageHeaderSize = sizeof(MessageHeader);
 
     enum class CtsMessageType : uint16_t
     {

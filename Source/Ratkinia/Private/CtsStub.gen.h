@@ -1,4 +1,4 @@
-// Auto-generated from all.desc.
+// Auto-generated from Ratkinia Protocol Generator.
 
 #ifndef CTSSTUB_GEN_H
 #define CTSSTUB_GEN_H
@@ -14,49 +14,48 @@ namespace RatkiniaProtocol
     public:
         virtual ~CtsStub() = default;
 
-        virtual void OnUnknownMessageType(uint32_t context, CtsMessageType messageType) = 0;
+        virtual void OnUnknownMessageType(CtsMessageType MessageType) = 0;
 
-        virtual void OnParseMessageFailed(uint32_t context, CtsMessageType messageType) = 0;
+        virtual void OnParseMessageFailed(CtsMessageType MessageType) = 0;
 
-        virtual void OnUnhandledMessageType(uint32_t context, CtsMessageType messageType) = 0;
+        virtual void OnUnhandledMessageType(CtsMessageType MessageType) = 0;
 
-        virtual void OnLoginRequest(uint32_t context, const std::string& id, const std::string& password) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, CtsMessageType::LoginRequest); }
+        virtual void OnLoginRequest(FString Id, FString Password) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(CtsMessageType::LoginRequest); }
 
-        virtual void OnRegisterRequest(uint32_t context, const std::string& id, const std::string& password) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, CtsMessageType::RegisterRequest); }
+        virtual void OnRegisterRequest(FString Id, FString Password) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(CtsMessageType::RegisterRequest); }
 
         void HandleCts(
-            const uint32_t context,
-            const uint16_t messageType,
-            const uint16_t bodySize,
-            const char* const body)
+            const uint16 MessageType,
+            const uint16 BodySize,
+            const char* const Body)
         {
-            switch (static_cast<int32_t>(messageType))
+            switch (static_cast<int32_t>(MessageType))
             {
                 case static_cast<int32_t>(CtsMessageType::LoginRequest):
                 {
                     LoginRequest LoginRequestMessage;
-                    if (!LoginRequestMessage.ParseFromArray(body, bodySize))
+                    if (!LoginRequestMessage.ParseFromArray(Body, BodySize))
                     {
-                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(context, static_cast<CtsMessageType>(messageType));
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<CtsMessageType>(MessageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnLoginRequest(context, LoginRequestMessage.id(), LoginRequestMessage.password());
+                    static_cast<TDerivedStub*>(this)->OnLoginRequest(FString{UTF8_TO_TCHAR(LoginRequestMessage.id().c_str())}, FString{UTF8_TO_TCHAR(LoginRequestMessage.password().c_str())});
                     return;
                 }
                 case static_cast<int32_t>(CtsMessageType::RegisterRequest):
                 {
                     RegisterRequest RegisterRequestMessage;
-                    if (!RegisterRequestMessage.ParseFromArray(body, bodySize))
+                    if (!RegisterRequestMessage.ParseFromArray(Body, BodySize))
                     {
-                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(context, static_cast<CtsMessageType>(messageType));
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<CtsMessageType>(MessageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnRegisterRequest(context, RegisterRequestMessage.id(), RegisterRequestMessage.password());
+                    static_cast<TDerivedStub*>(this)->OnRegisterRequest(FString{UTF8_TO_TCHAR(RegisterRequestMessage.id().c_str())}, FString{UTF8_TO_TCHAR(RegisterRequestMessage.password().c_str())});
                     return;
                 }
                 default:
                 {
-                    static_cast<TDerivedStub*>(this)->OnUnknownMessageType(context, static_cast<CtsMessageType>(messageType));
+                    static_cast<TDerivedStub*>(this)->OnUnknownMessageType(static_cast<CtsMessageType>(MessageType));
                     return;
                 }
             }

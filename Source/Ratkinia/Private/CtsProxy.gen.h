@@ -12,20 +12,20 @@ namespace RatkiniaProtocol
     class CtsProxy
     {
     public:
-        void LoginRequest(const uint32_t context, const std::string& id, const std::string& password)
+        void LoginRequest(const FString& Id, const FString& Password)
         {
             class LoginRequest LoginRequestMessage;
-            LoginRequestMessage.set_id(id);
-            LoginRequestMessage.set_password(password);
-            static_cast<TDerivedProxy*>(this)->WriteMessage(context, CtsMessageType::LoginRequest, LoginRequestMessage);
+            LoginRequestMessage.set_id(std::string{TCHAR_TO_UTF8(*Id)});
+            LoginRequestMessage.set_password(std::string{TCHAR_TO_UTF8(*Password)});
+            static_cast<TDerivedProxy*>(this)->WriteMessage(CtsMessageType::LoginRequest, LoginRequestMessage);
         }
 
-        void RegisterRequest(const uint32_t context, const std::string& id, const std::string& password)
+        void RegisterRequest(const FString& Id, const FString& Password)
         {
             class RegisterRequest RegisterRequestMessage;
-            RegisterRequestMessage.set_id(id);
-            RegisterRequestMessage.set_password(password);
-            static_cast<TDerivedProxy*>(this)->WriteMessage(context, CtsMessageType::RegisterRequest, RegisterRequestMessage);
+            RegisterRequestMessage.set_id(std::string{TCHAR_TO_UTF8(*Id)});
+            RegisterRequestMessage.set_password(std::string{TCHAR_TO_UTF8(*Password)});
+            static_cast<TDerivedProxy*>(this)->WriteMessage(CtsMessageType::RegisterRequest, RegisterRequestMessage);
         }
     };
 }

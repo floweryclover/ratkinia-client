@@ -45,51 +45,51 @@ void ALoginGameMode::Tick(const float DeltaSeconds)
 
 	while (const TOptional<FMessagePeekResult> Message = RatkiniaClient->TryPeekMessage())
 	{
-		HandleStc(0, Message->MessageType, Message->BodySize, Message->Body);
+		HandleStc(Message->MessageType, Message->BodySize, Message->Body);
 		RatkiniaClient->PopMessage(*Message);
 	}
 }
 
-void ALoginGameMode::OnUnknownMessageType(const uint32_t context, const StcMessageType messageType)
+void ALoginGameMode::OnUnknownMessageType(const StcMessageType MessageType)
 {
 	FString Message{TEXT("서버로부터 알 수 없는 메시지를 수신하였습니다: ")};
-	Message.AppendInt(static_cast<int>(messageType));
+	Message.AppendInt(static_cast<int>(MessageType));
 	Message.Append(TEXT(". 연결을 종료합니다."));
 	PopupMessageBoxWidget(FText::FromString(Message));
 	
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnParseMessageFailed(const uint32_t context, const StcMessageType messageType)
+void ALoginGameMode::OnParseMessageFailed(const StcMessageType MessageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지 해석에 실패하였습니다. 메시지 번호: ")};
-	Message.AppendInt(static_cast<int>(messageType));
+	Message.AppendInt(static_cast<int>(MessageType));
 	Message.Append(TEXT(". 연결을 종료합니다."));
 
 	PopupMessageBoxWidget(FText::FromString(Message));
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnUnhandledMessageType(const uint32_t context, const StcMessageType messageType)
+void ALoginGameMode::OnUnhandledMessageType(const StcMessageType MessageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지를 처리하지 못했습니다. 메시지 번호: ")};
-	Message.AppendInt(static_cast<int>(messageType));
+	Message.AppendInt(static_cast<int>(MessageType));
 	Message.Append(TEXT(". 연결을 종료합니다."));
 
 	PopupMessageBoxWidget(FText::FromString(Message));
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnLoginResponse(const uint32_t context, const LoginResponse_Result result)
+void ALoginGameMode::OnLoginResponse(const LoginResponse_LoginResult Result)
 {
-	if (result != LoginResponse_Result_Success)
+	if (Result != LoginResponse_LoginResult_Success)
 	{
 		FString Message{TEXT("로그인에 실패하였습니다: ")};
-		if (result == LoginResponse_Result_DuplicateAccount)
+		if (Result == LoginResponse_LoginResult_DuplicateAccount)
 		{
 			Message += TEXT("이미 접속 중인 계정입니다.");
 		}
-		else if (result == LoginResponse_Result_DuplicateContext)
+		else if (Result == LoginResponse_LoginResult_DuplicateContext)
 		{
 			Message += TEXT("해당 PC에서 중복 접속이 감지되었습니다.");
 		}
@@ -106,13 +106,12 @@ void ALoginGameMode::OnLoginResponse(const uint32_t context, const LoginResponse
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnRegisterResponse(const uint32_t context,
-                                        const bool successful,
-                                        const std::string& failed_reason)
+void ALoginGameMode::OnRegisterResponse(const bool Successful,
+                                        const FString FailedReason)
 {
-	if (!successful)
+	if (!Successful)
 	{
-		PopupMessageBoxWidget(FText::FromString(UTF8_TO_TCHAR(failed_reason.c_str())));
+		PopupMessageBoxWidget(FText::FromString(FailedReason));
 		GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 		return;
 	}
@@ -141,7 +140,7 @@ void ALoginGameMode::RatkiniaLogin(const FText Id, const FText Password)
 		{
 			GetGameInstance()
 			->GetSubsystem<URatkiniaClientSubsystem>()
-			->LoginRequest(0, TCHAR_TO_UTF8(*Id.ToString()), TCHAR_TO_UTF8(*Password.ToString()));
+			->LoginRequest(TCHAR_TO_UTF8(*Id.ToString()), TCHAR_TO_UTF8(*Password.ToString()));
 		};
 }
 
@@ -160,7 +159,7 @@ void ALoginGameMode::RatkiniaRegister(const FText Id, const FText Password, cons
 		{
 			GetGameInstance()
 			->GetSubsystem<URatkiniaClientSubsystem>()
-			->RegisterRequest(0, TCHAR_TO_UTF8(*Id.ToString()), 
+			->RegisterRequest(TCHAR_TO_UTF8(*Id.ToString()), 
 			TCHAR_TO_UTF8(*Password.ToString()));
 		};
 }
