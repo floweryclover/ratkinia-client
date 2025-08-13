@@ -31,9 +31,9 @@ public:
 	
 	virtual void OnUnhandledMessageType(uint32_t context, RatkiniaProtocol::StcMessageType messageType) override;
 
-	virtual void OnLoginResponse(uint32_t context, const bool successful) override;
+	virtual void OnLoginResponse(uint32_t context, RatkiniaProtocol::LoginResponse_Result result) override;
 
-	virtual void OnRegisterResponse(uint32_t context, const bool successful, const std::string& failed_reason) override;
+	virtual void OnRegisterResponse(uint32_t context, bool successful, const std::string& failed_reason) override;
 	
 protected:
 	virtual void BeginPlay() override;

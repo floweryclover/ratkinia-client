@@ -26,6 +26,7 @@
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
+#include "google/protobuf/generated_enum_util.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -59,6 +60,31 @@ namespace protobuf {
 }  // namespace google
 
 namespace RatkiniaProtocol {
+enum LoginResponse_Result : int {
+  LoginResponse_Result_Success = 0,
+  LoginResponse_Result_Failure = 1,
+  LoginResponse_Result_DuplicateContext = 2,
+  LoginResponse_Result_DuplicateAccount = 3,
+  LoginResponse_Result_LoginResponse_Result_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  LoginResponse_Result_LoginResponse_Result_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool LoginResponse_Result_IsValid(int value);
+extern const uint32_t LoginResponse_Result_internal_data_[];
+constexpr LoginResponse_Result LoginResponse_Result_Result_MIN = static_cast<LoginResponse_Result>(0);
+constexpr LoginResponse_Result LoginResponse_Result_Result_MAX = static_cast<LoginResponse_Result>(3);
+constexpr int LoginResponse_Result_Result_ARRAYSIZE = 3 + 1;
+const std::string& LoginResponse_Result_Name(LoginResponse_Result value);
+template <typename T>
+const std::string& LoginResponse_Result_Name(T value) {
+  static_assert(std::is_same<T, LoginResponse_Result>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to Result_Name().");
+  return LoginResponse_Result_Name(static_cast<LoginResponse_Result>(value));
+}
+bool LoginResponse_Result_Parse(absl::string_view name, LoginResponse_Result* value);
 
 // ===================================================================
 
@@ -341,19 +367,37 @@ class LoginResponse final : public ::google::protobuf::MessageLite
 
  public:
   // nested types ----------------------------------------------------
+  using Result = LoginResponse_Result;
+  static constexpr Result Success = LoginResponse_Result_Success;
+  static constexpr Result Failure = LoginResponse_Result_Failure;
+  static constexpr Result DuplicateContext = LoginResponse_Result_DuplicateContext;
+  static constexpr Result DuplicateAccount = LoginResponse_Result_DuplicateAccount;
+  static inline bool Result_IsValid(int value) {
+    return LoginResponse_Result_IsValid(value);
+  }
+  static constexpr Result Result_MIN = LoginResponse_Result_Result_MIN;
+  static constexpr Result Result_MAX = LoginResponse_Result_Result_MAX;
+  static constexpr int Result_ARRAYSIZE = LoginResponse_Result_Result_ARRAYSIZE;
+  template <typename T>
+  static inline const std::string& Result_Name(T value) {
+    return LoginResponse_Result_Name(value);
+  }
+  static inline bool Result_Parse(absl::string_view name, Result* value) {
+    return LoginResponse_Result_Parse(name, value);
+  }
 
   // accessors -------------------------------------------------------
   enum : int {
-    kSuccessfulFieldNumber = 1,
+    kResultFieldNumber = 1,
   };
-  // bool successful = 1;
-  void clear_successful() ;
-  bool successful() const;
-  void set_successful(bool value);
+  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  void clear_result() ;
+  ::RatkiniaProtocol::LoginResponse_Result result() const;
+  void set_result(::RatkiniaProtocol::LoginResponse_Result value);
 
   private:
-  bool _internal_successful() const;
-  void _internal_set_successful(bool value);
+  ::RatkiniaProtocol::LoginResponse_Result _internal_result() const;
+  void _internal_set_result(::RatkiniaProtocol::LoginResponse_Result value);
 
   public:
   // @@protoc_insertion_point(class_scope:RatkiniaProtocol.LoginResponse)
@@ -382,7 +426,7 @@ class LoginResponse final : public ::google::protobuf::MessageLite
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const LoginResponse& from_msg);
-    bool successful_;
+    int result_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -406,26 +450,26 @@ class LoginResponse final : public ::google::protobuf::MessageLite
 
 // LoginResponse
 
-// bool successful = 1;
-inline void LoginResponse::clear_successful() {
+// .RatkiniaProtocol.LoginResponse.Result result = 1;
+inline void LoginResponse::clear_result() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.successful_ = false;
+  _impl_.result_ = 0;
 }
-inline bool LoginResponse::successful() const {
-  // @@protoc_insertion_point(field_get:RatkiniaProtocol.LoginResponse.successful)
-  return _internal_successful();
+inline ::RatkiniaProtocol::LoginResponse_Result LoginResponse::result() const {
+  // @@protoc_insertion_point(field_get:RatkiniaProtocol.LoginResponse.result)
+  return _internal_result();
 }
-inline void LoginResponse::set_successful(bool value) {
-  _internal_set_successful(value);
-  // @@protoc_insertion_point(field_set:RatkiniaProtocol.LoginResponse.successful)
+inline void LoginResponse::set_result(::RatkiniaProtocol::LoginResponse_Result value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:RatkiniaProtocol.LoginResponse.result)
 }
-inline bool LoginResponse::_internal_successful() const {
+inline ::RatkiniaProtocol::LoginResponse_Result LoginResponse::_internal_result() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.successful_;
+  return static_cast<::RatkiniaProtocol::LoginResponse_Result>(_impl_.result_);
 }
-inline void LoginResponse::_internal_set_successful(bool value) {
+inline void LoginResponse::_internal_set_result(::RatkiniaProtocol::LoginResponse_Result value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.successful_ = value;
+  _impl_.result_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -511,6 +555,15 @@ inline void RegisterResponse::set_allocated_failed_reason(std::string* value) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace RatkiniaProtocol
 
+
+namespace google {
+namespace protobuf {
+
+template <>
+struct is_proto_enum<::RatkiniaProtocol::LoginResponse_Result> : std::true_type {};
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

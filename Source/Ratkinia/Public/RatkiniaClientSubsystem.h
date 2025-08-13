@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CtsProxy.gen.h"
-#include "ScopedNetworkMessage.h"
 #include "NetworkWorker.h"
 
 #include "CoreMinimal.h"
@@ -46,25 +45,35 @@ public:
 	template <typename TMessage>
 	void WriteMessage(const uint64_t, const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
 	{
-		if (!NetworkWorker.IsValid())
+		if (!NetworkWorker)
 		{
 			return;
 		}
-
+		
 		NetworkWorker->Send(Message, MessageType);
 	}
 
-	FORCEINLINE TOptional<TScopedNetworkMessage<FNetworkWorker>> TryPopMessage()
+	TOptional<FMessagePeekResult> TryPeekMessage()
 	{
-		if (!NetworkWorker.IsValid())
+		if (!NetworkWorker)
 		{
 			return NullOpt;
 		}
-
-		return NetworkWorker->TryPopMessage();
+		
+		return NetworkWorker->TryPeekMessage();
 	}
 
-	FORCEINLINE ERatkiniaConnectionState GetConnectionState() const
+	void PopMessage(const FMessagePeekResult& PeekResult)
+	{
+		if (!NetworkWorker)
+		{
+			return;
+		}
+		
+		NetworkWorker->Pop(PeekResult);
+	}
+
+	ERatkiniaConnectionState GetConnectionState() const
 	{
 		if (!NetworkWorker.IsValid())
 		{
@@ -74,7 +83,7 @@ public:
 		return NetworkWorker->GetConnectionState();
 	}
 
-	FString GetDisconnectedReason() const;
+	const FString& GetDisconnectedReason() const;
 
 private:
 	FString DisconnectedReason;

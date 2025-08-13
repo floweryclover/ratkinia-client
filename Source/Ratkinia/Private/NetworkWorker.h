@@ -1,25 +1,30 @@
 ﻿#pragma once
 
 #include "RatkiniaProtocol.gen.h"
-#include "ScopedNetworkMessage.h"
+
 namespace OpenSSL
 {
-#include "openssl/ssl.h"
+	typedef struct ssl_ctx_st SSL_CTX;
+	typedef struct ssl_st SSL;
 }
-#include <WinSock2.h>
-#include <mutex>
-#include <format>
+
+typedef UINT_PTR SOCKET;
 
 struct FRatkiniaClientInitResult
 {
 	SOCKET Socket;
 	OpenSSL::SSL_CTX* SslCtx;
 	OpenSSL::SSL* Ssl;
-	SOCKADDR_IN ServerAddrIn;
-	std::string FailedReason;
+	TStaticArray<char, 16> ServerAddrIn;
+	FString FailedReason;
 };
 
-FRatkiniaClientInitResult Initialize(const char* ServerAddress, uint16_t ServerPort);
+inline uint16 Htons(const uint16 value)
+{
+	return ((value & 0xFF00) >> 8) | ((value & 0x00FF) << 8);
+}
+
+FRatkiniaClientInitResult Initialize(const FString& ServerAddress, uint16 ServerPort);
 
 enum class ERatkiniaConnectionState : uint8_t
 {
@@ -29,32 +34,31 @@ enum class ERatkiniaConnectionState : uint8_t
 	Disconnected
 };
 
-std::string InterpretWsaErrorCodeIfWellKnown(int errorCode);
+struct FMessagePeekResult final
+{
+	uint16 MessageType;
+	uint16 BodySize;
+	const char* Body;
+};
 
-class alignas(64) FNetworkWorker final
+FString InterpretWsaErrorCodeIfWellKnown(int32 ErrorCode);
+
+class alignas(64) FNetworkWorker final : public FRunnable
 {
 public:
-	static constexpr size_t BufferCapacity{65536};
+	static constexpr size_t BufferCapacity = 65536;
 
 	explicit FNetworkWorker(const FString& ServerAddress, const uint16 ServerPort);
 
-	~FNetworkWorker();
+	virtual ~FNetworkWorker() override;
 
-	const std::string& GetDisconnectedReason();
+	const FString& GetDisconnectedReason();
 	
-	void Disconnect(std::string Reason);
+	void Disconnect(FString Reason);
 	
 	FORCEINLINE ERatkiniaConnectionState GetConnectionState()
 	{
 		return ConnectionState.load(std::memory_order_relaxed);
-	}
-
-	FORCEINLINE void ReleaseScopedNetworkMessage(const TScopedNetworkMessage<FNetworkWorker>& message)
-	{
-		ReceiveBufferHead.store(
-			(ReceiveBufferHead.load(std::memory_order_acquire) + RatkiniaProtocol::MessageHeaderSize + message.
-				GetBodySize()) % BufferCapacity,
-			std::memory_order_release);
 	}
 	
 	template <typename TMessage>
@@ -68,7 +72,7 @@ public:
 		const size_t MessageTotalSize = MessageBodySize + MessageHeaderSize;
 		if (MessageTotalSize > MessageMaxSize)
 		{
-			Disconnect(std::format("메시지 크기가 허용 범위를 초과했습니다: {}/{}.", MessageTotalSize, MessageMaxSize));
+			Disconnect(FString::Printf(TEXT("메시지 크기가 허용 범위를 초과했습니다: %llu/%llu."), MessageTotalSize, MessageMaxSize));
 			return;
 		}
 
@@ -84,22 +88,22 @@ public:
 		if (const size_t SendBufferAvailableSize = BufferCapacity - SendBufferSize - 1;
 			SendBufferAvailableSize < MessageTotalSize)
 		{
-			Disconnect(std::format("송신 버퍼에 여유 공간이 없습니다: SendBuffer: {}/{}, MessageTotalSize: {}.", SendBufferAvailableSize, BufferCapacity-1, MessageTotalSize));
+			Disconnect(FString::Printf(TEXT("송신 버퍼에 여유 공간이 없습니다: SendBuffer: %llu/%llu, MessageTotalSize: %llu."), SendBufferAvailableSize, BufferCapacity-1, MessageTotalSize));
 			return;
 		}
 
 		const MessageHeader Header
 		{
-			htons(static_cast<uint16_t>(MessageType)),
-			htons(MessageBodySize)
+			Htons(static_cast<uint16_t>(MessageType)),
+			Htons(MessageBodySize)
 		};
 
 		const size_t PrimaryHeaderSize = std::min<
 			size_t>(MessageHeaderSize, BufferCapacity - LoadedSendBufferTail);
 		const size_t SecondaryHeaderSize = MessageHeaderSize - PrimaryHeaderSize;
 
-		memcpy(SendBuffer.get() + LoadedSendBufferTail, &Header, PrimaryHeaderSize);
-		memcpy(SendBuffer.get(), reinterpret_cast<const char*>(&Header) + PrimaryHeaderSize, SecondaryHeaderSize);
+		memcpy(SendBuffer.Get() + LoadedSendBufferTail, &Header, PrimaryHeaderSize);
+		memcpy(SendBuffer.Get(), reinterpret_cast<const char*>(&Header) + PrimaryHeaderSize, SecondaryHeaderSize);
 
 		const size_t TailAfterHeader = (LoadedSendBufferTail + MessageHeaderSize) % BufferCapacity;
 		const size_t PrimaryBodySize = std::min<size_t>(MessageBodySize, BufferCapacity - TailAfterHeader);
@@ -107,43 +111,51 @@ public:
 
 		if (PrimaryBodySize == MessageBodySize)
 		{
-			Message.SerializeToArray(SendBuffer.get() + TailAfterHeader, MessageBodySize);
+			Message.SerializeToArray(SendBuffer.Get() + TailAfterHeader, MessageBodySize);
 		}
 		else
 		{
-			Message.SerializeToArray(SendContiguousPushBuffer.get(), MessageTotalSize);
-			memcpy(SendBuffer.get() + TailAfterHeader, SendContiguousPushBuffer.get(), PrimaryBodySize);
-			memcpy(SendBuffer.get(), SendContiguousPushBuffer.get() + PrimaryBodySize, SecondaryBodySize);
+			Message.SerializeToArray(SendContiguousPushBuffer.Get(), MessageTotalSize);
+			memcpy(SendBuffer.Get() + TailAfterHeader, SendContiguousPushBuffer.Get(), PrimaryBodySize);
+			memcpy(SendBuffer.Get(), SendContiguousPushBuffer.Get() + PrimaryBodySize, SecondaryBodySize);
 		}
 
 		SendBufferTail.store((LoadedSendBufferTail + MessageTotalSize) % BufferCapacity, std::memory_order_release);
 	}
 
-	TOptional<TScopedNetworkMessage<FNetworkWorker>> TryPopMessage();
+	TOptional<FMessagePeekResult> TryPeekMessage();
+
+	void Pop(const FMessagePeekResult& Result)
+	{
+		ReceiveBufferHead.store(
+			(ReceiveBufferHead.load(std::memory_order_acquire) + RatkiniaProtocol::MessageHeaderSize + Result.BodySize) % BufferCapacity,
+			std::memory_order_release);
+	}
 
 private:
 	OpenSSL::SSL_CTX* const SslCtx;
 	OpenSSL::SSL* const Ssl;
-	const SOCKET ClientSocket;
-	const SOCKADDR_IN ServerAddrIn;
+	const SOCKET Socket;
+	TStaticArray<char, 16> ServerAddrIn;
 	
-	std::thread IoThread;
+	FRunnableThread* IoThread;
 	std::atomic<ERatkiniaConnectionState> ConnectionState;
 
-	std::mutex DisconnectedReasonMutex;
-	std::string DisconnectedReason;
+	FCriticalSection DisconnectedReasonMutex;
+	FString DisconnectedReason;
 	
-	alignas(64) const std::unique_ptr<char[]> SendBuffer;
-	alignas(64) const std::unique_ptr<char[]> SendContiguousPushBuffer;
+	alignas(64) const TUniquePtr<char[]> SendBuffer;
+	alignas(64) const TUniquePtr<char[]> SendContiguousPushBuffer;
 	alignas(64) std::atomic<size_t> SendBufferHead;
 	alignas(64) std::atomic<size_t> SendBufferTail; // Exclusive
 	
-	alignas(64) const std::unique_ptr<char[]> ReceiveBuffer;
-	alignas(64) const std::unique_ptr<char[]> ReceiveContiguousPopBuffer;
+	alignas(64) const TUniquePtr<char[]> ReceiveBuffer;
+	alignas(64) const TUniquePtr<char[]> ReceiveContiguousPopBuffer;
 	alignas(64) std::atomic<size_t> ReceiveBufferHead;
 	alignas(64) std::atomic<size_t> ReceiveBufferTail; // Exclusive
 
 	explicit FNetworkWorker(const FRatkiniaClientInitResult& InitResult);
-	
-	void IoThreadBody();
+
+public:
+	virtual uint32 Run() override;
 };

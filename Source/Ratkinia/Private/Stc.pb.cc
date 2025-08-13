@@ -46,7 +46,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr LoginResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : successful_{false},
+      : result_{static_cast< ::RatkiniaProtocol::LoginResponse_Result >(0)},
         _cached_size_{0} {}
 
 template <typename>
@@ -64,6 +64,72 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
 }  // namespace RatkiniaProtocol
 namespace RatkiniaProtocol {
+PROTOBUF_CONSTINIT const uint32_t LoginResponse_Result_internal_data_[] = {
+    262144u, 0u, };
+bool LoginResponse_Result_IsValid(int value) {
+  return 0 <= value && value <= 3;
+}
+static ::google::protobuf::internal::ExplicitlyConstructed<std::string>
+    LoginResponse_Result_strings[4] = {};
+
+static const char LoginResponse_Result_names[] = {
+    "DuplicateAccount"
+    "DuplicateContext"
+    "Failure"
+    "Success"
+};
+
+static const ::google::protobuf::internal::EnumEntry LoginResponse_Result_entries[] =
+    {
+        {{&LoginResponse_Result_names[0], 16}, 3},
+        {{&LoginResponse_Result_names[16], 16}, 2},
+        {{&LoginResponse_Result_names[32], 7}, 1},
+        {{&LoginResponse_Result_names[39], 7}, 0},
+};
+
+static const int LoginResponse_Result_entries_by_number[] = {
+    3,  // 0 -> Success
+    2,  // 1 -> Failure
+    1,  // 2 -> DuplicateContext
+    0,  // 3 -> DuplicateAccount
+};
+
+const std::string& LoginResponse_Result_Name(LoginResponse_Result value) {
+  static const bool kDummy =
+      ::google::protobuf::internal::InitializeEnumStrings(
+          LoginResponse_Result_entries, LoginResponse_Result_entries_by_number,
+          4, LoginResponse_Result_strings);
+  (void)kDummy;
+
+  int idx = ::google::protobuf::internal::LookUpEnumName(
+      LoginResponse_Result_entries, LoginResponse_Result_entries_by_number, 4,
+      value);
+  return idx == -1 ? ::google::protobuf::internal::GetEmptyString()
+                   : LoginResponse_Result_strings[idx].get();
+}
+
+bool LoginResponse_Result_Parse(absl::string_view name, LoginResponse_Result* value) {
+  int int_value;
+  bool success = ::google::protobuf::internal::LookUpEnumValue(
+      LoginResponse_Result_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<LoginResponse_Result>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+constexpr LoginResponse_Result LoginResponse::Success;
+constexpr LoginResponse_Result LoginResponse::Failure;
+constexpr LoginResponse_Result LoginResponse::DuplicateContext;
+constexpr LoginResponse_Result LoginResponse::DuplicateAccount;
+constexpr LoginResponse_Result LoginResponse::Result_MIN;
+constexpr LoginResponse_Result LoginResponse::Result_MAX;
+constexpr int LoginResponse::Result_ARRAYSIZE;
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class LoginResponse::_Internal {
@@ -87,7 +153,7 @@ inline PROTOBUF_NDEBUG_INLINE LoginResponse::Impl_::Impl_(
 
 inline void LoginResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.successful_ = {};
+  _impl_.result_ = {};
 }
 LoginResponse::~LoginResponse() {
   // @@protoc_insertion_point(destructor:RatkiniaProtocol.LoginResponse)
@@ -134,15 +200,15 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> LoginResponse::_table_ = {
     ::_pbi::TcParser::GetTable<::RatkiniaProtocol::LoginResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // bool successful = 1;
-    {::_pbi::TcParser::FastV8S1,
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.successful_)}},
+    // .RatkiniaProtocol.LoginResponse.Result result = 1;
+    {::_pbi::TcParser::FastV32S1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.result_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // bool successful = 1;
-    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.successful_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+    // .RatkiniaProtocol.LoginResponse.Result result = 1;
+    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.result_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
   }},
   // no aux_entries
   {{
@@ -156,7 +222,7 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.successful_ = false;
+  _impl_.result_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -167,11 +233,11 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // bool successful = 1;
-  if (this->_internal_successful() != 0) {
+  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        1, this->_internal_successful(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -191,9 +257,10 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool successful = 1;
-  if (this->_internal_successful() != 0) {
-    total_size += 2;
+  // .RatkiniaProtocol.LoginResponse.Result result = 1;
+  if (this->_internal_result() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -216,8 +283,8 @@ void LoginResponse::MergeFrom(const LoginResponse& from) {
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_successful() != 0) {
-    _this->_impl_.successful_ = from._impl_.successful_;
+  if (from._internal_result() != 0) {
+    _this->_impl_.result_ = from._impl_.result_;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -233,7 +300,7 @@ void LoginResponse::CopyFrom(const LoginResponse& from) {
 void LoginResponse::InternalSwap(LoginResponse* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-        swap(_impl_.successful_, other->_impl_.successful_);
+  swap(_impl_.result_, other->_impl_.result_);
 }
 
 // ===================================================================

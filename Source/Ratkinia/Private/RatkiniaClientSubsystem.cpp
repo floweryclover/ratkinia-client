@@ -3,6 +3,9 @@
 
 #include "RatkiniaClientSubsystem.h"
 #include "NetworkWorker.h"
+#include <WinSock2.h>
+
+#include "Sockets.h"
 
 URatkiniaClientSubsystem::URatkiniaClientSubsystem() = default;
 
@@ -32,14 +35,14 @@ void URatkiniaClientSubsystem::Connect(const FString& ServerAddress, const int32
 	NetworkWorker = MakeUnique<FNetworkWorker>(ServerAddress, ServerPort);
 }
 
-FString URatkiniaClientSubsystem::GetDisconnectedReason() const
+const FString& URatkiniaClientSubsystem::GetDisconnectedReason() const
 {
 	if (!NetworkWorker.IsValid())
 	{
-		return {};
+		static const FString EmptyReason;
+		return EmptyReason;
 	}
-	
-	return UTF8_TO_TCHAR(NetworkWorker->GetDisconnectedReason().c_str());
+	return NetworkWorker->GetDisconnectedReason();
 }
 
 void URatkiniaClientSubsystem::ClearSession()

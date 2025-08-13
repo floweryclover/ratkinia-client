@@ -7,6 +7,8 @@
 #include "RegisterWidget.h"
 #include "Blueprint/UserWidget.h"
 
+using namespace RatkiniaProtocol;
+
 ALoginGameMode::ALoginGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -41,13 +43,14 @@ void ALoginGameMode::Tick(const float DeltaSeconds)
 		PostConnectAction = nullptr;
 	}
 
-	while (const TOptional<TScopedNetworkMessage<FNetworkWorker>> Message = RatkiniaClient->TryPopMessage())
+	while (const TOptional<FMessagePeekResult> Message = RatkiniaClient->TryPeekMessage())
 	{
-		HandleStc(0, Message->GetMessageType(), Message->GetBodySize(), Message->GetBody());
+		HandleStc(0, Message->MessageType, Message->BodySize, Message->Body);
+		RatkiniaClient->PopMessage(*Message);
 	}
 }
 
-void ALoginGameMode::OnUnknownMessageType(const uint32_t context, const RatkiniaProtocol::StcMessageType messageType)
+void ALoginGameMode::OnUnknownMessageType(const uint32_t context, const StcMessageType messageType)
 {
 	FString Message{TEXT("서버로부터 알 수 없는 메시지를 수신하였습니다: ")};
 	Message.AppendInt(static_cast<int>(messageType));
@@ -57,7 +60,7 @@ void ALoginGameMode::OnUnknownMessageType(const uint32_t context, const Ratkinia
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnParseMessageFailed(const uint32_t context, const RatkiniaProtocol::StcMessageType messageType)
+void ALoginGameMode::OnParseMessageFailed(const uint32_t context, const StcMessageType messageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지 해석에 실패하였습니다. 메시지 번호: ")};
 	Message.AppendInt(static_cast<int>(messageType));
@@ -67,7 +70,7 @@ void ALoginGameMode::OnParseMessageFailed(const uint32_t context, const Ratkinia
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnUnhandledMessageType(const uint32_t context, const RatkiniaProtocol::StcMessageType messageType)
+void ALoginGameMode::OnUnhandledMessageType(const uint32_t context, const StcMessageType messageType)
 {
 	FString Message{TEXT("서버로부터 수신한 메시지를 처리하지 못했습니다. 메시지 번호: ")};
 	Message.AppendInt(static_cast<int>(messageType));
@@ -77,11 +80,24 @@ void ALoginGameMode::OnUnhandledMessageType(const uint32_t context, const Ratkin
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
-void ALoginGameMode::OnLoginResponse(const uint32_t, const bool successful)
+void ALoginGameMode::OnLoginResponse(const uint32_t context, const LoginResponse_Result result)
 {
-	if (!successful)
+	if (result != LoginResponse_Result_Success)
 	{
-		FString Message{TEXT("로그인에 실패하였습니다.")};
+		FString Message{TEXT("로그인에 실패하였습니다: ")};
+		if (result == LoginResponse_Result_DuplicateAccount)
+		{
+			Message += TEXT("이미 접속 중인 계정입니다.");
+		}
+		else if (result == LoginResponse_Result_DuplicateContext)
+		{
+			Message += TEXT("해당 PC에서 중복 접속이 감지되었습니다.");
+		}
+		else
+		{
+			Message += TEXT("로그인에 실패하였습니다.");	
+		}
+		
 		PopupMessageBoxWidget(FText::FromString(Message));
 		GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 		return;

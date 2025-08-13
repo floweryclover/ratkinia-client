@@ -20,7 +20,7 @@ namespace RatkiniaProtocol
 
         virtual void OnUnhandledMessageType(uint32_t context, StcMessageType messageType) = 0;
 
-        virtual void OnLoginResponse(uint32_t context, const bool successful) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::LoginResponse); }
+        virtual void OnLoginResponse(uint32_t context, const LoginResponse_Result result) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::LoginResponse); }
 
         virtual void OnRegisterResponse(uint32_t context, const bool successful, const std::string& failed_reason) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(context, StcMessageType::RegisterResponse); }
 
@@ -40,7 +40,7 @@ namespace RatkiniaProtocol
                         static_cast<TDerivedStub*>(this)->OnParseMessageFailed(context, static_cast<StcMessageType>(messageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnLoginResponse(context, LoginResponseMessage.successful());
+                    static_cast<TDerivedStub*>(this)->OnLoginResponse(context, LoginResponseMessage.result());
                     return;
                 }
                 case static_cast<int32_t>(StcMessageType::RegisterResponse):
