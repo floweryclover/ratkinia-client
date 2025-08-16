@@ -17,6 +17,9 @@ public class Ratkinia : ModuleRules
 		string ProjectRoot = Path.GetFullPath(Path.Combine(ModuleDirectory, "..", ".."));
 		string ThirdPartyPath = Path.Combine(ProjectRoot, "ThirdParty");
 		
+		string PublicRatkiniaProtocolPath = Path.Combine(ModuleDirectory, "Public", "RatkiniaProtocol");
+		PublicIncludePaths.Add(PublicRatkiniaProtocolPath);
+		
 		string ProtobufPath = Path.Combine(ThirdPartyPath, "Protobuf");
 		string ProtobufIncludePath = Path.Combine(ProtobufPath, "include");
 		string ProtobufLibPath = Path.Combine(ProtobufPath, "lib");		

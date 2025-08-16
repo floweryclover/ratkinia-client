@@ -6,6 +6,7 @@
 #include "LoginWidget.h"
 #include "RegisterWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 using namespace RatkiniaProtocol;
 
@@ -103,7 +104,7 @@ void ALoginGameMode::OnLoginResponse(const LoginResponse_LoginResult Result)
 		return;
 	}
 	PopupMessageBoxWidget(FText::FromString(TEXT("로그인 성공!")));
-	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/Levels/SelectCharacter/SelectCharacter"));
 }
 
 void ALoginGameMode::OnRegisterResponse(const bool Successful,

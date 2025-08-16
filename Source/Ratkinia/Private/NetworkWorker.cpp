@@ -282,7 +282,7 @@ uint32 FNetworkWorker::Run()
 			if (ReadResult <= 0)
 			{
 				const int SslError = OpenSSL::SSL_get_error(Ssl, ReadResult);
-				if (SslError == SSL_ERROR_ZERO_RETURN)
+				if (ReadResult == 0 || SslError == SSL_ERROR_ZERO_RETURN)
 				{
 					Disconnect(TEXT("서버와의 연결이 종료되었습니다."));
 					break;
