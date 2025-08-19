@@ -22,13 +22,18 @@ public:
 	UPROPERTY()
 	FSelectedCharacterWidget_OnCreateCharacterButtonClicked OnCreateCharacterButtonClicked;
 
+	auto ClearCharacters() -> void;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void AddCharacter(int32 Id, const FString& Name);
+	
 protected:
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	TObjectPtr<UVerticalBox> CharacterList;
+	
 	virtual void NativeConstruct() override;
 	
 private:
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UVerticalBox> CharacterList;
-
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UButton> CreateCharacterButton;
 

@@ -1,18 +1,20 @@
-// 2025. 08. 16. 23:45. Ratkinia Protocol Generator에 의해 생성됨.
+//
+// 2025. 08. 19. 21:16. Ratkinia Protocol Generator에 의해 생성됨.
+//
 
-#ifndef STCSTUB_GEN_H
-#define STCSTUB_GEN_H
+#ifndef RATKINIAPROTOCOL_STCSTUB_GEN_H
+#define RATKINIAPROTOCOL_STCSTUB_GEN_H
 
-#include "RatkiniaProtocol.gen.h"
+#include "StcMessageType.gen.h"
 #include "Stc.pb.h"
 
 namespace RatkiniaProtocol 
 {
     template<typename TDerivedStub>
-    class StcStub
+    class TStcStub
     {
     public:
-        virtual ~StcStub() = default;
+        virtual ~TStcStub() = default;
 
         virtual void OnUnknownMessageType(StcMessageType MessageType) = 0;
 
@@ -20,16 +22,31 @@ namespace RatkiniaProtocol
 
         virtual void OnUnhandledMessageType(StcMessageType MessageType) = 0;
 
+        virtual void OnDisconnect(FString Detail) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::Disconnect); }
+
         virtual void OnLoginResponse(LoginResponse_LoginResult Result) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::LoginResponse); }
 
         virtual void OnRegisterResponse(bool bSuccessful, FString FailedReason) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::RegisterResponse); }
 
-        virtual void OnCreateCharacterResponse(CreateCharacterResponse_CreateCharacterResult Successful) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::CreateCharacterResponse); }
+        virtual void OnCreateCharacterResponse(CreateCharacterResponse_CreateCharacterResult Result) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::CreateCharacterResponse); }
+
+        virtual void OnSendMyCharacters(TArrayView<const SendMyCharacters_CharacterLoadData* const> CharacterLoadDatas) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(StcMessageType::SendMyCharacters); }
 
         void HandleStc(const uint16 MessageType, const uint16 BodySize, const char* const Body)
         {
             switch (static_cast<int32_t>(MessageType))
             {
+                case static_cast<int32_t>(StcMessageType::Disconnect):
+                {
+                    Disconnect DisconnectMessage;
+                    if (!DisconnectMessage.ParseFromArray(Body, BodySize))
+                    {
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<StcMessageType>(MessageType));
+                        return;
+                    }
+                    static_cast<TDerivedStub*>(this)->OnDisconnect(FString{UTF8_TO_TCHAR(DisconnectMessage.detail().c_str())});
+                    return;
+                }
                 case static_cast<int32_t>(StcMessageType::LoginResponse):
                 {
                     LoginResponse LoginResponseMessage;
@@ -60,7 +77,18 @@ namespace RatkiniaProtocol
                         static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<StcMessageType>(MessageType));
                         return;
                     }
-                    static_cast<TDerivedStub*>(this)->OnCreateCharacterResponse(CreateCharacterResponseMessage.successful());
+                    static_cast<TDerivedStub*>(this)->OnCreateCharacterResponse(CreateCharacterResponseMessage.result());
+                    return;
+                }
+                case static_cast<int32_t>(StcMessageType::SendMyCharacters):
+                {
+                    SendMyCharacters SendMyCharactersMessage;
+                    if (!SendMyCharactersMessage.ParseFromArray(Body, BodySize))
+                    {
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<StcMessageType>(MessageType));
+                        return;
+                    }
+                    static_cast<TDerivedStub*>(this)->OnSendMyCharacters(TArrayView<const SendMyCharacters_CharacterLoadData* const>{ SendMyCharactersMessage.character_load_datas().data(), SendMyCharactersMessage.character_load_datas().size()});
                     return;
                 }
                 default:

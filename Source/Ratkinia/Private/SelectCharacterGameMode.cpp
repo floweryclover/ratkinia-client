@@ -7,6 +7,8 @@
 #include "RatkiniaClientSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
+using namespace RatkiniaProtocol;
+
 ASelectCharacterGameMode::ASelectCharacterGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -30,26 +32,37 @@ void ASelectCharacterGameMode::Tick(const float DeltaTime)
 	}
 }
 
-void ASelectCharacterGameMode::OnUnknownMessageType(const RatkiniaProtocol::StcMessageType MessageType)
+void ASelectCharacterGameMode::OnUnknownMessageType(const StcMessageType MessageType)
 {
 }
 
-void ASelectCharacterGameMode::OnParseMessageFailed(const RatkiniaProtocol::StcMessageType MessageType)
+void ASelectCharacterGameMode::OnParseMessageFailed(const StcMessageType MessageType)
 {
 }
 
-void ASelectCharacterGameMode::OnUnhandledMessageType(const RatkiniaProtocol::StcMessageType MessageType)
+void ASelectCharacterGameMode::OnUnhandledMessageType(const StcMessageType MessageType)
 {
+}
+
+void ASelectCharacterGameMode::OnSendMyCharacters(const TArrayView<const SendMyCharacters_CharacterLoadData* const> CharacterLoadDatas)
+{
+	SelectCharacterWidget->ClearCharacters();
+	for (const SendMyCharacters_CharacterLoadData* const Data : CharacterLoadDatas)
+	{
+		SelectCharacterWidget->AddCharacter(Data->id(), UTF8_TO_TCHAR(Data->name().c_str()));
+	}
 }
 
 void ASelectCharacterGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	USelectCharacterWidget* const SelectCharacterWidget = CreateWidget<USelectCharacterWidget>(GetWorld(), SelectCharacterWidgetClass);
+	SelectCharacterWidget = CreateWidget<USelectCharacterWidget>(GetWorld(), SelectCharacterWidgetClass);
 	check(IsValid(SelectCharacterWidget));
 	SelectCharacterWidget->OnCreateCharacterButtonClicked.AddDynamic(this, &ASelectCharacterGameMode::OpenCreateCharacterLevel);
 	SelectCharacterWidget->AddToViewport();
+
+	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->LoadMyCharacters();
 }
 
 void ASelectCharacterGameMode::OpenCreateCharacterLevel()

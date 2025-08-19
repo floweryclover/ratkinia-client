@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "RatkiniaProtocol.gen.h"
+#include "CtsMessageType.gen.h"
 
 namespace OpenSSL
 {
@@ -92,7 +93,7 @@ public:
 			return;
 		}
 
-		const MessageHeader Header
+		const FMessageHeader Header
 		{
 			Htons(static_cast<uint16_t>(MessageType)),
 			Htons(MessageBodySize)

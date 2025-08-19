@@ -1,15 +1,17 @@
-// 2025. 08. 16. 23:45. Ratkinia Protocol Generator에 의해 생성됨.
+//
+// 2025. 08. 19. 21:16. Ratkinia Protocol Generator에 의해 생성됨.
+//
 
-#ifndef CTSPROXY_GEN_H
-#define CTSPROXY_GEN_H
+#ifndef RATKINIAPROTOCOL_CTSPROXY_GEN_H
+#define RATKINIAPROTOCOL_CTSPROXY_GEN_H
 
 #include "Cts.pb.h"
-#include "RatkiniaProtocol.gen.h"
+#include "CtsMessageType.gen.h"
 
 namespace RatkiniaProtocol 
 {
     template<typename TDerivedProxy>
-    class CtsProxy
+    class TCtsProxy
     {
     public:
         void LoginRequest(const FString& Account, const FString& Password)
@@ -33,6 +35,12 @@ namespace RatkiniaProtocol
             class CreateCharacter CreateCharacterMessage;
             CreateCharacterMessage.set_name(std::string{TCHAR_TO_UTF8(*Name)});
             static_cast<TDerivedProxy*>(this)->WriteMessage(CtsMessageType::CreateCharacter, CreateCharacterMessage);
+        }
+
+        void LoadMyCharacters()
+        {
+            class LoadMyCharacters LoadMyCharactersMessage;
+            static_cast<TDerivedProxy*>(this)->WriteMessage(CtsMessageType::LoadMyCharacters, LoadMyCharactersMessage);
         }
     };
 }

@@ -13,7 +13,7 @@ class UCreateCharacterWidget;
  * 
  */
 UCLASS()
-class ACreateCharacterGameMode final : public AGameModeBase, public RatkiniaProtocol::StcStub<ACreateCharacterGameMode>
+class ACreateCharacterGameMode final : public AGameModeBase, public RatkiniaProtocol::TStcStub<ACreateCharacterGameMode>
 {
 	GENERATED_BODY()
 

@@ -16,7 +16,7 @@ class UMessageBoxWidget;
  * 
  */
 UCLASS()
-class ALoginGameMode final : public AGameModeBase, public RatkiniaProtocol::StcStub<ALoginGameMode>
+class ALoginGameMode final : public AGameModeBase, public RatkiniaProtocol::TStcStub<ALoginGameMode>
 {
 	GENERATED_BODY()
 	

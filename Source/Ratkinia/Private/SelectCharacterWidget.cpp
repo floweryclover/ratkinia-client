@@ -4,6 +4,12 @@
 #include "SelectCharacterWidget.h"
 
 #include "Components/Button.h"
+#include "Components/VerticalBox.h"
+
+void USelectCharacterWidget::ClearCharacters()
+{
+	CharacterList->ClearChildren();
+}
 
 void USelectCharacterWidget::NativeConstruct()
 {

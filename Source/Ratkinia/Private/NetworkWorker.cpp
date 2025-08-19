@@ -189,7 +189,7 @@ TOptional<FMessagePeekResult> FNetworkWorker::TryPeekMessage()
 
 	const auto PrimaryHeaderSize = std::min<size_t>(MessageHeaderSize, BufferCapacity - LoadedHead);
 	const auto SecondaryHeaderSize = MessageHeaderSize - PrimaryHeaderSize;
-	MessageHeader Header{};
+	FMessageHeader Header{};
 	memcpy(&Header, ReceiveBuffer.Get() + LoadedHead, PrimaryHeaderSize);
 	memcpy(reinterpret_cast<char*>(&Header) + PrimaryHeaderSize, ReceiveBuffer.Get(),
 	       SecondaryHeaderSize);

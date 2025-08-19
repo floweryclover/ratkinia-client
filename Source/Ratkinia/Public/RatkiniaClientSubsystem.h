@@ -23,7 +23,7 @@ enum class EMessagePopResult : uint8
  */
 UCLASS()
 class RATKINIA_API URatkiniaClientSubsystem final : public UGameInstanceSubsystem,
-                                                    public RatkiniaProtocol::CtsProxy<URatkiniaClientSubsystem>
+                                                    public RatkiniaProtocol::TCtsProxy<URatkiniaClientSubsystem>
 {
 	GENERATED_BODY()
 

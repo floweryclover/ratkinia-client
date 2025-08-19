@@ -1,18 +1,20 @@
-// 2025. 08. 16. 23:45. Ratkinia Protocol Generator에 의해 생성됨.
+//
+// 2025. 08. 19. 21:16. Ratkinia Protocol Generator에 의해 생성됨.
+//
 
-#ifndef CTSSTUB_GEN_H
-#define CTSSTUB_GEN_H
+#ifndef RATKINIAPROTOCOL_CTSSTUB_GEN_H
+#define RATKINIAPROTOCOL_CTSSTUB_GEN_H
 
-#include "RatkiniaProtocol.gen.h"
+#include "CtsMessageType.gen.h"
 #include "Cts.pb.h"
 
 namespace RatkiniaProtocol 
 {
     template<typename TDerivedStub>
-    class CtsStub
+    class TCtsStub
     {
     public:
-        virtual ~CtsStub() = default;
+        virtual ~TCtsStub() = default;
 
         virtual void OnUnknownMessageType(CtsMessageType MessageType) = 0;
 
@@ -25,6 +27,8 @@ namespace RatkiniaProtocol
         virtual void OnRegisterRequest(FString Account, FString Password) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(CtsMessageType::RegisterRequest); }
 
         virtual void OnCreateCharacter(FString Name) { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(CtsMessageType::CreateCharacter); }
+
+        virtual void OnLoadMyCharacters() { static_cast<TDerivedStub*>(this)->OnUnhandledMessageType(CtsMessageType::LoadMyCharacters); }
 
         void HandleCts(const uint16 MessageType, const uint16 BodySize, const char* const Body)
         {
@@ -61,6 +65,17 @@ namespace RatkiniaProtocol
                         return;
                     }
                     static_cast<TDerivedStub*>(this)->OnCreateCharacter(FString{UTF8_TO_TCHAR(CreateCharacterMessage.name().c_str())});
+                    return;
+                }
+                case static_cast<int32_t>(CtsMessageType::LoadMyCharacters):
+                {
+                    LoadMyCharacters LoadMyCharactersMessage;
+                    if (!LoadMyCharactersMessage.ParseFromArray(Body, BodySize))
+                    {
+                        static_cast<TDerivedStub*>(this)->OnParseMessageFailed(static_cast<CtsMessageType>(MessageType));
+                        return;
+                    }
+                    static_cast<TDerivedStub*>(this)->OnLoadMyCharacters();
                     return;
                 }
                 default:

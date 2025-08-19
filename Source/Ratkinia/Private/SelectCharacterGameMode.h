@@ -13,7 +13,7 @@ class USelectCharacterWidget;
  * 
  */
 UCLASS()
-class ASelectCharacterGameMode final : public AGameModeBase, public RatkiniaProtocol::StcStub<ASelectCharacterGameMode>
+class ASelectCharacterGameMode final : public AGameModeBase, public RatkiniaProtocol::TStcStub<ASelectCharacterGameMode>
 {
 	GENERATED_BODY()
 
@@ -28,6 +28,8 @@ public:
 	
 	virtual void OnUnhandledMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 
+	virtual void OnSendMyCharacters(TArrayView<const RatkiniaProtocol::SendMyCharacters_CharacterLoadData* const> CharacterLoadDatas) override;
+
 protected:
 	virtual void BeginPlay() override;
 	
@@ -35,6 +37,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<USelectCharacterWidget> SelectCharacterWidgetClass;
 
+	UPROPERTY()
+	TObjectPtr<USelectCharacterWidget> SelectCharacterWidget;
+	
 	UFUNCTION()
 	void OpenCreateCharacterLevel();
 };
