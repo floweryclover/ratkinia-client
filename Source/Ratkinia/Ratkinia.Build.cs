@@ -14,16 +14,21 @@ public class Ratkinia : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		string ProjectRoot = Path.GetFullPath(Path.Combine(ModuleDirectory, "..", ".."));
-		string ThirdPartyPath = Path.Combine(ProjectRoot, "ThirdParty");
+		string ProjectRoot = Path.Combine(ModuleDirectory, "..", "..");
+
+		string RatkiniaProtocolRoot = Path.Combine(ProjectRoot, "..", "ratkinia-protocol");
+		string RatkiniaProtocolClientPath = Path.Combine(RatkiniaProtocolRoot, "Out", "Client");
+		string RatkiniaProtocolCommonPath = Path.Combine(RatkiniaProtocolRoot, "Out", "Common");
+		PublicIncludePaths.Add(RatkiniaProtocolClientPath);
+		PublicIncludePaths.Add(RatkiniaProtocolCommonPath);
 		
 		string PublicRatkiniaProtocolPath = Path.Combine(ModuleDirectory, "Public", "RatkiniaProtocol");
 		PublicIncludePaths.Add(PublicRatkiniaProtocolPath);
 		
+		string ThirdPartyPath = Path.Combine(ProjectRoot, "ThirdParty");
 		string ProtobufPath = Path.Combine(ThirdPartyPath, "Protobuf");
 		string ProtobufIncludePath = Path.Combine(ProtobufPath, "include");
 		string ProtobufLibPath = Path.Combine(ProtobufPath, "lib");		
-		
 		PublicIncludePaths.Add(ProtobufIncludePath);
 
 		foreach (var libFile in Directory.GetFiles(ProtobufLibPath, "*.lib"))

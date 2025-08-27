@@ -3,9 +3,9 @@
 #pragma once
 
 #include "StcStub.gen.h"
+#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
-#include "CtsProxy.gen.h"
 #include "GameFramework/GameModeBase.h"
 #include "LoginGameMode.generated.h"
 
@@ -34,11 +34,20 @@ public:
 	virtual void OnLoginResponse(const RatkiniaProtocol::LoginResponse_LoginResult Result) override;
 
 	virtual void OnRegisterResponse(const bool Successful, FString FailedReason) override;
+
+	google::protobuf::Arena* GetArena()
+	{
+		return &Arena;
+	}
 	
 protected:
 	virtual void BeginPlay() override;
 	
 private:
+	google::protobuf::Arena Arena;
+	
+	TFunction<void()> PostConnectAction;
+	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UMessageBoxWidget> MessageBoxWidgetClass;
 
@@ -67,7 +76,4 @@ private:
 	void OpenReallyQuitGameWidget();
 	
 	void PopupMessageBoxWidget(FText Text);
-
-private:
-	TFunction<void()> PostConnectAction;
 };

@@ -22,27 +22,47 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace RatkiniaProtocol {
 
-inline constexpr SendMyCharacters_CharacterLoadData::Impl_::Impl_(
+inline constexpr SpawnEntity_Data::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : name_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        id_{0u},
+      : entity_id_{0},
+        type_{static_cast< ::RatkiniaProtocol::SpawnEntity_Type >(0)},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR SendMyCharacters_CharacterLoadData::SendMyCharacters_CharacterLoadData(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR SpawnEntity_Data::SpawnEntity_Data(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct SendMyCharacters_CharacterLoadDataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SendMyCharacters_CharacterLoadDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SendMyCharacters_CharacterLoadDataDefaultTypeInternal() {}
+struct SpawnEntity_DataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SpawnEntity_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SpawnEntity_DataDefaultTypeInternal() {}
   union {
-    SendMyCharacters_CharacterLoadData _instance;
+    SpawnEntity_Data _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendMyCharacters_CharacterLoadDataDefaultTypeInternal _SendMyCharacters_CharacterLoadData_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SpawnEntity_DataDefaultTypeInternal _SpawnEntity_Data_default_instance_;
+
+inline constexpr SendMyCharacters_Data::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : name_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        id_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SendMyCharacters_Data::SendMyCharacters_Data(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct SendMyCharacters_DataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SendMyCharacters_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SendMyCharacters_DataDefaultTypeInternal() {}
+  union {
+    SendMyCharacters_Data _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendMyCharacters_DataDefaultTypeInternal _SendMyCharacters_Data_default_instance_;
 
 inline constexpr RegisterResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -66,6 +86,46 @@ struct RegisterResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterResponseDefaultTypeInternal _RegisterResponse_default_instance_;
 
+inline constexpr OpenWorld::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR OpenWorld::OpenWorld(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct OpenWorldDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OpenWorldDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OpenWorldDefaultTypeInternal() {}
+  union {
+    OpenWorld _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OpenWorldDefaultTypeInternal _OpenWorld_default_instance_;
+
+inline constexpr Notificate::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : text_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        type_{static_cast< ::RatkiniaProtocol::Notificate_Type >(0)},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR Notificate::Notificate(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct NotificateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotificateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotificateDefaultTypeInternal() {}
+  union {
+    Notificate _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotificateDefaultTypeInternal _Notificate_default_instance_;
+
 inline constexpr LoginResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : result_{static_cast< ::RatkiniaProtocol::LoginResponse_LoginResult >(0)},
@@ -84,27 +144,6 @@ struct LoginResponseDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
-
-inline constexpr Disconnect::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : detail_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR Disconnect::Disconnect(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct DisconnectDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DisconnectDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DisconnectDefaultTypeInternal() {}
-  union {
-    Disconnect _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DisconnectDefaultTypeInternal _Disconnect_default_instance_;
 
 inline constexpr CreateCharacterResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -125,6 +164,25 @@ struct CreateCharacterResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCharacterResponseDefaultTypeInternal _CreateCharacterResponse_default_instance_;
 
+inline constexpr SpawnEntity::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : entity_spawn_datas_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SpawnEntity::SpawnEntity(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct SpawnEntityDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SpawnEntityDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SpawnEntityDefaultTypeInternal() {}
+  union {
+    SpawnEntity _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SpawnEntityDefaultTypeInternal _SpawnEntity_default_instance_;
+
 inline constexpr SendMyCharacters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : character_load_datas_{},
@@ -143,6 +201,45 @@ struct SendMyCharactersDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendMyCharactersDefaultTypeInternal _SendMyCharacters_default_instance_;
+
+inline constexpr AttachComponentTo_Data::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        component_variant_{nullptr},
+        target_entity_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AttachComponentTo_Data::AttachComponentTo_Data(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AttachComponentTo_DataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachComponentTo_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachComponentTo_DataDefaultTypeInternal() {}
+  union {
+    AttachComponentTo_Data _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponentTo_DataDefaultTypeInternal _AttachComponentTo_Data_default_instance_;
+
+inline constexpr AttachComponentTo::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : component_attach_datas_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AttachComponentTo::AttachComponentTo(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AttachComponentToDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachComponentToDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachComponentToDefaultTypeInternal() {}
+  union {
+    AttachComponentTo _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponentToDefaultTypeInternal _AttachComponentTo_default_instance_;
 }  // namespace RatkiniaProtocol
 namespace RatkiniaProtocol {
 PROTOBUF_CONSTINIT const uint32_t LoginResponse_LoginResult_internal_data_[] = {
@@ -277,199 +374,126 @@ constexpr int CreateCharacterResponse::CreateCharacterResult_ARRAYSIZE;
 
 #endif  // (__cplusplus < 201703) &&
         // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-// ===================================================================
+PROTOBUF_CONSTINIT const uint32_t Notificate_Type_internal_data_[] = {
+    196608u, 0u, };
+bool Notificate_Type_IsValid(int value) {
+  return 0 <= value && value <= 2;
+}
+static ::google::protobuf::internal::ExplicitlyConstructed<std::string>
+    Notificate_Type_strings[3] = {};
 
-class Disconnect::_Internal {
- public:
+static const char Notificate_Type_names[] = {
+    "Fatal"
+    "Info"
+    "Warning"
 };
 
-Disconnect::Disconnect(::google::protobuf::Arena* arena)
-    : ::google::protobuf::MessageLite(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.Disconnect)
-}
-inline PROTOBUF_NDEBUG_INLINE Disconnect::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::Disconnect& from_msg)
-      : detail_(arena, from.detail_),
-        _cached_size_{0} {}
-
-Disconnect::Disconnect(
-    ::google::protobuf::Arena* arena,
-    const Disconnect& from)
-    : ::google::protobuf::MessageLite(arena) {
-  Disconnect* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<std::string>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.Disconnect)
-}
-inline PROTOBUF_NDEBUG_INLINE Disconnect::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : detail_(arena),
-        _cached_size_{0} {}
-
-inline void Disconnect::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-Disconnect::~Disconnect() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.Disconnect)
-  _internal_metadata_.Delete<std::string>();
-  SharedDtor();
-}
-inline void Disconnect::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.detail_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-Disconnect::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<28> _data_ =
-      {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(Disconnect, _impl_._cached_size_),
-              true,
-          },
-          "RatkiniaProtocol.Disconnect",
-      };
-
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 42, 2> Disconnect::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_Disconnect_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallbackLite,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::Disconnect>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string detail = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(Disconnect, _impl_.detail_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // string detail = 1;
-    {PROTOBUF_FIELD_OFFSET(Disconnect, _impl_.detail_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-  }},
-  // no aux_entries
-  {{
-    "\33\6\0\0\0\0\0\0"
-    "RatkiniaProtocol.Disconnect"
-    "detail"
-  }},
+static const ::google::protobuf::internal::EnumEntry Notificate_Type_entries[] =
+    {
+        {{&Notificate_Type_names[0], 5}, 2},
+        {{&Notificate_Type_names[5], 4}, 0},
+        {{&Notificate_Type_names[9], 7}, 1},
 };
 
-PROTOBUF_NOINLINE void Disconnect::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.Disconnect)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
+static const int Notificate_Type_entries_by_number[] = {
+    1,  // 0 -> Info
+    2,  // 1 -> Warning
+    0,  // 2 -> Fatal
+};
 
-  _impl_.detail_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
+const std::string& Notificate_Type_Name(Notificate_Type value) {
+  static const bool kDummy =
+      ::google::protobuf::internal::InitializeEnumStrings(
+          Notificate_Type_entries, Notificate_Type_entries_by_number,
+          3, Notificate_Type_strings);
+  (void)kDummy;
+
+  int idx = ::google::protobuf::internal::LookUpEnumName(
+      Notificate_Type_entries, Notificate_Type_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::google::protobuf::internal::GetEmptyString()
+                   : Notificate_Type_strings[idx].get();
 }
 
-::uint8_t* Disconnect::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.Disconnect)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // string detail = 1;
-  if (!this->_internal_detail().empty()) {
-    const std::string& _s = this->_internal_detail();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.Disconnect.detail");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
+bool Notificate_Type_Parse(absl::string_view name, Notificate_Type* value) {
+  int int_value;
+  bool success = ::google::protobuf::internal::LookUpEnumValue(
+      Notificate_Type_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<Notificate_Type>(int_value);
   }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(
-        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+constexpr Notificate_Type Notificate::Info;
+constexpr Notificate_Type Notificate::Warning;
+constexpr Notificate_Type Notificate::Fatal;
+constexpr Notificate_Type Notificate::Type_MIN;
+constexpr Notificate_Type Notificate::Type_MAX;
+constexpr int Notificate::Type_ARRAYSIZE;
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+PROTOBUF_CONSTINIT const uint32_t SpawnEntity_Type_internal_data_[] = {
+    131072u, 0u, };
+bool SpawnEntity_Type_IsValid(int value) {
+  return 0 <= value && value <= 1;
+}
+static ::google::protobuf::internal::ExplicitlyConstructed<std::string>
+    SpawnEntity_Type_strings[2] = {};
+
+static const char SpawnEntity_Type_names[] = {
+    "MyCharacter"
+    "Normal"
+};
+
+static const ::google::protobuf::internal::EnumEntry SpawnEntity_Type_entries[] =
+    {
+        {{&SpawnEntity_Type_names[0], 11}, 1},
+        {{&SpawnEntity_Type_names[11], 6}, 0},
+};
+
+static const int SpawnEntity_Type_entries_by_number[] = {
+    1,  // 0 -> Normal
+    0,  // 1 -> MyCharacter
+};
+
+const std::string& SpawnEntity_Type_Name(SpawnEntity_Type value) {
+  static const bool kDummy =
+      ::google::protobuf::internal::InitializeEnumStrings(
+          SpawnEntity_Type_entries, SpawnEntity_Type_entries_by_number,
+          2, SpawnEntity_Type_strings);
+  (void)kDummy;
+
+  int idx = ::google::protobuf::internal::LookUpEnumName(
+      SpawnEntity_Type_entries, SpawnEntity_Type_entries_by_number, 2,
+      value);
+  return idx == -1 ? ::google::protobuf::internal::GetEmptyString()
+                   : SpawnEntity_Type_strings[idx].get();
+}
+
+bool SpawnEntity_Type_Parse(absl::string_view name, SpawnEntity_Type* value) {
+  int int_value;
+  bool success = ::google::protobuf::internal::LookUpEnumValue(
+      SpawnEntity_Type_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<SpawnEntity_Type>(int_value);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.Disconnect)
-  return target;
+  return success;
 }
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-::size_t Disconnect::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.Disconnect)
-  ::size_t total_size = 0;
+constexpr SpawnEntity_Type SpawnEntity::Normal;
+constexpr SpawnEntity_Type SpawnEntity::MyCharacter;
+constexpr SpawnEntity_Type SpawnEntity::Type_MIN;
+constexpr SpawnEntity_Type SpawnEntity::Type_MAX;
+constexpr int SpawnEntity::Type_ARRAYSIZE;
 
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string detail = 1;
-  if (!this->_internal_detail().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_detail());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
-  }
-  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
-  return total_size;
-}
-
-void Disconnect::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const Disconnect*>(
-      &from));
-}
-
-void Disconnect::MergeFrom(const Disconnect& from) {
-  Disconnect* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.Disconnect)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_detail().empty()) {
-    _this->_internal_set_detail(from._internal_detail());
-  }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void Disconnect::CopyFrom(const Disconnect& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.Disconnect)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void Disconnect::InternalSwap(Disconnect* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.detail_, &other->_impl_.detail_, arena);
-}
-
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 // ===================================================================
 
 class LoginResponse::_Internal {
@@ -1037,73 +1061,73 @@ void CreateCharacterResponse::InternalSwap(CreateCharacterResponse* PROTOBUF_RES
 
 // ===================================================================
 
-class SendMyCharacters_CharacterLoadData::_Internal {
+class SendMyCharacters_Data::_Internal {
  public:
 };
 
-SendMyCharacters_CharacterLoadData::SendMyCharacters_CharacterLoadData(::google::protobuf::Arena* arena)
+SendMyCharacters_Data::SendMyCharacters_Data(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.SendMyCharacters.Data)
 }
-inline PROTOBUF_NDEBUG_INLINE SendMyCharacters_CharacterLoadData::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE SendMyCharacters_Data::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::SendMyCharacters_CharacterLoadData& from_msg)
+    const Impl_& from, const ::RatkiniaProtocol::SendMyCharacters_Data& from_msg)
       : name_(arena, from.name_),
         _cached_size_{0} {}
 
-SendMyCharacters_CharacterLoadData::SendMyCharacters_CharacterLoadData(
+SendMyCharacters_Data::SendMyCharacters_Data(
     ::google::protobuf::Arena* arena,
-    const SendMyCharacters_CharacterLoadData& from)
+    const SendMyCharacters_Data& from)
     : ::google::protobuf::MessageLite(arena) {
-  SendMyCharacters_CharacterLoadData* const _this = this;
+  SendMyCharacters_Data* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<std::string>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
   _impl_.id_ = from._impl_.id_;
 
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.SendMyCharacters.Data)
 }
-inline PROTOBUF_NDEBUG_INLINE SendMyCharacters_CharacterLoadData::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE SendMyCharacters_Data::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : name_(arena),
         _cached_size_{0} {}
 
-inline void SendMyCharacters_CharacterLoadData::SharedCtor(::_pb::Arena* arena) {
+inline void SendMyCharacters_Data::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   _impl_.id_ = {};
 }
-SendMyCharacters_CharacterLoadData::~SendMyCharacters_CharacterLoadData() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+SendMyCharacters_Data::~SendMyCharacters_Data() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.SendMyCharacters.Data)
   _internal_metadata_.Delete<std::string>();
   SharedDtor();
 }
-inline void SendMyCharacters_CharacterLoadData::SharedDtor() {
+inline void SendMyCharacters_Data::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.name_.Destroy();
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-SendMyCharacters_CharacterLoadData::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<52> _data_ =
+SendMyCharacters_Data::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<39> _data_ =
       {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(SendMyCharacters_CharacterLoadData, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_._cached_size_),
               true,
           },
-          "RatkiniaProtocol.SendMyCharacters.CharacterLoadData",
+          "RatkiniaProtocol.SendMyCharacters.Data",
       };
 
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 64, 2> SendMyCharacters_CharacterLoadData::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 51, 2> SendMyCharacters_Data::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1114,68 +1138,68 @@ const ::_pbi::TcParseTable<1, 2, 0, 64, 2> SendMyCharacters_CharacterLoadData::_
     2,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_SendMyCharacters_CharacterLoadData_default_instance_._instance,
+    &_SendMyCharacters_Data_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallbackLite,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SendMyCharacters_CharacterLoadData>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SendMyCharacters_Data>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // string name = 2;
     {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_CharacterLoadData, _impl_.name_)}},
-    // uint32 id = 1;
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.name_)}},
+    // int32 id = 1;
     {::_pbi::TcParser::FastV32S1,
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_CharacterLoadData, _impl_.id_)}},
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // uint32 id = 1;
-    {PROTOBUF_FIELD_OFFSET(SendMyCharacters_CharacterLoadData, _impl_.id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // int32 id = 1;
+    {PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
     // string name = 2;
-    {PROTOBUF_FIELD_OFFSET(SendMyCharacters_CharacterLoadData, _impl_.name_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.name_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\63\0\4\0\0\0\0\0"
-    "RatkiniaProtocol.SendMyCharacters.CharacterLoadData"
+    "\46\0\4\0\0\0\0\0"
+    "RatkiniaProtocol.SendMyCharacters.Data"
     "name"
   }},
 };
 
-PROTOBUF_NOINLINE void SendMyCharacters_CharacterLoadData::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+PROTOBUF_NOINLINE void SendMyCharacters_Data::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.SendMyCharacters.Data)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
-  _impl_.id_ = 0u;
+  _impl_.id_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-::uint8_t* SendMyCharacters_CharacterLoadData::_InternalSerialize(
+::uint8_t* SendMyCharacters_Data::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.SendMyCharacters.Data)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // uint32 id = 1;
+  // int32 id = 1;
   if (this->_internal_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-        1, this->_internal_id(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_id(), target);
   }
 
   // string name = 2;
   if (!this->_internal_name().empty()) {
     const std::string& _s = this->_internal_name();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.SendMyCharacters.CharacterLoadData.name");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.SendMyCharacters.Data.name");
     target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
@@ -1184,12 +1208,12 @@ PROTOBUF_NOINLINE void SendMyCharacters_CharacterLoadData::Clear() {
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.SendMyCharacters.Data)
   return target;
 }
 
-::size_t SendMyCharacters_CharacterLoadData::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+::size_t SendMyCharacters_Data::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.SendMyCharacters.Data)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -1203,9 +1227,9 @@ PROTOBUF_NOINLINE void SendMyCharacters_CharacterLoadData::Clear() {
                                     this->_internal_name());
   }
 
-  // uint32 id = 1;
+  // int32 id = 1;
   if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_id());
   }
 
@@ -1216,15 +1240,15 @@ PROTOBUF_NOINLINE void SendMyCharacters_CharacterLoadData::Clear() {
   return total_size;
 }
 
-void SendMyCharacters_CharacterLoadData::CheckTypeAndMergeFrom(
+void SendMyCharacters_Data::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const SendMyCharacters_CharacterLoadData*>(
+  MergeFrom(*::_pbi::DownCast<const SendMyCharacters_Data*>(
       &from));
 }
 
-void SendMyCharacters_CharacterLoadData::MergeFrom(const SendMyCharacters_CharacterLoadData& from) {
-  SendMyCharacters_CharacterLoadData* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+void SendMyCharacters_Data::MergeFrom(const SendMyCharacters_Data& from) {
+  SendMyCharacters_Data* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.SendMyCharacters.Data)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1238,15 +1262,15 @@ void SendMyCharacters_CharacterLoadData::MergeFrom(const SendMyCharacters_Charac
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void SendMyCharacters_CharacterLoadData::CopyFrom(const SendMyCharacters_CharacterLoadData& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.SendMyCharacters.CharacterLoadData)
+void SendMyCharacters_Data::CopyFrom(const SendMyCharacters_Data& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.SendMyCharacters.Data)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void SendMyCharacters_CharacterLoadData::InternalSwap(SendMyCharacters_CharacterLoadData* PROTOBUF_RESTRICT other) {
+void SendMyCharacters_Data::InternalSwap(SendMyCharacters_Data* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
@@ -1338,17 +1362,17 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> SendMyCharacters::_table_ = {
     ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SendMyCharacters>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .RatkiniaProtocol.SendMyCharacters.CharacterLoadData character_load_datas = 1;
+    // repeated .RatkiniaProtocol.SendMyCharacters.Data character_load_datas = 1;
     {::_pbi::TcParser::FastMtR1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters, _impl_.character_load_datas_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .RatkiniaProtocol.SendMyCharacters.CharacterLoadData character_load_datas = 1;
+    // repeated .RatkiniaProtocol.SendMyCharacters.Data character_load_datas = 1;
     {PROTOBUF_FIELD_OFFSET(SendMyCharacters, _impl_.character_load_datas_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::SendMyCharacters_CharacterLoadData>()},
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::SendMyCharacters_Data>()},
   }}, {{
   }},
 };
@@ -1371,7 +1395,7 @@ PROTOBUF_NOINLINE void SendMyCharacters::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // repeated .RatkiniaProtocol.SendMyCharacters.CharacterLoadData character_load_datas = 1;
+  // repeated .RatkiniaProtocol.SendMyCharacters.Data character_load_datas = 1;
   for (unsigned i = 0, n = static_cast<unsigned>(
                            this->_internal_character_load_datas_size());
        i < n; i++) {
@@ -1400,7 +1424,7 @@ PROTOBUF_NOINLINE void SendMyCharacters::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .RatkiniaProtocol.SendMyCharacters.CharacterLoadData character_load_datas = 1;
+  // repeated .RatkiniaProtocol.SendMyCharacters.Data character_load_datas = 1;
   total_size += 1UL * this->_internal_character_load_datas_size();
   for (const auto& msg : this->_internal_character_load_datas()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
@@ -1442,6 +1466,1211 @@ void SendMyCharacters::InternalSwap(SendMyCharacters* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.character_load_datas_.InternalSwap(&other->_impl_.character_load_datas_);
+}
+
+// ===================================================================
+
+class OpenWorld::_Internal {
+ public:
+};
+
+OpenWorld::OpenWorld(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.OpenWorld)
+}
+OpenWorld::OpenWorld(
+    ::google::protobuf::Arena* arena, const OpenWorld& from)
+    : OpenWorld(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE OpenWorld::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void OpenWorld::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+OpenWorld::~OpenWorld() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.OpenWorld)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void OpenWorld::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+OpenWorld::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<27> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(OpenWorld, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.OpenWorld",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 0, 0, 0, 2> OpenWorld::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    0, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967295,  // skipmap
+    offsetof(decltype(_table_), field_names),  // no field_entries
+    0,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_OpenWorld_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::OpenWorld>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }},
+  // no field_entries, or aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void OpenWorld::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.OpenWorld)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* OpenWorld::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.OpenWorld)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.OpenWorld)
+  return target;
+}
+
+::size_t OpenWorld::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.OpenWorld)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void OpenWorld::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OpenWorld*>(
+      &from));
+}
+
+void OpenWorld::MergeFrom(const OpenWorld& from) {
+  OpenWorld* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.OpenWorld)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OpenWorld::CopyFrom(const OpenWorld& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.OpenWorld)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void OpenWorld::InternalSwap(OpenWorld* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+// ===================================================================
+
+class Notificate::_Internal {
+ public:
+};
+
+Notificate::Notificate(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.Notificate)
+}
+inline PROTOBUF_NDEBUG_INLINE Notificate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::Notificate& from_msg)
+      : text_(arena, from.text_),
+        _cached_size_{0} {}
+
+Notificate::Notificate(
+    ::google::protobuf::Arena* arena,
+    const Notificate& from)
+    : ::google::protobuf::MessageLite(arena) {
+  Notificate* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  _impl_.type_ = from._impl_.type_;
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.Notificate)
+}
+inline PROTOBUF_NDEBUG_INLINE Notificate::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : text_(arena),
+        _cached_size_{0} {}
+
+inline void Notificate::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.type_ = {};
+}
+Notificate::~Notificate() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.Notificate)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void Notificate::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.text_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+Notificate::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<28> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(Notificate, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.Notificate",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 40, 2> Notificate::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_Notificate_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::Notificate>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string text = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Notificate, _impl_.text_)}},
+    // .RatkiniaProtocol.Notificate.Type type = 1;
+    {::_pbi::TcParser::FastV32S1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(Notificate, _impl_.type_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .RatkiniaProtocol.Notificate.Type type = 1;
+    {PROTOBUF_FIELD_OFFSET(Notificate, _impl_.type_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
+    // string text = 2;
+    {PROTOBUF_FIELD_OFFSET(Notificate, _impl_.text_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\33\0\4\0\0\0\0\0"
+    "RatkiniaProtocol.Notificate"
+    "text"
+  }},
+};
+
+PROTOBUF_NOINLINE void Notificate::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.Notificate)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.text_.ClearToEmpty();
+  _impl_.type_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* Notificate::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.Notificate)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // .RatkiniaProtocol.Notificate.Type type = 1;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_type(), target);
+  }
+
+  // string text = 2;
+  if (!this->_internal_text().empty()) {
+    const std::string& _s = this->_internal_text();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.Notificate.text");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.Notificate)
+  return target;
+}
+
+::size_t Notificate::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.Notificate)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string text = 2;
+  if (!this->_internal_text().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_text());
+  }
+
+  // .RatkiniaProtocol.Notificate.Type type = 1;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void Notificate::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Notificate*>(
+      &from));
+}
+
+void Notificate::MergeFrom(const Notificate& from) {
+  Notificate* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.Notificate)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_text().empty()) {
+    _this->_internal_set_text(from._internal_text());
+  }
+  if (from._internal_type() != 0) {
+    _this->_impl_.type_ = from._impl_.type_;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Notificate::CopyFrom(const Notificate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.Notificate)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void Notificate::InternalSwap(Notificate* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.text_, &other->_impl_.text_, arena);
+  swap(_impl_.type_, other->_impl_.type_);
+}
+
+// ===================================================================
+
+class SpawnEntity_Data::_Internal {
+ public:
+};
+
+SpawnEntity_Data::SpawnEntity_Data(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.SpawnEntity.Data)
+}
+SpawnEntity_Data::SpawnEntity_Data(
+    ::google::protobuf::Arena* arena, const SpawnEntity_Data& from)
+    : SpawnEntity_Data(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE SpawnEntity_Data::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void SpawnEntity_Data::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, entity_id_),
+           0,
+           offsetof(Impl_, type_) -
+               offsetof(Impl_, entity_id_) +
+               sizeof(Impl_::type_));
+}
+SpawnEntity_Data::~SpawnEntity_Data() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.SpawnEntity.Data)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void SpawnEntity_Data::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+SpawnEntity_Data::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<34> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.SpawnEntity.Data",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> SpawnEntity_Data::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_SpawnEntity_Data_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SpawnEntity_Data>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // .RatkiniaProtocol.SpawnEntity.Type type = 2;
+    {::_pbi::TcParser::FastV32S1,
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.type_)}},
+    // int32 entity_id = 1;
+    {::_pbi::TcParser::FastV32S1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.entity_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int32 entity_id = 1;
+    {PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.entity_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // .RatkiniaProtocol.SpawnEntity.Type type = 2;
+    {PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.type_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void SpawnEntity_Data::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.SpawnEntity.Data)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.entity_id_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.type_) -
+      reinterpret_cast<char*>(&_impl_.entity_id_)) + sizeof(_impl_.type_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* SpawnEntity_Data::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.SpawnEntity.Data)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // int32 entity_id = 1;
+  if (this->_internal_entity_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_entity_id(), target);
+  }
+
+  // .RatkiniaProtocol.SpawnEntity.Type type = 2;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        2, this->_internal_type(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.SpawnEntity.Data)
+  return target;
+}
+
+::size_t SpawnEntity_Data::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.SpawnEntity.Data)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // int32 entity_id = 1;
+  if (this->_internal_entity_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_entity_id());
+  }
+
+  // .RatkiniaProtocol.SpawnEntity.Type type = 2;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void SpawnEntity_Data::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SpawnEntity_Data*>(
+      &from));
+}
+
+void SpawnEntity_Data::MergeFrom(const SpawnEntity_Data& from) {
+  SpawnEntity_Data* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.SpawnEntity.Data)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_entity_id() != 0) {
+    _this->_impl_.entity_id_ = from._impl_.entity_id_;
+  }
+  if (from._internal_type() != 0) {
+    _this->_impl_.type_ = from._impl_.type_;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SpawnEntity_Data::CopyFrom(const SpawnEntity_Data& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.SpawnEntity.Data)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void SpawnEntity_Data::InternalSwap(SpawnEntity_Data* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.type_)
+      + sizeof(SpawnEntity_Data::_impl_.type_)
+      - PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.entity_id_)>(
+          reinterpret_cast<char*>(&_impl_.entity_id_),
+          reinterpret_cast<char*>(&other->_impl_.entity_id_));
+}
+
+// ===================================================================
+
+class SpawnEntity::_Internal {
+ public:
+};
+
+SpawnEntity::SpawnEntity(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.SpawnEntity)
+}
+inline PROTOBUF_NDEBUG_INLINE SpawnEntity::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::SpawnEntity& from_msg)
+      : entity_spawn_datas_{visibility, arena, from.entity_spawn_datas_},
+        _cached_size_{0} {}
+
+SpawnEntity::SpawnEntity(
+    ::google::protobuf::Arena* arena,
+    const SpawnEntity& from)
+    : ::google::protobuf::MessageLite(arena) {
+  SpawnEntity* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.SpawnEntity)
+}
+inline PROTOBUF_NDEBUG_INLINE SpawnEntity::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : entity_spawn_datas_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void SpawnEntity::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+SpawnEntity::~SpawnEntity() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.SpawnEntity)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void SpawnEntity::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+SpawnEntity::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<29> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(SpawnEntity, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.SpawnEntity",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> SpawnEntity::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_SpawnEntity_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SpawnEntity>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .RatkiniaProtocol.SpawnEntity.Data entity_spawn_datas = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(SpawnEntity, _impl_.entity_spawn_datas_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .RatkiniaProtocol.SpawnEntity.Data entity_spawn_datas = 1;
+    {PROTOBUF_FIELD_OFFSET(SpawnEntity, _impl_.entity_spawn_datas_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::SpawnEntity_Data>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void SpawnEntity::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.SpawnEntity)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.entity_spawn_datas_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* SpawnEntity::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.SpawnEntity)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // repeated .RatkiniaProtocol.SpawnEntity.Data entity_spawn_datas = 1;
+  for (unsigned i = 0, n = static_cast<unsigned>(
+                           this->_internal_entity_spawn_datas_size());
+       i < n; i++) {
+    const auto& repfield = this->_internal_entity_spawn_datas().Get(i);
+    target =
+        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+            1, repfield, repfield.GetCachedSize(),
+            target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.SpawnEntity)
+  return target;
+}
+
+::size_t SpawnEntity::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.SpawnEntity)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated .RatkiniaProtocol.SpawnEntity.Data entity_spawn_datas = 1;
+  total_size += 1UL * this->_internal_entity_spawn_datas_size();
+  for (const auto& msg : this->_internal_entity_spawn_datas()) {
+    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void SpawnEntity::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SpawnEntity*>(
+      &from));
+}
+
+void SpawnEntity::MergeFrom(const SpawnEntity& from) {
+  SpawnEntity* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.SpawnEntity)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_entity_spawn_datas()->MergeFrom(
+      from._internal_entity_spawn_datas());
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SpawnEntity::CopyFrom(const SpawnEntity& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.SpawnEntity)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void SpawnEntity::InternalSwap(SpawnEntity* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.entity_spawn_datas_.InternalSwap(&other->_impl_.entity_spawn_datas_);
+}
+
+// ===================================================================
+
+class AttachComponentTo_Data::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<AttachComponentTo_Data>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._has_bits_);
+};
+
+void AttachComponentTo_Data::clear_component_variant() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.component_variant_ != nullptr) _impl_.component_variant_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+AttachComponentTo_Data::AttachComponentTo_Data(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponentTo.Data)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponentTo_Data::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::AttachComponentTo_Data& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+AttachComponentTo_Data::AttachComponentTo_Data(
+    ::google::protobuf::Arena* arena,
+    const AttachComponentTo_Data& from)
+    : ::google::protobuf::MessageLite(arena) {
+  AttachComponentTo_Data* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.component_variant_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::ComponentVariant>(
+                              arena, *from._impl_.component_variant_)
+                        : nullptr;
+  _impl_.target_entity_ = from._impl_.target_entity_;
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.AttachComponentTo.Data)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponentTo_Data::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void AttachComponentTo_Data::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, component_variant_),
+           0,
+           offsetof(Impl_, target_entity_) -
+               offsetof(Impl_, component_variant_) +
+               sizeof(Impl_::target_entity_));
+}
+AttachComponentTo_Data::~AttachComponentTo_Data() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponentTo.Data)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void AttachComponentTo_Data::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  delete _impl_.component_variant_;
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+AttachComponentTo_Data::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<40> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.AttachComponentTo.Data",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> AttachComponentTo_Data::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_AttachComponentTo_Data_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo_Data>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // .RatkiniaProtocol.ComponentVariant component_variant = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_)}},
+    // int32 target_entity = 1;
+    {::_pbi::TcParser::FastV32S1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int32 target_entity = 1;
+    {PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // .RatkiniaProtocol.ComponentVariant component_variant = 2;
+    {PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::ComponentVariant>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void AttachComponentTo_Data::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponentTo.Data)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.component_variant_ != nullptr);
+    _impl_.component_variant_->Clear();
+  }
+  _impl_.target_entity_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* AttachComponentTo_Data::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponentTo.Data)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // int32 target_entity = 1;
+  if (this->_internal_target_entity() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_target_entity(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .RatkiniaProtocol.ComponentVariant component_variant = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+        2, *_impl_.component_variant_, _impl_.component_variant_->GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponentTo.Data)
+  return target;
+}
+
+::size_t AttachComponentTo_Data::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponentTo.Data)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // .RatkiniaProtocol.ComponentVariant component_variant = 2;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size +=
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.component_variant_);
+  }
+
+  // int32 target_entity = 1;
+  if (this->_internal_target_entity() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_target_entity());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void AttachComponentTo_Data::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachComponentTo_Data*>(
+      &from));
+}
+
+void AttachComponentTo_Data::MergeFrom(const AttachComponentTo_Data& from) {
+  AttachComponentTo_Data* const _this = this;
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponentTo.Data)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.component_variant_ != nullptr);
+    if (_this->_impl_.component_variant_ == nullptr) {
+      _this->_impl_.component_variant_ =
+          ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::ComponentVariant>(arena, *from._impl_.component_variant_);
+    } else {
+      _this->_impl_.component_variant_->MergeFrom(*from._impl_.component_variant_);
+    }
+  }
+  if (from._internal_target_entity() != 0) {
+    _this->_impl_.target_entity_ = from._impl_.target_entity_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachComponentTo_Data::CopyFrom(const AttachComponentTo_Data& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponentTo.Data)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void AttachComponentTo_Data::InternalSwap(AttachComponentTo_Data* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_)
+      + sizeof(AttachComponentTo_Data::_impl_.target_entity_)
+      - PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_)>(
+          reinterpret_cast<char*>(&_impl_.component_variant_),
+          reinterpret_cast<char*>(&other->_impl_.component_variant_));
+}
+
+// ===================================================================
+
+class AttachComponentTo::_Internal {
+ public:
+};
+
+AttachComponentTo::AttachComponentTo(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponentTo)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponentTo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::AttachComponentTo& from_msg)
+      : component_attach_datas_{visibility, arena, from.component_attach_datas_},
+        _cached_size_{0} {}
+
+AttachComponentTo::AttachComponentTo(
+    ::google::protobuf::Arena* arena,
+    const AttachComponentTo& from)
+    : ::google::protobuf::MessageLite(arena) {
+  AttachComponentTo* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.AttachComponentTo)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponentTo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : component_attach_datas_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void AttachComponentTo::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+AttachComponentTo::~AttachComponentTo() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponentTo)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void AttachComponentTo::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+AttachComponentTo::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<35> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.AttachComponentTo",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> AttachComponentTo::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_AttachComponentTo_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_.component_attach_datas_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+    {PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_.component_attach_datas_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo_Data>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void AttachComponentTo::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponentTo)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.component_attach_datas_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* AttachComponentTo::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponentTo)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+  for (unsigned i = 0, n = static_cast<unsigned>(
+                           this->_internal_component_attach_datas_size());
+       i < n; i++) {
+    const auto& repfield = this->_internal_component_attach_datas().Get(i);
+    target =
+        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+            1, repfield, repfield.GetCachedSize(),
+            target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponentTo)
+  return target;
+}
+
+::size_t AttachComponentTo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponentTo)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+  total_size += 1UL * this->_internal_component_attach_datas_size();
+  for (const auto& msg : this->_internal_component_attach_datas()) {
+    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void AttachComponentTo::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachComponentTo*>(
+      &from));
+}
+
+void AttachComponentTo::MergeFrom(const AttachComponentTo& from) {
+  AttachComponentTo* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponentTo)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_component_attach_datas()->MergeFrom(
+      from._internal_component_attach_datas());
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachComponentTo::CopyFrom(const AttachComponentTo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponentTo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void AttachComponentTo::InternalSwap(AttachComponentTo* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.component_attach_datas_.InternalSwap(&other->_impl_.component_attach_datas_);
 }
 
 // @@protoc_insertion_point(namespace_scope)

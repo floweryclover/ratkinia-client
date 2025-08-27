@@ -148,7 +148,10 @@ FNetworkWorker::FNetworkWorker(const FRatkiniaClientInitResult& InitResult)
 FNetworkWorker::~FNetworkWorker()
 {
 	shutdown(Socket, SD_BOTH);
-	IoThread->WaitForCompletion();
+	if (IoThread)
+	{
+		IoThread->WaitForCompletion();
+	}
 	SSL_shutdown(Ssl);
 	SSL_free(Ssl);
 	SSL_CTX_free(SslCtx);

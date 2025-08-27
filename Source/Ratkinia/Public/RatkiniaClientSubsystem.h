@@ -4,6 +4,7 @@
 
 #include "CtsProxy.gen.h"
 #include "NetworkWorker.h"
+#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
 #include "RatkiniaClientSubsystem.generated.h"
@@ -85,7 +86,13 @@ public:
 
 	const FString& GetDisconnectedReason() const;
 
+	google::protobuf::Arena* GetArena()
+	{
+		return &Arena;
+	}
+
 private:
+	google::protobuf::Arena Arena;
 	FString DisconnectedReason;
 	TUniquePtr<FNetworkWorker> NetworkWorker;
 };

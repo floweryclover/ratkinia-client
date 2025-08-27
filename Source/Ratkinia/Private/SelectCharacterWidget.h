@@ -8,6 +8,7 @@
 
 class UButton;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSelectedCharacterWidget_OnCreateCharacterButtonClicked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSelectedCharacterWidget_OnCharacterSelected, int32, Id);
 
 class UVerticalBox;
 /**
@@ -22,11 +23,14 @@ public:
 	UPROPERTY()
 	FSelectedCharacterWidget_OnCreateCharacterButtonClicked OnCreateCharacterButtonClicked;
 
-	auto ClearCharacters() -> void;
+	UPROPERTY(BlueprintCallable)
+	FSelectedCharacterWidget_OnCharacterSelected OnCharacterSelected;
+	
+	void ClearCharacters();
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void AddCharacter(int32 Id, const FString& Name);
-	
+
 protected:
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	TObjectPtr<UVerticalBox> CharacterList;
