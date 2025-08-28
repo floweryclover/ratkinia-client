@@ -77,6 +77,32 @@ void ComponentVariant::clear_name_tag() {
     clear_has_value();
   }
 }
+void ComponentVariant::set_allocated_static_mesh__base(::RatkiniaProtocol::StaticMesh_Base* static_mesh__base) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  clear_value();
+  if (static_mesh__base) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(static_mesh__base)->GetArena();
+    if (message_arena != submessage_arena) {
+      static_mesh__base = ::google::protobuf::internal::GetOwnedMessage(message_arena, static_mesh__base, submessage_arena);
+    }
+    set_has_static_mesh__base();
+    _impl_.value_.static_mesh__base_ = static_mesh__base;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RatkiniaProtocol.ComponentVariant.static_mesh__base)
+}
+void ComponentVariant::clear_static_mesh__base() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (value_case() == kStaticMeshBase) {
+    if (GetArena() == nullptr) {
+      delete _impl_.value_.static_mesh__base_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      if (_impl_.value_.static_mesh__base_ != nullptr) {
+        _impl_.value_.static_mesh__base_->Clear();
+      }
+    }
+    clear_has_value();
+  }
+}
 ComponentVariant::ComponentVariant(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
@@ -103,6 +129,9 @@ ComponentVariant::ComponentVariant(
       break;
       case kNameTag:
         _impl_.value_.name_tag_ = ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::NameTag>(arena, *from._impl_.value_.name_tag_);
+        break;
+      case kStaticMeshBase:
+        _impl_.value_.static_mesh__base_ = ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::StaticMesh_Base>(arena, *from._impl_.value_.static_mesh__base_);
         break;
   }
 
@@ -145,6 +174,16 @@ void ComponentVariant::clear_value() {
       }
       break;
     }
+    case kStaticMeshBase: {
+      if (GetArena() == nullptr) {
+        delete _impl_.value_.static_mesh__base_;
+      } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+        if (_impl_.value_.static_mesh__base_ != nullptr) {
+          _impl_.value_.static_mesh__base_->Clear();
+        }
+      }
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -170,16 +209,16 @@ ComponentVariant::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 1, 0, 2> ComponentVariant::_table_ = {
+const ::_pbi::TcParseTable<0, 2, 2, 0, 2> ComponentVariant::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
+    2, 0,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    1,  // num_aux_entries
+    2,  // num_field_entries
+    2,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_ComponentVariant_default_instance_._instance,
     nullptr,  // post_loop_handler
@@ -195,8 +234,12 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> ComponentVariant::_table_ = {
     // .RatkiniaProtocol.NameTag name_tag = 1;
     {PROTOBUF_FIELD_OFFSET(ComponentVariant, _impl_.value_.name_tag_), _Internal::kOneofCaseOffset + 0, 0,
     (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .RatkiniaProtocol.StaticMesh_Base static_mesh__base = 2;
+    {PROTOBUF_FIELD_OFFSET(ComponentVariant, _impl_.value_.static_mesh__base_), _Internal::kOneofCaseOffset + 0, 1,
+    (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
     {::_pbi::TcParser::GetTable<::RatkiniaProtocol::NameTag>()},
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::StaticMesh_Base>()},
   }}, {{
   }},
 };
@@ -219,12 +262,20 @@ PROTOBUF_NOINLINE void ComponentVariant::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // .RatkiniaProtocol.NameTag name_tag = 1;
-  if (value_case() == kNameTag) {
-    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *_impl_.value_.name_tag_, _impl_.value_.name_tag_->GetCachedSize(), target, stream);
+  switch (value_case()) {
+    case kNameTag: {
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          1, *_impl_.value_.name_tag_, _impl_.value_.name_tag_->GetCachedSize(), target, stream);
+      break;
+    }
+    case kStaticMeshBase: {
+      target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+          2, *_impl_.value_.static_mesh__base_, _impl_.value_.static_mesh__base_->GetCachedSize(), target, stream);
+      break;
+    }
+    default:
+      break;
   }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
@@ -247,6 +298,12 @@ PROTOBUF_NOINLINE void ComponentVariant::Clear() {
     case kNameTag: {
       total_size +=
           1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.value_.name_tag_);
+      break;
+    }
+    // .RatkiniaProtocol.StaticMesh_Base static_mesh__base = 2;
+    case kStaticMeshBase: {
+      total_size +=
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.value_.static_mesh__base_);
       break;
     }
     case VALUE_NOT_SET: {
@@ -291,6 +348,15 @@ void ComponentVariant::MergeFrom(const ComponentVariant& from) {
               ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::NameTag>(arena, *from._impl_.value_.name_tag_);
         } else {
           _this->_impl_.value_.name_tag_->MergeFrom(from._internal_name_tag());
+        }
+        break;
+      }
+      case kStaticMeshBase: {
+        if (oneof_needs_init) {
+          _this->_impl_.value_.static_mesh__base_ =
+              ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::StaticMesh_Base>(arena, *from._impl_.value_.static_mesh__base_);
+        } else {
+          _this->_impl_.value_.static_mesh__base_->MergeFrom(from._internal_static_mesh__base());
         }
         break;
       }

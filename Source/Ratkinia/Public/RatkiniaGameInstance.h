@@ -13,14 +13,4 @@ UCLASS()
 class RATKINIA_API URatkiniaGameInstance final : public UGameInstance
 {
 	GENERATED_BODY()
-
-public:
-	virtual void Init() override;
-
-	void SetLastDisconnectedReason(FText Reason);
-
-	FText PopLastDisconnectedReason();
-
-private:
-	FText LastDisconnectedReason;
 };

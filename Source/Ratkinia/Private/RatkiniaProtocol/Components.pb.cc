@@ -22,6 +22,27 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace RatkiniaProtocol {
 
+inline constexpr StaticMesh_Base::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : static_mesh_name_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR StaticMesh_Base::StaticMesh_Base(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct StaticMesh_BaseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StaticMesh_BaseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StaticMesh_BaseDefaultTypeInternal() {}
+  union {
+    StaticMesh_Base _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StaticMesh_BaseDefaultTypeInternal _StaticMesh_Base_default_instance_;
+
 inline constexpr NameTag::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : name_(
@@ -235,6 +256,199 @@ void NameTag::InternalSwap(NameTag* PROTOBUF_RESTRICT other) {
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, &other->_impl_.name_, arena);
+}
+
+// ===================================================================
+
+class StaticMesh_Base::_Internal {
+ public:
+};
+
+StaticMesh_Base::StaticMesh_Base(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.StaticMesh_Base)
+}
+inline PROTOBUF_NDEBUG_INLINE StaticMesh_Base::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::StaticMesh_Base& from_msg)
+      : static_mesh_name_(arena, from.static_mesh_name_),
+        _cached_size_{0} {}
+
+StaticMesh_Base::StaticMesh_Base(
+    ::google::protobuf::Arena* arena,
+    const StaticMesh_Base& from)
+    : ::google::protobuf::MessageLite(arena) {
+  StaticMesh_Base* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.StaticMesh_Base)
+}
+inline PROTOBUF_NDEBUG_INLINE StaticMesh_Base::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : static_mesh_name_(arena),
+        _cached_size_{0} {}
+
+inline void StaticMesh_Base::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+StaticMesh_Base::~StaticMesh_Base() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.StaticMesh_Base)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void StaticMesh_Base::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.static_mesh_name_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+StaticMesh_Base::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<33> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.StaticMesh_Base",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 57, 2> StaticMesh_Base::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_StaticMesh_Base_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::StaticMesh_Base>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string static_mesh_name = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_.static_mesh_name_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string static_mesh_name = 1;
+    {PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_.static_mesh_name_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\40\20\0\0\0\0\0\0"
+    "RatkiniaProtocol.StaticMesh_Base"
+    "static_mesh_name"
+  }},
+};
+
+PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.StaticMesh_Base)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.static_mesh_name_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* StaticMesh_Base::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.StaticMesh_Base)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string static_mesh_name = 1;
+  if (!this->_internal_static_mesh_name().empty()) {
+    const std::string& _s = this->_internal_static_mesh_name();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.StaticMesh_Base.static_mesh_name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.StaticMesh_Base)
+  return target;
+}
+
+::size_t StaticMesh_Base::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.StaticMesh_Base)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string static_mesh_name = 1;
+  if (!this->_internal_static_mesh_name().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_static_mesh_name());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void StaticMesh_Base::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StaticMesh_Base*>(
+      &from));
+}
+
+void StaticMesh_Base::MergeFrom(const StaticMesh_Base& from) {
+  StaticMesh_Base* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.StaticMesh_Base)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_static_mesh_name().empty()) {
+    _this->_internal_set_static_mesh_name(from._internal_static_mesh_name());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StaticMesh_Base::CopyFrom(const StaticMesh_Base& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.StaticMesh_Base)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void StaticMesh_Base::InternalSwap(StaticMesh_Base* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.static_mesh_name_, &other->_impl_.static_mesh_name_, arena);
 }
 
 // @@protoc_insertion_point(namespace_scope)

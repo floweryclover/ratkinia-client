@@ -7,12 +7,11 @@
 		{
 			"Name": "Ratkinia",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine",
-				"CoreUObject",
-				"UMG"
-			]
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "RatkiniaComponent",
+			"Type": "Runtime"
 		}
 	],
 	"Plugins": [
