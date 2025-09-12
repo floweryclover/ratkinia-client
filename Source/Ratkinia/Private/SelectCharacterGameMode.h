@@ -3,7 +3,6 @@
 #pragma once
 
 #include "StcStub.gen.h"
-#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
@@ -35,19 +34,12 @@ public:
 
 	virtual void OnNotificate(RatkiniaProtocol::Notificate_Type Type, FString Text) override;
 
-	google::protobuf::Arena* GetArena()
-	{
-		return &Arena;
-	}
-
 protected:
 	virtual void BeginPlay() override;
 	
 private:
 	bool bBreakMessagePopLoop;
 
-	google::protobuf::Arena Arena;
-	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<USelectCharacterWidget> SelectCharacterWidgetClass;
 

@@ -37,6 +37,28 @@ void AWorldGameMode::Tick(const float DeltaSeconds)
 	}
 }
 
+void AWorldGameMode::OnSpawnEntity(const TArrayView<const SpawnEntity_Data* const> EntitySpawnDatas)
+{
+	for (const SpawnEntity_Data* const Data : EntitySpawnDatas)
+	{
+		IEntity* const Entity = [&]() -> IEntity*
+		{
+			if (Data->type() == SpawnEntity_Type_Normal)
+			{
+				return GetWorld()->SpawnActor<ANormalEntity>();
+			}
+			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>(
+				PossessableEntityClass,
+				FVector{0.0f, 0.0f, 3000.0f},
+				FRotator::ZeroRotator);
+			GetWorld()->GetFirstPlayerController()->Possess(MyCharacter);
+			return MyCharacter;
+		}();
+		Entity->SetEntityId(Data->entity_id());
+		Entities.EmplaceAt(Data->entity_id(), Entity);
+	}
+}
+
 void AWorldGameMode::OnUnknownMessageType(const StcMessageType MessageType)
 {
 	UE_LOG(LogRatkinia, Fatal, TEXT("알 수 없는 메시지 타입: %d"), MessageType)
@@ -55,24 +77,7 @@ void AWorldGameMode::OnUnhandledMessageType(const StcMessageType MessageType)
 	checkNoEntry();
 }
 
-void AWorldGameMode::OnSpawnEntity(const TArrayView<const SpawnEntity_Data* const> EntitySpawnDatas)
-{
-	for (const SpawnEntity_Data* const Data : EntitySpawnDatas)
-	{
-		IEntity* const Entity = [&]() -> IEntity*
-		{
-			if (Data->type() == SpawnEntity_Type_Normal)
-			{
-				return GetWorld()->SpawnActor<ANormalEntity>();
-			}
-			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>(PossessableEntityClass, FVector{0.0f, 0.0f, 3000.0f}, FRotator::ZeroRotator);
-			GetWorld()->GetFirstPlayerController()->Possess(MyCharacter);
-			return MyCharacter;
-		}();
-		Entity->SetEntityId(Data->entity_id());
-		Entities.EmplaceAt(Data->entity_id(), Entity);
-	}
-}
+
 
 void AWorldGameMode::OnAttachComponentTo(
 	const TArrayView<const AttachComponentTo_Data* const> ComponentAttachDatas)

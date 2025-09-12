@@ -3,7 +3,6 @@
 #pragma once
 
 #include "StcStub.gen.h"
-#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
@@ -29,18 +28,12 @@ public:
 	
 	virtual void OnCreateCharacterResponse(RatkiniaProtocol::CreateCharacterResponse_CreateCharacterResult Successful) override;
 
-	google::protobuf::Arena* GetArena()
-	{
-		return &Arena;
-	}
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	
 	virtual void BeginPlay() override;
 	
 private:
-	google::protobuf::Arena Arena;
-	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UCreateCharacterWidget> CreateCharacterWidgetClass;
 

@@ -3,7 +3,6 @@
 #pragma once
 
 #include "StcStub.gen.h"
-#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
@@ -30,11 +29,6 @@ public:
 	virtual void OnAttachComponentTo(
 		TArrayView<const RatkiniaProtocol::AttachComponentTo_Data* const> ComponentAttachDatas) override;
 
-	google::protobuf::Arena* GetArena()
-	{
-		return &Arena;
-	}
-	
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<APossessableEntity> PossessableEntityClass;
@@ -42,6 +36,5 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	google::protobuf::Arena Arena;
 	TSparseArray<IEntity*> Entities;
 };
