@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Entity.h"
 #include "GameFramework/Character.h"
 #include "PossessableEntity.generated.h"
 
@@ -11,19 +10,19 @@ class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS()
-class APossessableEntity final : public ACharacter, public IEntity
+class APossessableEntity final : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	explicit APossessableEntity();
 	
-	virtual void SetEntityId(const uint32 Id) override
+	void SetEntityId(const uint32 Id)
 	{
 		EntityId = Id;
 	}
 
-	virtual uint32 GetEntityId() const override
+	uint32 GetEntityId() const
 	{
 		return EntityId;
 	}

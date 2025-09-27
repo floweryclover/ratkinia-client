@@ -45,13 +45,13 @@ const FString& URatkiniaClientSubsystem::GetDisconnectedReason() const
 	return NetworkWorker->GetDisconnectedReason();
 }
 
-void URatkiniaClientSubsystem::ClearSession()
+void URatkiniaClientSubsystem::ClearSession(const FString& Reason)
 {
 	if (!NetworkWorker)
 	{
 		return;
 	}
 	
-	NetworkWorker->Disconnect("사용자가 연결을 종료하였습니다.");
+	NetworkWorker->Disconnect(Reason);
 	NetworkWorker.Reset();
 }

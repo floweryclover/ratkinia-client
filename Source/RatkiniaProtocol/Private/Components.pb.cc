@@ -22,27 +22,6 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace RatkiniaProtocol {
 
-inline constexpr StaticMesh_Base::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : static_mesh_name_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR StaticMesh_Base::StaticMesh_Base(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct StaticMesh_BaseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR StaticMesh_BaseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~StaticMesh_BaseDefaultTypeInternal() {}
-  union {
-    StaticMesh_Base _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StaticMesh_BaseDefaultTypeInternal _StaticMesh_Base_default_instance_;
-
 inline constexpr NameTag::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : name_(
@@ -63,6 +42,27 @@ struct NameTagDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NameTagDefaultTypeInternal _NameTag_default_instance_;
+
+inline constexpr HumanLikeBody::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : static_mesh_name_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HumanLikeBody::HumanLikeBody(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct HumanLikeBodyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HumanLikeBodyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HumanLikeBodyDefaultTypeInternal() {}
+  union {
+    HumanLikeBody _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HumanLikeBodyDefaultTypeInternal _HumanLikeBody_default_instance_;
 }  // namespace RatkiniaProtocol
 namespace RatkiniaProtocol {
 // ===================================================================
@@ -260,71 +260,71 @@ void NameTag::InternalSwap(NameTag* PROTOBUF_RESTRICT other) {
 
 // ===================================================================
 
-class StaticMesh_Base::_Internal {
+class HumanLikeBody::_Internal {
  public:
 };
 
-StaticMesh_Base::StaticMesh_Base(::google::protobuf::Arena* arena)
+HumanLikeBody::HumanLikeBody(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.StaticMesh_Base)
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.HumanLikeBody)
 }
-inline PROTOBUF_NDEBUG_INLINE StaticMesh_Base::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE HumanLikeBody::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::StaticMesh_Base& from_msg)
+    const Impl_& from, const ::RatkiniaProtocol::HumanLikeBody& from_msg)
       : static_mesh_name_(arena, from.static_mesh_name_),
         _cached_size_{0} {}
 
-StaticMesh_Base::StaticMesh_Base(
+HumanLikeBody::HumanLikeBody(
     ::google::protobuf::Arena* arena,
-    const StaticMesh_Base& from)
+    const HumanLikeBody& from)
     : ::google::protobuf::MessageLite(arena) {
-  StaticMesh_Base* const _this = this;
+  HumanLikeBody* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<std::string>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
 
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.StaticMesh_Base)
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.HumanLikeBody)
 }
-inline PROTOBUF_NDEBUG_INLINE StaticMesh_Base::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE HumanLikeBody::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : static_mesh_name_(arena),
         _cached_size_{0} {}
 
-inline void StaticMesh_Base::SharedCtor(::_pb::Arena* arena) {
+inline void HumanLikeBody::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
 }
-StaticMesh_Base::~StaticMesh_Base() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.StaticMesh_Base)
+HumanLikeBody::~HumanLikeBody() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.HumanLikeBody)
   _internal_metadata_.Delete<std::string>();
   SharedDtor();
 }
-inline void StaticMesh_Base::SharedDtor() {
+inline void HumanLikeBody::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.static_mesh_name_.Destroy();
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-StaticMesh_Base::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<33> _data_ =
+HumanLikeBody::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<31> _data_ =
       {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(HumanLikeBody, _impl_._cached_size_),
               true,
           },
-          "RatkiniaProtocol.StaticMesh_Base",
+          "RatkiniaProtocol.HumanLikeBody",
       };
 
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 57, 2> StaticMesh_Base::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 55, 2> HumanLikeBody::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -335,33 +335,33 @@ const ::_pbi::TcParseTable<0, 1, 0, 57, 2> StaticMesh_Base::_table_ = {
     1,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_StaticMesh_Base_default_instance_._instance,
+    &_HumanLikeBody_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallbackLite,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::StaticMesh_Base>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::HumanLikeBody>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // string static_mesh_name = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_.static_mesh_name_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(HumanLikeBody, _impl_.static_mesh_name_)}},
   }}, {{
     65535, 65535
   }}, {{
     // string static_mesh_name = 1;
-    {PROTOBUF_FIELD_OFFSET(StaticMesh_Base, _impl_.static_mesh_name_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(HumanLikeBody, _impl_.static_mesh_name_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\40\20\0\0\0\0\0\0"
-    "RatkiniaProtocol.StaticMesh_Base"
+    "\36\20\0\0\0\0\0\0"
+    "RatkiniaProtocol.HumanLikeBody"
     "static_mesh_name"
   }},
 };
 
-PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.StaticMesh_Base)
+PROTOBUF_NOINLINE void HumanLikeBody::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.HumanLikeBody)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -371,10 +371,10 @@ PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-::uint8_t* StaticMesh_Base::_InternalSerialize(
+::uint8_t* HumanLikeBody::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.StaticMesh_Base)
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.HumanLikeBody)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
@@ -382,7 +382,7 @@ PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
   if (!this->_internal_static_mesh_name().empty()) {
     const std::string& _s = this->_internal_static_mesh_name();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.StaticMesh_Base.static_mesh_name");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.HumanLikeBody.static_mesh_name");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -391,12 +391,12 @@ PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.StaticMesh_Base)
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.HumanLikeBody)
   return target;
 }
 
-::size_t StaticMesh_Base::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.StaticMesh_Base)
+::size_t HumanLikeBody::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.HumanLikeBody)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -416,15 +416,15 @@ PROTOBUF_NOINLINE void StaticMesh_Base::Clear() {
   return total_size;
 }
 
-void StaticMesh_Base::CheckTypeAndMergeFrom(
+void HumanLikeBody::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const StaticMesh_Base*>(
+  MergeFrom(*::_pbi::DownCast<const HumanLikeBody*>(
       &from));
 }
 
-void StaticMesh_Base::MergeFrom(const StaticMesh_Base& from) {
-  StaticMesh_Base* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.StaticMesh_Base)
+void HumanLikeBody::MergeFrom(const HumanLikeBody& from) {
+  HumanLikeBody* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.HumanLikeBody)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -435,15 +435,15 @@ void StaticMesh_Base::MergeFrom(const StaticMesh_Base& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void StaticMesh_Base::CopyFrom(const StaticMesh_Base& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.StaticMesh_Base)
+void HumanLikeBody::CopyFrom(const HumanLikeBody& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.HumanLikeBody)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void StaticMesh_Base::InternalSwap(StaticMesh_Base* PROTOBUF_RESTRICT other) {
+void HumanLikeBody::InternalSwap(HumanLikeBody* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());

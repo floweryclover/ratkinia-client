@@ -77,27 +77,27 @@ void ComponentVariant::clear_name_tag() {
     clear_has_value();
   }
 }
-void ComponentVariant::set_allocated_static_mesh__base(::RatkiniaProtocol::StaticMesh_Base* static_mesh__base) {
+void ComponentVariant::set_allocated_human_like_body(::RatkiniaProtocol::HumanLikeBody* human_like_body) {
   ::google::protobuf::Arena* message_arena = GetArena();
   clear_value();
-  if (static_mesh__base) {
-    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(static_mesh__base)->GetArena();
+  if (human_like_body) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(human_like_body)->GetArena();
     if (message_arena != submessage_arena) {
-      static_mesh__base = ::google::protobuf::internal::GetOwnedMessage(message_arena, static_mesh__base, submessage_arena);
+      human_like_body = ::google::protobuf::internal::GetOwnedMessage(message_arena, human_like_body, submessage_arena);
     }
-    set_has_static_mesh__base();
-    _impl_.value_.static_mesh__base_ = static_mesh__base;
+    set_has_human_like_body();
+    _impl_.value_.human_like_body_ = human_like_body;
   }
-  // @@protoc_insertion_point(field_set_allocated:RatkiniaProtocol.ComponentVariant.static_mesh__base)
+  // @@protoc_insertion_point(field_set_allocated:RatkiniaProtocol.ComponentVariant.human_like_body)
 }
-void ComponentVariant::clear_static_mesh__base() {
+void ComponentVariant::clear_human_like_body() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (value_case() == kStaticMeshBase) {
+  if (value_case() == kHumanLikeBody) {
     if (GetArena() == nullptr) {
-      delete _impl_.value_.static_mesh__base_;
+      delete _impl_.value_.human_like_body_;
     } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-      if (_impl_.value_.static_mesh__base_ != nullptr) {
-        _impl_.value_.static_mesh__base_->Clear();
+      if (_impl_.value_.human_like_body_ != nullptr) {
+        _impl_.value_.human_like_body_->Clear();
       }
     }
     clear_has_value();
@@ -130,8 +130,8 @@ ComponentVariant::ComponentVariant(
       case kNameTag:
         _impl_.value_.name_tag_ = ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::NameTag>(arena, *from._impl_.value_.name_tag_);
         break;
-      case kStaticMeshBase:
-        _impl_.value_.static_mesh__base_ = ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::StaticMesh_Base>(arena, *from._impl_.value_.static_mesh__base_);
+      case kHumanLikeBody:
+        _impl_.value_.human_like_body_ = ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::HumanLikeBody>(arena, *from._impl_.value_.human_like_body_);
         break;
   }
 
@@ -174,12 +174,12 @@ void ComponentVariant::clear_value() {
       }
       break;
     }
-    case kStaticMeshBase: {
+    case kHumanLikeBody: {
       if (GetArena() == nullptr) {
-        delete _impl_.value_.static_mesh__base_;
+        delete _impl_.value_.human_like_body_;
       } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
-        if (_impl_.value_.static_mesh__base_ != nullptr) {
-          _impl_.value_.static_mesh__base_->Clear();
+        if (_impl_.value_.human_like_body_ != nullptr) {
+          _impl_.value_.human_like_body_->Clear();
         }
       }
       break;
@@ -234,12 +234,12 @@ const ::_pbi::TcParseTable<0, 2, 2, 0, 2> ComponentVariant::_table_ = {
     // .RatkiniaProtocol.NameTag name_tag = 1;
     {PROTOBUF_FIELD_OFFSET(ComponentVariant, _impl_.value_.name_tag_), _Internal::kOneofCaseOffset + 0, 0,
     (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
-    // .RatkiniaProtocol.StaticMesh_Base static_mesh__base = 2;
-    {PROTOBUF_FIELD_OFFSET(ComponentVariant, _impl_.value_.static_mesh__base_), _Internal::kOneofCaseOffset + 0, 1,
+    // .RatkiniaProtocol.HumanLikeBody human_like_body = 2;
+    {PROTOBUF_FIELD_OFFSET(ComponentVariant, _impl_.value_.human_like_body_), _Internal::kOneofCaseOffset + 0, 1,
     (0 | ::_fl::kFcOneof | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
     {::_pbi::TcParser::GetTable<::RatkiniaProtocol::NameTag>()},
-    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::StaticMesh_Base>()},
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::HumanLikeBody>()},
   }}, {{
   }},
 };
@@ -268,9 +268,9 @@ PROTOBUF_NOINLINE void ComponentVariant::Clear() {
           1, *_impl_.value_.name_tag_, _impl_.value_.name_tag_->GetCachedSize(), target, stream);
       break;
     }
-    case kStaticMeshBase: {
+    case kHumanLikeBody: {
       target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-          2, *_impl_.value_.static_mesh__base_, _impl_.value_.static_mesh__base_->GetCachedSize(), target, stream);
+          2, *_impl_.value_.human_like_body_, _impl_.value_.human_like_body_->GetCachedSize(), target, stream);
       break;
     }
     default:
@@ -300,10 +300,10 @@ PROTOBUF_NOINLINE void ComponentVariant::Clear() {
           1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.value_.name_tag_);
       break;
     }
-    // .RatkiniaProtocol.StaticMesh_Base static_mesh__base = 2;
-    case kStaticMeshBase: {
+    // .RatkiniaProtocol.HumanLikeBody human_like_body = 2;
+    case kHumanLikeBody: {
       total_size +=
-          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.value_.static_mesh__base_);
+          1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.value_.human_like_body_);
       break;
     }
     case VALUE_NOT_SET: {
@@ -351,12 +351,12 @@ void ComponentVariant::MergeFrom(const ComponentVariant& from) {
         }
         break;
       }
-      case kStaticMeshBase: {
+      case kHumanLikeBody: {
         if (oneof_needs_init) {
-          _this->_impl_.value_.static_mesh__base_ =
-              ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::StaticMesh_Base>(arena, *from._impl_.value_.static_mesh__base_);
+          _this->_impl_.value_.human_like_body_ =
+              ::google::protobuf::MessageLite::CopyConstruct<::RatkiniaProtocol::HumanLikeBody>(arena, *from._impl_.value_.human_like_body_);
         } else {
-          _this->_impl_.value_.static_mesh__base_->MergeFrom(from._internal_static_mesh__base());
+          _this->_impl_.value_.human_like_body_->MergeFrom(from._internal_human_like_body());
         }
         break;
       }

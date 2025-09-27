@@ -164,6 +164,26 @@ struct CreateCharacterResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateCharacterResponseDefaultTypeInternal _CreateCharacterResponse_default_instance_;
 
+inline constexpr AttachComponent_Data::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : target_entity_{0},
+        component_runtime_order_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AttachComponent_Data::AttachComponent_Data(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AttachComponent_DataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachComponent_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachComponent_DataDefaultTypeInternal() {}
+  union {
+    AttachComponent_Data _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponent_DataDefaultTypeInternal _AttachComponent_Data_default_instance_;
+
 inline constexpr SpawnEntity::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : entity_spawn_datas_{},
@@ -202,44 +222,63 @@ struct SendMyCharactersDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendMyCharactersDefaultTypeInternal _SendMyCharacters_default_instance_;
 
-inline constexpr AttachComponentTo_Data::Impl_::Impl_(
+inline constexpr AttachComponent::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : component_attach_datas_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR AttachComponent::AttachComponent(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct AttachComponentDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AttachComponentDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AttachComponentDefaultTypeInternal() {}
+  union {
+    AttachComponent _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponentDefaultTypeInternal _AttachComponent_default_instance_;
+
+inline constexpr UpdateComponent_Data::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
         component_variant_{nullptr},
         target_entity_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR AttachComponentTo_Data::AttachComponentTo_Data(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR UpdateComponent_Data::UpdateComponent_Data(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct AttachComponentTo_DataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttachComponentTo_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~AttachComponentTo_DataDefaultTypeInternal() {}
+struct UpdateComponent_DataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdateComponent_DataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdateComponent_DataDefaultTypeInternal() {}
   union {
-    AttachComponentTo_Data _instance;
+    UpdateComponent_Data _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponentTo_DataDefaultTypeInternal _AttachComponentTo_Data_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateComponent_DataDefaultTypeInternal _UpdateComponent_Data_default_instance_;
 
-inline constexpr AttachComponentTo::Impl_::Impl_(
+inline constexpr UpdateComponent::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : component_attach_datas_{},
+      : component_update_datas_{},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR AttachComponentTo::AttachComponentTo(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR UpdateComponent::UpdateComponent(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct AttachComponentToDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AttachComponentToDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~AttachComponentToDefaultTypeInternal() {}
+struct UpdateComponentDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdateComponentDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdateComponentDefaultTypeInternal() {}
   union {
-    AttachComponentTo _instance;
+    UpdateComponent _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttachComponentToDefaultTypeInternal _AttachComponentTo_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateComponentDefaultTypeInternal _UpdateComponent_default_instance_;
 }  // namespace RatkiniaProtocol
 namespace RatkiniaProtocol {
 PROTOBUF_CONSTINIT const uint32_t LoginResponse_LoginResult_internal_data_[] = {
@@ -2235,35 +2274,432 @@ void SpawnEntity::InternalSwap(SpawnEntity* PROTOBUF_RESTRICT other) {
 
 // ===================================================================
 
-class AttachComponentTo_Data::_Internal {
+class AttachComponent_Data::_Internal {
  public:
-  using HasBits =
-      decltype(std::declval<AttachComponentTo_Data>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-      8 * PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._has_bits_);
 };
 
-void AttachComponentTo_Data::clear_component_variant() {
+AttachComponent_Data::AttachComponent_Data(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponent.Data)
+}
+AttachComponent_Data::AttachComponent_Data(
+    ::google::protobuf::Arena* arena, const AttachComponent_Data& from)
+    : AttachComponent_Data(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponent_Data::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void AttachComponent_Data::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, target_entity_),
+           0,
+           offsetof(Impl_, component_runtime_order_) -
+               offsetof(Impl_, target_entity_) +
+               sizeof(Impl_::component_runtime_order_));
+}
+AttachComponent_Data::~AttachComponent_Data() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponent.Data)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void AttachComponent_Data::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+AttachComponent_Data::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<38> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.AttachComponent.Data",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> AttachComponent_Data::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_AttachComponent_Data_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponent_Data>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // int32 component_runtime_order = 2;
+    {::_pbi::TcParser::FastV32S1,
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.component_runtime_order_)}},
+    // int32 target_entity = 1;
+    {::_pbi::TcParser::FastV32S1,
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.target_entity_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int32 target_entity = 1;
+    {PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.target_entity_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // int32 component_runtime_order = 2;
+    {PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.component_runtime_order_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void AttachComponent_Data::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponent.Data)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.target_entity_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.component_runtime_order_) -
+      reinterpret_cast<char*>(&_impl_.target_entity_)) + sizeof(_impl_.component_runtime_order_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* AttachComponent_Data::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponent.Data)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // int32 target_entity = 1;
+  if (this->_internal_target_entity() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<1>(
+            stream, this->_internal_target_entity(), target);
+  }
+
+  // int32 component_runtime_order = 2;
+  if (this->_internal_component_runtime_order() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<2>(
+            stream, this->_internal_component_runtime_order(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponent.Data)
+  return target;
+}
+
+::size_t AttachComponent_Data::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponent.Data)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // int32 target_entity = 1;
+  if (this->_internal_target_entity() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_target_entity());
+  }
+
+  // int32 component_runtime_order = 2;
+  if (this->_internal_component_runtime_order() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_component_runtime_order());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void AttachComponent_Data::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachComponent_Data*>(
+      &from));
+}
+
+void AttachComponent_Data::MergeFrom(const AttachComponent_Data& from) {
+  AttachComponent_Data* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponent.Data)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_target_entity() != 0) {
+    _this->_impl_.target_entity_ = from._impl_.target_entity_;
+  }
+  if (from._internal_component_runtime_order() != 0) {
+    _this->_impl_.component_runtime_order_ = from._impl_.component_runtime_order_;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachComponent_Data::CopyFrom(const AttachComponent_Data& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponent.Data)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void AttachComponent_Data::InternalSwap(AttachComponent_Data* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.component_runtime_order_)
+      + sizeof(AttachComponent_Data::_impl_.component_runtime_order_)
+      - PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.target_entity_)>(
+          reinterpret_cast<char*>(&_impl_.target_entity_),
+          reinterpret_cast<char*>(&other->_impl_.target_entity_));
+}
+
+// ===================================================================
+
+class AttachComponent::_Internal {
+ public:
+};
+
+AttachComponent::AttachComponent(::google::protobuf::Arena* arena)
+    : ::google::protobuf::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponent)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponent::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::RatkiniaProtocol::AttachComponent& from_msg)
+      : component_attach_datas_{visibility, arena, from.component_attach_datas_},
+        _cached_size_{0} {}
+
+AttachComponent::AttachComponent(
+    ::google::protobuf::Arena* arena,
+    const AttachComponent& from)
+    : ::google::protobuf::MessageLite(arena) {
+  AttachComponent* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.AttachComponent)
+}
+inline PROTOBUF_NDEBUG_INLINE AttachComponent::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : component_attach_datas_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void AttachComponent::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+AttachComponent::~AttachComponent() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponent)
+  _internal_metadata_.Delete<std::string>();
+  SharedDtor();
+}
+inline void AttachComponent::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+AttachComponent::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<33> _data_ =
+      {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(AttachComponent, _impl_._cached_size_),
+              true,
+          },
+          "RatkiniaProtocol.AttachComponent",
+      };
+
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> AttachComponent::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    &_AttachComponent_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallbackLite,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponent>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .RatkiniaProtocol.AttachComponent.Data component_attach_datas = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponent, _impl_.component_attach_datas_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .RatkiniaProtocol.AttachComponent.Data component_attach_datas = 1;
+    {PROTOBUF_FIELD_OFFSET(AttachComponent, _impl_.component_attach_datas_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponent_Data>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void AttachComponent::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponent)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.component_attach_datas_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+::uint8_t* AttachComponent::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponent)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // repeated .RatkiniaProtocol.AttachComponent.Data component_attach_datas = 1;
+  for (unsigned i = 0, n = static_cast<unsigned>(
+                           this->_internal_component_attach_datas_size());
+       i < n; i++) {
+    const auto& repfield = this->_internal_component_attach_datas().Get(i);
+    target =
+        ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+            1, repfield, repfield.GetCachedSize(),
+            target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(
+        _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponent)
+  return target;
+}
+
+::size_t AttachComponent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponent)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // repeated .RatkiniaProtocol.AttachComponent.Data component_attach_datas = 1;
+  total_size += 1UL * this->_internal_component_attach_datas_size();
+  for (const auto& msg : this->_internal_component_attach_datas()) {
+    total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size();
+  }
+  _impl_._cached_size_.Set(::_pbi::ToCachedSize(total_size));
+  return total_size;
+}
+
+void AttachComponent::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AttachComponent*>(
+      &from));
+}
+
+void AttachComponent::MergeFrom(const AttachComponent& from) {
+  AttachComponent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponent)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_component_attach_datas()->MergeFrom(
+      from._internal_component_attach_datas());
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AttachComponent::CopyFrom(const AttachComponent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void AttachComponent::InternalSwap(AttachComponent* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.component_attach_datas_.InternalSwap(&other->_impl_.component_attach_datas_);
+}
+
+// ===================================================================
+
+class UpdateComponent_Data::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<UpdateComponent_Data>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_._has_bits_);
+};
+
+void UpdateComponent_Data::clear_component_variant() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   if (_impl_.component_variant_ != nullptr) _impl_.component_variant_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-AttachComponentTo_Data::AttachComponentTo_Data(::google::protobuf::Arena* arena)
+UpdateComponent_Data::UpdateComponent_Data(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponentTo.Data)
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.UpdateComponent.Data)
 }
-inline PROTOBUF_NDEBUG_INLINE AttachComponentTo_Data::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateComponent_Data::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::AttachComponentTo_Data& from_msg)
+    const Impl_& from, const ::RatkiniaProtocol::UpdateComponent_Data& from_msg)
       : _has_bits_{from._has_bits_},
         _cached_size_{0} {}
 
-AttachComponentTo_Data::AttachComponentTo_Data(
+UpdateComponent_Data::UpdateComponent_Data(
     ::google::protobuf::Arena* arena,
-    const AttachComponentTo_Data& from)
+    const UpdateComponent_Data& from)
     : ::google::protobuf::MessageLite(arena) {
-  AttachComponentTo_Data* const _this = this;
+  UpdateComponent_Data* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<std::string>(
       from._internal_metadata_);
@@ -2274,14 +2710,14 @@ AttachComponentTo_Data::AttachComponentTo_Data(
                         : nullptr;
   _impl_.target_entity_ = from._impl_.target_entity_;
 
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.AttachComponentTo.Data)
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.UpdateComponent.Data)
 }
-inline PROTOBUF_NDEBUG_INLINE AttachComponentTo_Data::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateComponent_Data::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : _cached_size_{0} {}
 
-inline void AttachComponentTo_Data::SharedCtor(::_pb::Arena* arena) {
+inline void UpdateComponent_Data::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, component_variant_),
@@ -2290,37 +2726,37 @@ inline void AttachComponentTo_Data::SharedCtor(::_pb::Arena* arena) {
                offsetof(Impl_, component_variant_) +
                sizeof(Impl_::target_entity_));
 }
-AttachComponentTo_Data::~AttachComponentTo_Data() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponentTo.Data)
+UpdateComponent_Data::~UpdateComponent_Data() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.UpdateComponent.Data)
   _internal_metadata_.Delete<std::string>();
   SharedDtor();
 }
-inline void AttachComponentTo_Data::SharedDtor() {
+inline void UpdateComponent_Data::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   delete _impl_.component_variant_;
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-AttachComponentTo_Data::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<40> _data_ =
+UpdateComponent_Data::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<38> _data_ =
       {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_._cached_size_),
               true,
           },
-          "RatkiniaProtocol.AttachComponentTo.Data",
+          "RatkiniaProtocol.UpdateComponent.Data",
       };
 
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 1, 0, 2> AttachComponentTo_Data::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> UpdateComponent_Data::_table_ = {
   {
-    PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_._has_bits_),
     0, // no _extensions_
     2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
@@ -2329,27 +2765,27 @@ const ::_pbi::TcParseTable<1, 2, 1, 0, 2> AttachComponentTo_Data::_table_ = {
     2,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
-    &_AttachComponentTo_Data_default_instance_._instance,
+    &_UpdateComponent_Data_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallbackLite,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo_Data>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::UpdateComponent_Data>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // .RatkiniaProtocol.ComponentVariant component_variant = 2;
     {::_pbi::TcParser::FastMtS1,
-     {18, 0, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_)}},
+     {18, 0, 0, PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.component_variant_)}},
     // int32 target_entity = 1;
     {::_pbi::TcParser::FastV32S1,
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_)}},
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.target_entity_)}},
   }}, {{
     65535, 65535
   }}, {{
     // int32 target_entity = 1;
-    {PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.target_entity_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
     // .RatkiniaProtocol.ComponentVariant component_variant = 2;
-    {PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_), _Internal::kHasBitsOffset + 0, 0,
+    {PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.component_variant_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
     {::_pbi::TcParser::GetTable<::RatkiniaProtocol::ComponentVariant>()},
@@ -2357,8 +2793,8 @@ const ::_pbi::TcParseTable<1, 2, 1, 0, 2> AttachComponentTo_Data::_table_ = {
   }},
 };
 
-PROTOBUF_NOINLINE void AttachComponentTo_Data::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponentTo.Data)
+PROTOBUF_NOINLINE void UpdateComponent_Data::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.UpdateComponent.Data)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -2374,10 +2810,10 @@ PROTOBUF_NOINLINE void AttachComponentTo_Data::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-::uint8_t* AttachComponentTo_Data::_InternalSerialize(
+::uint8_t* UpdateComponent_Data::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponentTo.Data)
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.UpdateComponent.Data)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
@@ -2400,12 +2836,12 @@ PROTOBUF_NOINLINE void AttachComponentTo_Data::Clear() {
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponentTo.Data)
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.UpdateComponent.Data)
   return target;
 }
 
-::size_t AttachComponentTo_Data::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponentTo.Data)
+::size_t UpdateComponent_Data::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.UpdateComponent.Data)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -2433,16 +2869,16 @@ PROTOBUF_NOINLINE void AttachComponentTo_Data::Clear() {
   return total_size;
 }
 
-void AttachComponentTo_Data::CheckTypeAndMergeFrom(
+void UpdateComponent_Data::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const AttachComponentTo_Data*>(
+  MergeFrom(*::_pbi::DownCast<const UpdateComponent_Data*>(
       &from));
 }
 
-void AttachComponentTo_Data::MergeFrom(const AttachComponentTo_Data& from) {
-  AttachComponentTo_Data* const _this = this;
+void UpdateComponent_Data::MergeFrom(const UpdateComponent_Data& from) {
+  UpdateComponent_Data* const _this = this;
   ::google::protobuf::Arena* arena = _this->GetArena();
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponentTo.Data)
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.UpdateComponent.Data)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -2464,92 +2900,92 @@ void AttachComponentTo_Data::MergeFrom(const AttachComponentTo_Data& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void AttachComponentTo_Data::CopyFrom(const AttachComponentTo_Data& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponentTo.Data)
+void UpdateComponent_Data::CopyFrom(const UpdateComponent_Data& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.UpdateComponent.Data)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void AttachComponentTo_Data::InternalSwap(AttachComponentTo_Data* PROTOBUF_RESTRICT other) {
+void UpdateComponent_Data::InternalSwap(UpdateComponent_Data* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.target_entity_)
-      + sizeof(AttachComponentTo_Data::_impl_.target_entity_)
-      - PROTOBUF_FIELD_OFFSET(AttachComponentTo_Data, _impl_.component_variant_)>(
+      PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.target_entity_)
+      + sizeof(UpdateComponent_Data::_impl_.target_entity_)
+      - PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.component_variant_)>(
           reinterpret_cast<char*>(&_impl_.component_variant_),
           reinterpret_cast<char*>(&other->_impl_.component_variant_));
 }
 
 // ===================================================================
 
-class AttachComponentTo::_Internal {
+class UpdateComponent::_Internal {
  public:
 };
 
-AttachComponentTo::AttachComponentTo(::google::protobuf::Arena* arena)
+UpdateComponent::UpdateComponent(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.AttachComponentTo)
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.UpdateComponent)
 }
-inline PROTOBUF_NDEBUG_INLINE AttachComponentTo::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateComponent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::AttachComponentTo& from_msg)
-      : component_attach_datas_{visibility, arena, from.component_attach_datas_},
+    const Impl_& from, const ::RatkiniaProtocol::UpdateComponent& from_msg)
+      : component_update_datas_{visibility, arena, from.component_update_datas_},
         _cached_size_{0} {}
 
-AttachComponentTo::AttachComponentTo(
+UpdateComponent::UpdateComponent(
     ::google::protobuf::Arena* arena,
-    const AttachComponentTo& from)
+    const UpdateComponent& from)
     : ::google::protobuf::MessageLite(arena) {
-  AttachComponentTo* const _this = this;
+  UpdateComponent* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<std::string>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
 
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.AttachComponentTo)
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.UpdateComponent)
 }
-inline PROTOBUF_NDEBUG_INLINE AttachComponentTo::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateComponent::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : component_attach_datas_{visibility, arena},
+      : component_update_datas_{visibility, arena},
         _cached_size_{0} {}
 
-inline void AttachComponentTo::SharedCtor(::_pb::Arena* arena) {
+inline void UpdateComponent::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
 }
-AttachComponentTo::~AttachComponentTo() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.AttachComponentTo)
+UpdateComponent::~UpdateComponent() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.UpdateComponent)
   _internal_metadata_.Delete<std::string>();
   SharedDtor();
 }
-inline void AttachComponentTo::SharedDtor() {
+inline void UpdateComponent::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-AttachComponentTo::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<35> _data_ =
+UpdateComponent::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<33> _data_ =
       {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(UpdateComponent, _impl_._cached_size_),
               true,
           },
-          "RatkiniaProtocol.AttachComponentTo",
+          "RatkiniaProtocol.UpdateComponent",
       };
 
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 1, 0, 2> AttachComponentTo::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> UpdateComponent::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -2560,51 +2996,51 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> AttachComponentTo::_table_ = {
     1,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
-    &_AttachComponentTo_default_instance_._instance,
+    &_UpdateComponent_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallbackLite,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::UpdateComponent>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+    // repeated .RatkiniaProtocol.UpdateComponent.Data component_update_datas = 1;
     {::_pbi::TcParser::FastMtR1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_.component_attach_datas_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateComponent, _impl_.component_update_datas_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
-    {PROTOBUF_FIELD_OFFSET(AttachComponentTo, _impl_.component_attach_datas_), 0, 0,
+    // repeated .RatkiniaProtocol.UpdateComponent.Data component_update_datas = 1;
+    {PROTOBUF_FIELD_OFFSET(UpdateComponent, _impl_.component_update_datas_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponentTo_Data>()},
+    {::_pbi::TcParser::GetTable<::RatkiniaProtocol::UpdateComponent_Data>()},
   }}, {{
   }},
 };
 
-PROTOBUF_NOINLINE void AttachComponentTo::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.AttachComponentTo)
+PROTOBUF_NOINLINE void UpdateComponent::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.UpdateComponent)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.component_attach_datas_.Clear();
+  _impl_.component_update_datas_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-::uint8_t* AttachComponentTo::_InternalSerialize(
+::uint8_t* UpdateComponent::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.AttachComponentTo)
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.UpdateComponent)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
+  // repeated .RatkiniaProtocol.UpdateComponent.Data component_update_datas = 1;
   for (unsigned i = 0, n = static_cast<unsigned>(
-                           this->_internal_component_attach_datas_size());
+                           this->_internal_component_update_datas_size());
        i < n; i++) {
-    const auto& repfield = this->_internal_component_attach_datas().Get(i);
+    const auto& repfield = this->_internal_component_update_datas().Get(i);
     target =
         ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
             1, repfield, repfield.GetCachedSize(),
@@ -2616,12 +3052,12 @@ PROTOBUF_NOINLINE void AttachComponentTo::Clear() {
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.AttachComponentTo)
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.UpdateComponent)
   return target;
 }
 
-::size_t AttachComponentTo::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.AttachComponentTo)
+::size_t UpdateComponent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.UpdateComponent)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -2629,9 +3065,9 @@ PROTOBUF_NOINLINE void AttachComponentTo::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // repeated .RatkiniaProtocol.AttachComponentTo.Data component_attach_datas = 1;
-  total_size += 1UL * this->_internal_component_attach_datas_size();
-  for (const auto& msg : this->_internal_component_attach_datas()) {
+  // repeated .RatkiniaProtocol.UpdateComponent.Data component_update_datas = 1;
+  total_size += 1UL * this->_internal_component_update_datas_size();
+  for (const auto& msg : this->_internal_component_update_datas()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2641,36 +3077,36 @@ PROTOBUF_NOINLINE void AttachComponentTo::Clear() {
   return total_size;
 }
 
-void AttachComponentTo::CheckTypeAndMergeFrom(
+void UpdateComponent::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const AttachComponentTo*>(
+  MergeFrom(*::_pbi::DownCast<const UpdateComponent*>(
       &from));
 }
 
-void AttachComponentTo::MergeFrom(const AttachComponentTo& from) {
-  AttachComponentTo* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.AttachComponentTo)
+void UpdateComponent::MergeFrom(const UpdateComponent& from) {
+  UpdateComponent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.UpdateComponent)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_internal_mutable_component_attach_datas()->MergeFrom(
-      from._internal_component_attach_datas());
+  _this->_internal_mutable_component_update_datas()->MergeFrom(
+      from._internal_component_update_datas());
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void AttachComponentTo::CopyFrom(const AttachComponentTo& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.AttachComponentTo)
+void UpdateComponent::CopyFrom(const UpdateComponent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.UpdateComponent)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void AttachComponentTo::InternalSwap(AttachComponentTo* PROTOBUF_RESTRICT other) {
+void UpdateComponent::InternalSwap(UpdateComponent* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.component_attach_datas_.InternalSwap(&other->_impl_.component_attach_datas_);
+  _impl_.component_update_datas_.InternalSwap(&other->_impl_.component_update_datas_);
 }
 
 // @@protoc_insertion_point(namespace_scope)

@@ -3,10 +3,10 @@
 
 #include "WorldGameMode.h"
 
-#include "Entity.h"
-#include "NormalEntity.h"
+#include "EntityComponent.h"
 #include "PossessableEntity.h"
 #include "RatkiniaClientSubsystem.h"
+#include "RatkiniaComponentSubsystem.h"
 #include "Ratkinia/Ratkinia.h"
 
 #include "Kismet/GameplayStatics.h"
@@ -41,21 +41,26 @@ void AWorldGameMode::OnSpawnEntity(const TArrayView<const SpawnEntity_Data* cons
 {
 	for (const SpawnEntity_Data* const Data : EntitySpawnDatas)
 	{
-		IEntity* const Entity = [&]() -> IEntity*
+		check(!EntityComponents.IsValidIndex(Data->entity_id()));
+		
+		AActor* const Entity = [&]() -> AActor*
 		{
 			if (Data->type() == SpawnEntity_Type_Normal)
 			{
-				return GetWorld()->SpawnActor<ANormalEntity>();
+				AActor* const NormalEntity = GetWorld()->SpawnActor<AActor>();
+				return NormalEntity;
 			}
-			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>(
-				PossessableEntityClass,
-				FVector{0.0f, 0.0f, 3000.0f},
-				FRotator::ZeroRotator);
+
+			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>();
 			GetWorld()->GetFirstPlayerController()->Possess(MyCharacter);
 			return MyCharacter;
 		}();
-		Entity->SetEntityId(Data->entity_id());
-		Entities.EmplaceAt(Data->entity_id(), Entity);
+		check(IsValid(Entity));
+
+		UEntityComponent* const EntityComponent = Cast<UEntityComponent>(Entity->AddComponentByClass(UEntityComponent::StaticClass(), false, {}, false));
+		check(IsValid(EntityComponent));
+		EntityComponent->Init(Data->entity_id());
+		EntityComponents.EmplaceAt(Data->entity_id(), EntityComponent);
 	}
 }
 
@@ -77,25 +82,34 @@ void AWorldGameMode::OnUnhandledMessageType(const StcMessageType MessageType)
 	checkNoEntry();
 }
 
-
-
-void AWorldGameMode::OnAttachComponentTo(
-	const TArrayView<const AttachComponentTo_Data* const> ComponentAttachDatas)
+void AWorldGameMode::OnAttachComponent(const TArrayView<const AttachComponent_Data* const> ComponentAttachDatas)
 {
-	for (const AttachComponentTo_Data* const Data : ComponentAttachDatas)
+	const URatkiniaComponentSubsystem* const ComponentSubsystem = GetGameInstance()->GetSubsystem<
+		URatkiniaComponentSubsystem>();
+	check(IsValid(ComponentSubsystem));
+
+	for (const AttachComponent_Data* const Data : ComponentAttachDatas)
 	{
-		switch (Data->component_variant().value_case())
+		if (!EntityComponents.IsValidIndex(Data->target_entity()) || !IsValid(EntityComponents[Data->target_entity()]))
 		{
-		case ComponentVariant::kNameTag:
-			{
-				UE_LOG(LogRatkinia, Log, TEXT("이름: %s"), UTF8_TO_TCHAR(Data->component_variant().name_tag().name().c_str()))
-				break;
-			}
+			GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession(TEXT("엔티티 무결성이 손상되었습니다."));
+			return;
 		}
+		UEntityComponent& EntityComponent = *EntityComponents[Data->target_entity()];
+		const uint16 RuntimeOrder = Data->component_runtime_order();
+		checkf(RuntimeOrder > 0 || RuntimeOrder < SparseSets.Num() || !SparseSets[RuntimeOrder],
+		       TEXT("준비되지 않은 Sparse Set: %d"), RuntimeOrder);
+		SparseSets[RuntimeOrder]->AttachComponentTo(EntityComponent);
 	}
 }
 
 void AWorldGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	URatkiniaComponentSubsystem* const ComponentSubsystem = GetGameInstance()->GetSubsystem<
+		URatkiniaComponentSubsystem>();
+	check(IsValid(ComponentSubsystem));
+
+	SparseSets = ComponentSubsystem->CreateSparseSets();
 }

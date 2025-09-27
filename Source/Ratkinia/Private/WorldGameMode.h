@@ -3,13 +3,15 @@
 #pragma once
 
 #include "StcStub.gen.h"
+#include "SparseSet.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "WorldGameMode.generated.h"
 
+class UEntityComponent;
 class APossessableEntity;
-class IEntity;
+
 /**
  * 
  */
@@ -20,21 +22,21 @@ class AWorldGameMode final : public AGameModeBase, public RatkiniaProtocol::TStc
 
 public:
 	explicit AWorldGameMode();
-	
+
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void OnUnknownMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 	virtual void OnParseMessageFailed(RatkiniaProtocol::StcMessageType MessageType) override;
 	virtual void OnUnhandledMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 	virtual void OnSpawnEntity(TArrayView<const RatkiniaProtocol::SpawnEntity_Data* const> EntitySpawnDatas) override;
-	virtual void OnAttachComponentTo(
-		TArrayView<const RatkiniaProtocol::AttachComponentTo_Data* const> ComponentAttachDatas) override;
+	virtual void OnAttachComponent(TArrayView<const RatkiniaProtocol::AttachComponent_Data* const> ComponentAttachDatas) override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<APossessableEntity> PossessableEntityClass;
-	
+
 	virtual void BeginPlay() override;
 
 private:
-	TSparseArray<IEntity*> Entities;
+	TSparseArray<TObjectPtr<UEntityComponent>> EntityComponents;
+	TArray<TUniquePtr<FRawSparseSet>> SparseSets;
 };

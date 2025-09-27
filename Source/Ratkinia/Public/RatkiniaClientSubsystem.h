@@ -4,7 +4,6 @@
 
 #include "CtsProxy.gen.h"
 #include "NetworkWorker.h"
-#include <google/protobuf/arena.h>
 
 #include "CoreMinimal.h"
 #include "RatkiniaClientSubsystem.generated.h"
@@ -41,7 +40,7 @@ public:
 
 	void Connect(const FString& ServerAddress, int32_t ServerPort);
 	
-	void ClearSession();
+	void ClearSession(const FString& Reason=TEXT(""));
 	
 	template <typename TMessage>
 	void WriteMessage(const RatkiniaProtocol::CtsMessageType MessageType, const TMessage& Message)
@@ -86,13 +85,7 @@ public:
 
 	const FString& GetDisconnectedReason() const;
 
-	google::protobuf::Arena* GetArena()
-	{
-		return &Arena;
-	}
-
 private:
-	google::protobuf::Arena Arena;
 	FString DisconnectedReason;
 	TUniquePtr<FNetworkWorker> NetworkWorker;
 };
