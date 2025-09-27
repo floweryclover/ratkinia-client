@@ -7,7 +7,7 @@
 #include "EntityComponent.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RATKINIACOMPONENT_API UEntityComponent final : public UActorComponent
+class RATKINIACOMPONENT_API UEntityComponent final : public USceneComponent
 {
 	GENERATED_BODY()
 
@@ -16,7 +16,7 @@ public:
 
 	void Init(const uint32 Id)
 	{
-		check(EntityId != NullEntityId);
+		check(EntityId == NullEntityId);
 		EntityId = Id;
 	}
 

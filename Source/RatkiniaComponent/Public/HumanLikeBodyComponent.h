@@ -9,10 +9,12 @@
 #include "HumanLikeBodyComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RATKINIACOMPONENT_API UHumanLikeBodyComponent final : public USceneComponent, public IEcsComponent
+class RATKINIACOMPONENT_API UHumanLikeBodyComponent final : public USkeletalMeshComponent, public IEcsComponent
 {
 	GENERATED_BODY()
 	
 public:
 	ECSCOMPONENT(HumanLikeBody)
+
+	virtual void UpdateEcsComponent(const RatkiniaProtocol::ComponentVariant& ComponentVariant) override;
 };

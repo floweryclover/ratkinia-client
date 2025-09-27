@@ -35,9 +35,9 @@ private:
 		const uint16 RuntimeOrder = TComponent::RuntimeOrder;
 		if (RuntimeOrder >= CreateSparseSetFunctions.Num())
 		{
-			CreateSparseSetFunctions.Reserve(RuntimeOrder + 1);
+			CreateSparseSetFunctions.AddZeroed(RuntimeOrder - CreateSparseSetFunctions.Num() + 1);
 		}
-		checkf(CreateSparseSetFunctions[RuntimeOrder] != nullptr, TEXT("중복 등록된 컴포넌트: %d"), RuntimeOrder);
+		checkf(CreateSparseSetFunctions[RuntimeOrder] == nullptr, TEXT("중복 등록된 컴포넌트: %d"), RuntimeOrder);
 		CreateSparseSetFunctions[RuntimeOrder] = []() -> TUniquePtr<FRawSparseSet> { return MakeUnique<TSparseSet<TComponent>>(); };
 	}
 };

@@ -29,6 +29,7 @@ public:
 	virtual void OnUnhandledMessageType(RatkiniaProtocol::StcMessageType MessageType) override;
 	virtual void OnSpawnEntity(TArrayView<const RatkiniaProtocol::SpawnEntity_Data* const> EntitySpawnDatas) override;
 	virtual void OnAttachComponent(TArrayView<const RatkiniaProtocol::AttachComponent_Data* const> ComponentAttachDatas) override;
+	virtual void OnUpdateComponent(TArrayView<const RatkiniaProtocol::UpdateComponent_Data* const> ComponentUpdateDatas) override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly)

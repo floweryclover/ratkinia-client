@@ -29,6 +29,13 @@ public:
 	
 		TComponent* const Component = Cast<TComponent>(EntityComponent.GetOwner()->AddComponentByClass(TComponent::StaticClass(), false, {}, false));
 		check(IsValid(Component));
+
+		if constexpr (std::is_base_of_v<USceneComponent, TComponent>)
+		{
+			USceneComponent* const RootComponent = EntityComponent.GetOwner()->GetRootComponent();
+			check(IsValid(RootComponent));
+			Component->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+		}
 	
 		Components.EmplaceAt(EntityComponent.GetEntityId(), Component);
 	}

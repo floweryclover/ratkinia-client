@@ -18,7 +18,7 @@ TArray<TUniquePtr<FRawSparseSet>> URatkiniaComponentSubsystem::CreateSparseSets(
 		SparseSets,
 		[this](TUniquePtr<FRawSparseSet> (*CreateSparseSet)())
 	{
-		return CreateSparseSet();
+		return CreateSparseSet ? CreateSparseSet() : nullptr;
 	});
 
 	return SparseSets;

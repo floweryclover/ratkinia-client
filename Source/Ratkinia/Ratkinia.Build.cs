@@ -12,6 +12,6 @@ public class Ratkinia : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "OpenSSL" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "RatkiniaComponent", "RatkiniaProtocol" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "RatkiniaComponent", "RatkiniaProtocol", "RatkiniaData" });
 	}
 }

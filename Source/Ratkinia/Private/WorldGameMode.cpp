@@ -41,17 +41,18 @@ void AWorldGameMode::OnSpawnEntity(const TArrayView<const SpawnEntity_Data* cons
 {
 	for (const SpawnEntity_Data* const Data : EntitySpawnDatas)
 	{
-		check(!EntityComponents.IsValidIndex(Data->entity_id()));
-		
+		FActorSpawnParameters SpawnParams{};
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		checkf(!EntityComponents.IsValidIndex(Data->entity_id()), TEXT("존재하는 엔티티 ID 스폰 시도: %d"), Data->entity_id());
 		AActor* const Entity = [&]() -> AActor*
 		{
 			if (Data->type() == SpawnEntity_Type_Normal)
 			{
-				AActor* const NormalEntity = GetWorld()->SpawnActor<AActor>();
+				AActor* const NormalEntity = GetWorld()->SpawnActor<AActor>(SpawnParams);
 				return NormalEntity;
 			}
 
-			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>();
+			APossessableEntity* const MyCharacter = GetWorld()->SpawnActor<APossessableEntity>(PossessableEntityClass, SpawnParams);
 			GetWorld()->GetFirstPlayerController()->Possess(MyCharacter);
 			return MyCharacter;
 		}();
@@ -97,9 +98,28 @@ void AWorldGameMode::OnAttachComponent(const TArrayView<const AttachComponent_Da
 		}
 		UEntityComponent& EntityComponent = *EntityComponents[Data->target_entity()];
 		const uint16 RuntimeOrder = Data->component_runtime_order();
-		checkf(RuntimeOrder > 0 || RuntimeOrder < SparseSets.Num() || !SparseSets[RuntimeOrder],
-		       TEXT("준비되지 않은 Sparse Set: %d"), RuntimeOrder);
+		checkf(RuntimeOrder > 0 && RuntimeOrder < SparseSets.Num() && SparseSets[RuntimeOrder], TEXT("준비되지 않은 Sparse Set: %d"), RuntimeOrder);
 		SparseSets[RuntimeOrder]->AttachComponentTo(EntityComponent);
+	}
+}
+
+void AWorldGameMode::OnUpdateComponent(const TArrayView<const UpdateComponent_Data* const> ComponentUpdateDatas)
+{
+	const URatkiniaComponentSubsystem* const ComponentSubsystem = GetGameInstance()->GetSubsystem<
+	URatkiniaComponentSubsystem>();
+	check(IsValid(ComponentSubsystem));
+
+	for (const UpdateComponent_Data* const Data : ComponentUpdateDatas)
+	{
+		if (!EntityComponents.IsValidIndex(Data->target_entity()) || !IsValid(EntityComponents[Data->target_entity()]))
+		{
+			GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession(TEXT("엔티티 무결성이 손상되었습니다."));
+			return;
+		}
+		UEntityComponent& EntityComponent = *EntityComponents[Data->target_entity()];
+		const uint16 RuntimeOrder = Data->component_variant().value_case();
+		checkf(RuntimeOrder > 0 && RuntimeOrder < SparseSets.Num() && SparseSets[RuntimeOrder], TEXT("준비되지 않은 Sparse Set: %d"), RuntimeOrder);
+		SparseSets[RuntimeOrder]->UpdateComponentOf(EntityComponent, Data->component_variant());
 	}
 }
 
