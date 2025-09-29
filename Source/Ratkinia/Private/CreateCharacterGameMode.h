@@ -8,6 +8,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "CreateCharacterGameMode.generated.h"
 
+class UMessageBoxWidget;
 class UCreateCharacterWidget;
 /**
  * 
@@ -28,6 +29,8 @@ public:
 	
 	virtual void OnCreateCharacterResponse(RatkiniaProtocol::CreateCharacterResponse_CreateCharacterResult Successful) override;
 
+	virtual void OnNotify(RatkiniaProtocol::Notify_Type Type, FString Text) override;
+	
 protected:
 	virtual void Tick(float DeltaSeconds) override;
 	
@@ -37,9 +40,14 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UCreateCharacterWidget> CreateCharacterWidgetClass;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UMessageBoxWidget> MessageBoxWidgetClass;
+
 	UFUNCTION()
 	void CreateCharacter(FText Name);
 
 	UFUNCTION()
 	void OpenSelectCharacterLevel();
+
+	void PopupMessageBoxWidget(FText Text);
 };

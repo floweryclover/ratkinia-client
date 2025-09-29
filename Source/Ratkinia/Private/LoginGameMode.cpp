@@ -4,6 +4,7 @@
 #include "RatkiniaClientSubsystem.h"
 #include "MessageBoxWidget.h"
 #include "LoginWidget.h"
+#include "RatkiniaGameInstance.h"
 #include "RegisterWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
@@ -120,6 +121,18 @@ void ALoginGameMode::OnRegisterResponse(const bool Successful,
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
 }
 
+void ALoginGameMode::OnNotify(const Notify_Type Type, const FString Text)
+{
+	if (Type == Notify_Type_Fatal)
+	{
+		Cast<URatkiniaGameInstance>(GetGameInstance())->FatalNotifications.Add(Text);
+		GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
+		return;
+	}
+
+	PopupMessageBoxWidget(FText::FromString(Text));
+}
+
 
 void ALoginGameMode::BeginPlay()
 {
@@ -130,6 +143,13 @@ void ALoginGameMode::BeginPlay()
 	PlayerController->SetInputMode(FInputModeUIOnly{});
 
 	OpenLoginWidget();
+
+	TArray<FString>& FatalNotifications = Cast<URatkiniaGameInstance>(GetGameInstance())->FatalNotifications;
+	for (const FString FatalNotification : FatalNotifications)
+	{
+		PopupMessageBoxWidget(FText::FromString(FatalNotification));
+	}
+	FatalNotifications.Empty();
 }
 
 void ALoginGameMode::RatkiniaLogin(const FText Id, const FText Password)
@@ -137,7 +157,7 @@ void ALoginGameMode::RatkiniaLogin(const FText Id, const FText Password)
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->Connect("127.0.0.1", 31415);
 
 	PostConnectAction =
-		[this, Id, Password]()
+		[this, Id, Password]
 		{
 			GetGameInstance()
 			->GetSubsystem<URatkiniaClientSubsystem>()

@@ -24,7 +24,7 @@ namespace RatkiniaProtocol {
 
 inline constexpr SelectCharacter::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : id_{0u},
+      : id_{::uint64_t{0u}},
         _cached_size_{0} {}
 
 template <typename>
@@ -986,15 +986,15 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SelectCharacter::_table_ = {
     ::_pbi::TcParser::GetTable<::RatkiniaProtocol::SelectCharacter>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // uint32 id = 1;
-    {::_pbi::TcParser::FastV32S1,
+    // uint64 id = 1;
+    {::_pbi::TcParser::FastV64S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(SelectCharacter, _impl_.id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // uint32 id = 1;
+    // uint64 id = 1;
     {PROTOBUF_FIELD_OFFSET(SelectCharacter, _impl_.id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
   }},
   // no aux_entries
   {{
@@ -1008,7 +1008,7 @@ PROTOBUF_NOINLINE void SelectCharacter::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.id_ = 0u;
+  _impl_.id_ = ::uint64_t{0u};
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1019,10 +1019,10 @@ PROTOBUF_NOINLINE void SelectCharacter::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // uint32 id = 1;
+  // uint64 id = 1;
   if (this->_internal_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
         1, this->_internal_id(), target);
   }
 
@@ -1043,9 +1043,9 @@ PROTOBUF_NOINLINE void SelectCharacter::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 id = 1;
+  // uint64 id = 1;
   if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
         this->_internal_id());
   }
 

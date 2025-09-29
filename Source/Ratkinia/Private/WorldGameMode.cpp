@@ -4,9 +4,11 @@
 #include "WorldGameMode.h"
 
 #include "EntityComponent.h"
+#include "MessageBoxWidget.h"
 #include "PossessableEntity.h"
 #include "RatkiniaClientSubsystem.h"
 #include "RatkiniaComponentSubsystem.h"
+#include "RatkiniaGameInstance.h"
 #include "Ratkinia/Ratkinia.h"
 
 #include "Kismet/GameplayStatics.h"
@@ -123,6 +125,18 @@ void AWorldGameMode::OnUpdateComponent(const TArrayView<const UpdateComponent_Da
 	}
 }
 
+void AWorldGameMode::OnNotify(const Notify_Type Type, const FString Text)
+{
+	if (Type == Notify_Type_Fatal)
+	{
+		Cast<URatkiniaGameInstance>(GetGameInstance())->FatalNotifications.Add(Text);
+		GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
+		return;
+	}
+
+	PopupMessageBoxWidget(FText::FromString(Text));
+}
+
 void AWorldGameMode::BeginPlay()
 {
 	Super::BeginPlay();
@@ -132,4 +146,13 @@ void AWorldGameMode::BeginPlay()
 	check(IsValid(ComponentSubsystem));
 
 	SparseSets = ComponentSubsystem->CreateSparseSets();
+}
+
+void AWorldGameMode::PopupMessageBoxWidget(const FText Text)
+{
+	UMessageBoxWidget* const MessageBoxWidget{CreateWidget<UMessageBoxWidget>(GetWorld(), MessageBoxWidgetClass)};
+	check(IsValid(MessageBoxWidget));
+
+	MessageBoxWidget->SetMessage(Text);
+	MessageBoxWidget->AddToViewport();
 }

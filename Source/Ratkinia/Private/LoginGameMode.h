@@ -34,6 +34,8 @@ public:
 
 	virtual void OnRegisterResponse(const bool Successful, FString FailedReason) override;
 
+	virtual void OnNotify(RatkiniaProtocol::Notify_Type Type, FString Text) override;
+
 protected:
 	virtual void BeginPlay() override;
 	

@@ -3,8 +3,10 @@
 
 #include "SelectCharacterGameMode.h"
 
+#include "MessageBoxWidget.h"
 #include "SelectCharacterWidget.h"
 #include "RatkiniaClientSubsystem.h"
+#include "RatkiniaGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "Ratkinia/Ratkinia.h"
 
@@ -66,13 +68,16 @@ void ASelectCharacterGameMode::OnOpenWorld()
 	bBreakMessagePopLoop = true;
 }
 
-void ASelectCharacterGameMode::OnNotificate(const Notificate_Type Type, const FString Text)
+void ASelectCharacterGameMode::OnNotify(const Notify_Type Type, const FString Text)
 {
-	UE_LOG(LogRatkinia, Log, TEXT("%s"), *Text);
-	if (Type == Notificate_Type_Fatal)
+	if (Type == Notify_Type_Fatal)
 	{
-		UGameplayStatics::OpenLevel(GetWorld(), TEXT("/Game/Levels/Login/Login"), true);
+		Cast<URatkiniaGameInstance>(GetGameInstance())->FatalNotifications.Add(Text);
+		GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->ClearSession();
+		return;
 	}
+
+	PopupMessageBoxWidget(FText::FromString(Text));
 }
 
 void ASelectCharacterGameMode::BeginPlay()
@@ -96,4 +101,13 @@ void ASelectCharacterGameMode::OpenCreateCharacterLevel()
 void ASelectCharacterGameMode::SelectCharacter(const int32 Id)
 {
 	GetGameInstance()->GetSubsystem<URatkiniaClientSubsystem>()->SelectCharacter(Id);
+}
+
+void ASelectCharacterGameMode::PopupMessageBoxWidget(const FText Text)
+{
+	UMessageBoxWidget* const MessageBoxWidget{CreateWidget<UMessageBoxWidget>(GetWorld(), MessageBoxWidgetClass)};
+	check(IsValid(MessageBoxWidget));
+
+	MessageBoxWidget->SetMessage(Text);
+	MessageBoxWidget->AddToViewport();
 }

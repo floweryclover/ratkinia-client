@@ -8,6 +8,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "SelectCharacterGameMode.generated.h"
 
+class UMessageBoxWidget;
 class USelectCharacterWidget;
 /**
  * 
@@ -32,7 +33,7 @@ public:
 
 	virtual void OnOpenWorld() override;
 
-	virtual void OnNotificate(RatkiniaProtocol::Notificate_Type Type, FString Text) override;
+	virtual void OnNotify(RatkiniaProtocol::Notify_Type Type, FString Text) override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -45,10 +46,15 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<USelectCharacterWidget> SelectCharacterWidget;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UMessageBoxWidget> MessageBoxWidgetClass;
 	
 	UFUNCTION()
 	void OpenCreateCharacterLevel();
 
 	UFUNCTION()
 	void SelectCharacter(int32 Id);
+
+	void PopupMessageBoxWidget(FText Text);
 };

@@ -24,7 +24,7 @@ namespace RatkiniaProtocol {
 
 inline constexpr SpawnEntity_Data::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : entity_id_{0},
+      : entity_id_{0u},
         type_{static_cast< ::RatkiniaProtocol::SpawnEntity_Type >(0)},
         _cached_size_{0} {}
 
@@ -47,7 +47,7 @@ inline constexpr SendMyCharacters_Data::Impl_::Impl_(
       : name_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
-        id_{0},
+        id_{::uint64_t{0u}},
         _cached_size_{0} {}
 
 template <typename>
@@ -104,27 +104,27 @@ struct OpenWorldDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OpenWorldDefaultTypeInternal _OpenWorld_default_instance_;
 
-inline constexpr Notificate::Impl_::Impl_(
+inline constexpr Notify::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : text_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
-        type_{static_cast< ::RatkiniaProtocol::Notificate_Type >(0)},
+        type_{static_cast< ::RatkiniaProtocol::Notify_Type >(0)},
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR Notificate::Notificate(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR Notify::Notify(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct NotificateDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NotificateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NotificateDefaultTypeInternal() {}
+struct NotifyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NotifyDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NotifyDefaultTypeInternal() {}
   union {
-    Notificate _instance;
+    Notify _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotificateDefaultTypeInternal _Notificate_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NotifyDefaultTypeInternal _Notify_default_instance_;
 
 inline constexpr LoginResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -166,8 +166,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr AttachComponent_Data::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : target_entity_{0},
-        component_runtime_order_{0},
+      : target_entity_{0u},
+        component_runtime_order_{0u},
         _cached_size_{0} {}
 
 template <typename>
@@ -245,7 +245,7 @@ inline constexpr UpdateComponent_Data::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
         component_variant_{nullptr},
-        target_entity_{0} {}
+        target_entity_{0u} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR UpdateComponent_Data::UpdateComponent_Data(::_pbi::ConstantInitialized)
@@ -413,65 +413,65 @@ constexpr int CreateCharacterResponse::CreateCharacterResult_ARRAYSIZE;
 
 #endif  // (__cplusplus < 201703) &&
         // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-PROTOBUF_CONSTINIT const uint32_t Notificate_Type_internal_data_[] = {
+PROTOBUF_CONSTINIT const uint32_t Notify_Type_internal_data_[] = {
     196608u, 0u, };
-bool Notificate_Type_IsValid(int value) {
+bool Notify_Type_IsValid(int value) {
   return 0 <= value && value <= 2;
 }
 static ::google::protobuf::internal::ExplicitlyConstructed<std::string>
-    Notificate_Type_strings[3] = {};
+    Notify_Type_strings[3] = {};
 
-static const char Notificate_Type_names[] = {
+static const char Notify_Type_names[] = {
     "Fatal"
     "Info"
     "Warning"
 };
 
-static const ::google::protobuf::internal::EnumEntry Notificate_Type_entries[] =
+static const ::google::protobuf::internal::EnumEntry Notify_Type_entries[] =
     {
-        {{&Notificate_Type_names[0], 5}, 2},
-        {{&Notificate_Type_names[5], 4}, 0},
-        {{&Notificate_Type_names[9], 7}, 1},
+        {{&Notify_Type_names[0], 5}, 2},
+        {{&Notify_Type_names[5], 4}, 0},
+        {{&Notify_Type_names[9], 7}, 1},
 };
 
-static const int Notificate_Type_entries_by_number[] = {
+static const int Notify_Type_entries_by_number[] = {
     1,  // 0 -> Info
     2,  // 1 -> Warning
     0,  // 2 -> Fatal
 };
 
-const std::string& Notificate_Type_Name(Notificate_Type value) {
+const std::string& Notify_Type_Name(Notify_Type value) {
   static const bool kDummy =
       ::google::protobuf::internal::InitializeEnumStrings(
-          Notificate_Type_entries, Notificate_Type_entries_by_number,
-          3, Notificate_Type_strings);
+          Notify_Type_entries, Notify_Type_entries_by_number,
+          3, Notify_Type_strings);
   (void)kDummy;
 
   int idx = ::google::protobuf::internal::LookUpEnumName(
-      Notificate_Type_entries, Notificate_Type_entries_by_number, 3,
+      Notify_Type_entries, Notify_Type_entries_by_number, 3,
       value);
   return idx == -1 ? ::google::protobuf::internal::GetEmptyString()
-                   : Notificate_Type_strings[idx].get();
+                   : Notify_Type_strings[idx].get();
 }
 
-bool Notificate_Type_Parse(absl::string_view name, Notificate_Type* value) {
+bool Notify_Type_Parse(absl::string_view name, Notify_Type* value) {
   int int_value;
   bool success = ::google::protobuf::internal::LookUpEnumValue(
-      Notificate_Type_entries, 3, name, &int_value);
+      Notify_Type_entries, 3, name, &int_value);
   if (success) {
-    *value = static_cast<Notificate_Type>(int_value);
+    *value = static_cast<Notify_Type>(int_value);
   }
   return success;
 }
 #if (__cplusplus < 201703) && \
   (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
-constexpr Notificate_Type Notificate::Info;
-constexpr Notificate_Type Notificate::Warning;
-constexpr Notificate_Type Notificate::Fatal;
-constexpr Notificate_Type Notificate::Type_MIN;
-constexpr Notificate_Type Notificate::Type_MAX;
-constexpr int Notificate::Type_ARRAYSIZE;
+constexpr Notify_Type Notify::Info;
+constexpr Notify_Type Notify::Warning;
+constexpr Notify_Type Notify::Fatal;
+constexpr Notify_Type Notify::Type_MIN;
+constexpr Notify_Type Notify::Type_MAX;
+constexpr int Notify::Type_ARRAYSIZE;
 
 #endif  // (__cplusplus < 201703) &&
         // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
@@ -1187,15 +1187,15 @@ const ::_pbi::TcParseTable<1, 2, 0, 51, 2> SendMyCharacters_Data::_table_ = {
     // string name = 2;
     {::_pbi::TcParser::FastUS1,
      {18, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.name_)}},
-    // int32 id = 1;
-    {::_pbi::TcParser::FastV32S1,
+    // uint64 id = 1;
+    {::_pbi::TcParser::FastV64S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // int32 id = 1;
+    // uint64 id = 1;
     {PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
     // string name = 2;
     {PROTOBUF_FIELD_OFFSET(SendMyCharacters_Data, _impl_.name_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
@@ -1216,7 +1216,7 @@ PROTOBUF_NOINLINE void SendMyCharacters_Data::Clear() {
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
-  _impl_.id_ = 0;
+  _impl_.id_ = ::uint64_t{0u};
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1227,11 +1227,11 @@ PROTOBUF_NOINLINE void SendMyCharacters_Data::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // int32 id = 1;
+  // uint64 id = 1;
   if (this->_internal_id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<1>(
-            stream, this->_internal_id(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_id(), target);
   }
 
   // string name = 2;
@@ -1266,9 +1266,9 @@ PROTOBUF_NOINLINE void SendMyCharacters_Data::Clear() {
                                     this->_internal_name());
   }
 
-  // int32 id = 1;
+  // uint64 id = 1;
   if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
         this->_internal_id());
   }
 
@@ -1657,73 +1657,73 @@ void OpenWorld::InternalSwap(OpenWorld* PROTOBUF_RESTRICT other) {
 
 // ===================================================================
 
-class Notificate::_Internal {
+class Notify::_Internal {
  public:
 };
 
-Notificate::Notificate(::google::protobuf::Arena* arena)
+Notify::Notify(::google::protobuf::Arena* arena)
     : ::google::protobuf::MessageLite(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.Notificate)
+  // @@protoc_insertion_point(arena_constructor:RatkiniaProtocol.Notify)
 }
-inline PROTOBUF_NDEBUG_INLINE Notificate::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Notify::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::RatkiniaProtocol::Notificate& from_msg)
+    const Impl_& from, const ::RatkiniaProtocol::Notify& from_msg)
       : text_(arena, from.text_),
         _cached_size_{0} {}
 
-Notificate::Notificate(
+Notify::Notify(
     ::google::protobuf::Arena* arena,
-    const Notificate& from)
+    const Notify& from)
     : ::google::protobuf::MessageLite(arena) {
-  Notificate* const _this = this;
+  Notify* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<std::string>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
   _impl_.type_ = from._impl_.type_;
 
-  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.Notificate)
+  // @@protoc_insertion_point(copy_constructor:RatkiniaProtocol.Notify)
 }
-inline PROTOBUF_NDEBUG_INLINE Notificate::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE Notify::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : text_(arena),
         _cached_size_{0} {}
 
-inline void Notificate::SharedCtor(::_pb::Arena* arena) {
+inline void Notify::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   _impl_.type_ = {};
 }
-Notificate::~Notificate() {
-  // @@protoc_insertion_point(destructor:RatkiniaProtocol.Notificate)
+Notify::~Notify() {
+  // @@protoc_insertion_point(destructor:RatkiniaProtocol.Notify)
   _internal_metadata_.Delete<std::string>();
   SharedDtor();
 }
-inline void Notificate::SharedDtor() {
+inline void Notify::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.text_.Destroy();
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-Notificate::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ClassDataLite<28> _data_ =
+Notify::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ClassDataLite<24> _data_ =
       {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(Notificate, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(Notify, _impl_._cached_size_),
               true,
           },
-          "RatkiniaProtocol.Notificate",
+          "RatkiniaProtocol.Notify",
       };
 
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 40, 2> Notificate::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 36, 2> Notify::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1734,39 +1734,39 @@ const ::_pbi::TcParseTable<1, 2, 0, 40, 2> Notificate::_table_ = {
     2,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_Notificate_default_instance_._instance,
+    &_Notify_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallbackLite,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::Notificate>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::RatkiniaProtocol::Notify>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // string text = 2;
     {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Notificate, _impl_.text_)}},
-    // .RatkiniaProtocol.Notificate.Type type = 1;
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Notify, _impl_.text_)}},
+    // .RatkiniaProtocol.Notify.Type type = 1;
     {::_pbi::TcParser::FastV32S1,
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(Notificate, _impl_.type_)}},
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(Notify, _impl_.type_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .RatkiniaProtocol.Notificate.Type type = 1;
-    {PROTOBUF_FIELD_OFFSET(Notificate, _impl_.type_), 0, 0,
+    // .RatkiniaProtocol.Notify.Type type = 1;
+    {PROTOBUF_FIELD_OFFSET(Notify, _impl_.type_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
     // string text = 2;
-    {PROTOBUF_FIELD_OFFSET(Notificate, _impl_.text_), 0, 0,
+    {PROTOBUF_FIELD_OFFSET(Notify, _impl_.text_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\33\0\4\0\0\0\0\0"
-    "RatkiniaProtocol.Notificate"
+    "\27\0\4\0\0\0\0\0"
+    "RatkiniaProtocol.Notify"
     "text"
   }},
 };
 
-PROTOBUF_NOINLINE void Notificate::Clear() {
-// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.Notificate)
+PROTOBUF_NOINLINE void Notify::Clear() {
+// @@protoc_insertion_point(message_clear_start:RatkiniaProtocol.Notify)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -1777,14 +1777,14 @@ PROTOBUF_NOINLINE void Notificate::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-::uint8_t* Notificate::_InternalSerialize(
+::uint8_t* Notify::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.Notificate)
+  // @@protoc_insertion_point(serialize_to_array_start:RatkiniaProtocol.Notify)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // .RatkiniaProtocol.Notificate.Type type = 1;
+  // .RatkiniaProtocol.Notify.Type type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
@@ -1795,7 +1795,7 @@ PROTOBUF_NOINLINE void Notificate::Clear() {
   if (!this->_internal_text().empty()) {
     const std::string& _s = this->_internal_text();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.Notificate.text");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "RatkiniaProtocol.Notify.text");
     target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
@@ -1804,12 +1804,12 @@ PROTOBUF_NOINLINE void Notificate::Clear() {
         _internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::google::protobuf::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.Notificate)
+  // @@protoc_insertion_point(serialize_to_array_end:RatkiniaProtocol.Notify)
   return target;
 }
 
-::size_t Notificate::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.Notificate)
+::size_t Notify::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RatkiniaProtocol.Notify)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -1823,7 +1823,7 @@ PROTOBUF_NOINLINE void Notificate::Clear() {
                                     this->_internal_text());
   }
 
-  // .RatkiniaProtocol.Notificate.Type type = 1;
+  // .RatkiniaProtocol.Notify.Type type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
                   ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
@@ -1836,15 +1836,15 @@ PROTOBUF_NOINLINE void Notificate::Clear() {
   return total_size;
 }
 
-void Notificate::CheckTypeAndMergeFrom(
+void Notify::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const Notificate*>(
+  MergeFrom(*::_pbi::DownCast<const Notify*>(
       &from));
 }
 
-void Notificate::MergeFrom(const Notificate& from) {
-  Notificate* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.Notificate)
+void Notify::MergeFrom(const Notify& from) {
+  Notify* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:RatkiniaProtocol.Notify)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1858,15 +1858,15 @@ void Notificate::MergeFrom(const Notificate& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void Notificate::CopyFrom(const Notificate& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.Notificate)
+void Notify::CopyFrom(const Notify& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RatkiniaProtocol.Notify)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void Notificate::InternalSwap(Notificate* PROTOBUF_RESTRICT other) {
+void Notify::InternalSwap(Notify* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
@@ -1953,15 +1953,15 @@ const ::_pbi::TcParseTable<1, 2, 0, 0, 2> SpawnEntity_Data::_table_ = {
     // .RatkiniaProtocol.SpawnEntity.Type type = 2;
     {::_pbi::TcParser::FastV32S1,
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.type_)}},
-    // int32 entity_id = 1;
+    // uint32 entity_id = 1;
     {::_pbi::TcParser::FastV32S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.entity_id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // int32 entity_id = 1;
+    // uint32 entity_id = 1;
     {PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.entity_id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
     // .RatkiniaProtocol.SpawnEntity.Type type = 2;
     {PROTOBUF_FIELD_OFFSET(SpawnEntity_Data, _impl_.type_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
@@ -1991,11 +1991,11 @@ PROTOBUF_NOINLINE void SpawnEntity_Data::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // int32 entity_id = 1;
+  // uint32 entity_id = 1;
   if (this->_internal_entity_id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<1>(
-            stream, this->_internal_entity_id(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_entity_id(), target);
   }
 
   // .RatkiniaProtocol.SpawnEntity.Type type = 2;
@@ -2023,9 +2023,9 @@ PROTOBUF_NOINLINE void SpawnEntity_Data::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // int32 entity_id = 1;
+  // uint32 entity_id = 1;
   if (this->_internal_entity_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_entity_id());
   }
 
@@ -2347,21 +2347,21 @@ const ::_pbi::TcParseTable<1, 2, 0, 0, 2> AttachComponent_Data::_table_ = {
     ::_pbi::TcParser::GetTable<::RatkiniaProtocol::AttachComponent_Data>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // int32 component_runtime_order = 2;
+    // uint32 component_runtime_order = 2;
     {::_pbi::TcParser::FastV32S1,
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.component_runtime_order_)}},
-    // int32 target_entity = 1;
+    // uint32 target_entity = 1;
     {::_pbi::TcParser::FastV32S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.target_entity_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // int32 target_entity = 1;
+    // uint32 target_entity = 1;
     {PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.target_entity_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // int32 component_runtime_order = 2;
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // uint32 component_runtime_order = 2;
     {PROTOBUF_FIELD_OFFSET(AttachComponent_Data, _impl_.component_runtime_order_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
   }},
   // no aux_entries
   {{
@@ -2388,18 +2388,18 @@ PROTOBUF_NOINLINE void AttachComponent_Data::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // int32 target_entity = 1;
+  // uint32 target_entity = 1;
   if (this->_internal_target_entity() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<1>(
-            stream, this->_internal_target_entity(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_target_entity(), target);
   }
 
-  // int32 component_runtime_order = 2;
+  // uint32 component_runtime_order = 2;
   if (this->_internal_component_runtime_order() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<2>(
-            stream, this->_internal_component_runtime_order(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_component_runtime_order(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2420,15 +2420,15 @@ PROTOBUF_NOINLINE void AttachComponent_Data::Clear() {
   (void) cached_has_bits;
 
   ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // int32 target_entity = 1;
+  // uint32 target_entity = 1;
   if (this->_internal_target_entity() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_target_entity());
   }
 
-  // int32 component_runtime_order = 2;
+  // uint32 component_runtime_order = 2;
   if (this->_internal_component_runtime_order() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_component_runtime_order());
   }
 
@@ -2775,15 +2775,15 @@ const ::_pbi::TcParseTable<1, 2, 1, 0, 2> UpdateComponent_Data::_table_ = {
     // .RatkiniaProtocol.ComponentVariant component_variant = 2;
     {::_pbi::TcParser::FastMtS1,
      {18, 0, 0, PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.component_variant_)}},
-    // int32 target_entity = 1;
+    // uint32 target_entity = 1;
     {::_pbi::TcParser::FastV32S1,
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.target_entity_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // int32 target_entity = 1;
+    // uint32 target_entity = 1;
     {PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.target_entity_), -1, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
     // .RatkiniaProtocol.ComponentVariant component_variant = 2;
     {PROTOBUF_FIELD_OFFSET(UpdateComponent_Data, _impl_.component_variant_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
@@ -2805,7 +2805,7 @@ PROTOBUF_NOINLINE void UpdateComponent_Data::Clear() {
     ABSL_DCHECK(_impl_.component_variant_ != nullptr);
     _impl_.component_variant_->Clear();
   }
-  _impl_.target_entity_ = 0;
+  _impl_.target_entity_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -2817,11 +2817,11 @@ PROTOBUF_NOINLINE void UpdateComponent_Data::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // int32 target_entity = 1;
+  // uint32 target_entity = 1;
   if (this->_internal_target_entity() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<1>(
-            stream, this->_internal_target_entity(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        1, this->_internal_target_entity(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -2856,9 +2856,9 @@ PROTOBUF_NOINLINE void UpdateComponent_Data::Clear() {
         1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.component_variant_);
   }
 
-  // int32 target_entity = 1;
+  // uint32 target_entity = 1;
   if (this->_internal_target_entity() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_target_entity());
   }
 
